@@ -117,19 +117,15 @@ class lexer {
 public:
     lexer(string line) : mLine(line), position(0) {}
 
-    int updatePosition() {
-        return position++;
-    }
-
     syntaxToken nextToken() {
         if (position >= (int)mLine.length())
             return syntaxToken(EndOfLineToken, position, "\0");
 
-        if (parsing::isDigit(mLine[position])) {
+        if (parsing::isDigit(current())) {
             int start = position;
 
-            while (position < (int)mLine.length() && parsing::isDigit(mLine[position]))
-                updatePosition();
+            while (position < (int)mLine.length() && parsing::isDigit(current()))
+                nextPos();
 
             int length = position - start;
             string text = mLine.substr(start, length);
@@ -140,36 +136,49 @@ public:
             else
                 return syntaxToken(BadToken, start, text);
         }
-        else if (parsing::isWhitespace(mLine[position])) {
+        else if (parsing::isWhitespace(current())) {
             int start = position;
 
-            while (position < (int)mLine.length() && parsing::isWhitespace(mLine[position]))
-                updatePosition();
+            while (position < (int)mLine.length() && parsing::isWhitespace(current()))
+                nextPos();
 
             int length = position - start;
             string text = mLine.substr(start, length);
 
             return syntaxToken(WhiteSpaceToken, start, text);
         }
-        else if (mLine[position] == '+')
-            return syntaxToken(PlusToken, updatePosition(), "+");
-        else if (mLine[position] == '-')
-            return syntaxToken(MinusToken, updatePosition(), "-");
-        else if (mLine[position] == '*')
-            return syntaxToken(StarToken, updatePosition(), "*");
-        else if (mLine[position] == '/')
-            return syntaxToken(SlashToken, updatePosition(), "/");
-        else if (mLine[position] == '(')
-            return syntaxToken(OpenParenthesisToken, updatePosition(), "(");
-        else if (mLine[position] == ')')
-            return syntaxToken(CloseParenthesisToken, updatePosition(), ")");
-        else
-            return syntaxToken(BadToken, updatePosition(), mLine.substr(position, 1));
+        else if (current() == '+')
+            return syntaxToken(PlusToken, nextPos(), "+");
+        else if (current() == '-')
+            return syntaxToken(MinusToken, nextPos(), "-");
+        else if (current() == '*')
+            return syntaxToken(StarToken, nextPos(), "*");
+        else if (current() == '/')
+            return syntaxToken(SlashToken, nextPos(), "/");
+        else if (current() == '(')
+            return syntaxToken(OpenParenthesisToken, nextPos(), "(");
+        else if (current() == ')')
+            return syntaxToken(CloseParenthesisToken, nextPos(), ")");
+        else {
+            string text = mLine.substr(position, 1);
+            return syntaxToken(BadToken, nextPos(), text);
+        }
     }
 
 private:
     string mLine;
     int position;
+
+    char current() {
+        if (position >= (int)mLine.length())
+            return '\0';
+
+        return mLine[position];
+    }
+
+    int nextPos() {
+        return position++;
+    }
 };
 
 int main() {
