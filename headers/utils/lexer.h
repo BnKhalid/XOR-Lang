@@ -5,48 +5,53 @@
 using namespace std;
 
 /**
- * Description
+ * @brief The Lexer class represents a lexer for tokenizing input strings.
+ *
+ * This class is responsible for breaking down an input string into individual tokens.
+ * It provides methods for retrieving the next token from the input string.
  *
  * @file headers/utils/lexer.h
  */
 class Lexer {
 public:
     /**
-     * Construct `Lexer` objec
+     * @brief Constructs a Lexer object with the given input string.
      *
-     * @param line line description
+     * @param line The input string to be tokenized.
      */
     Lexer(string line);
 
     /**
-     * Description
+     * @brief Retrieves the next token from the input string.
      *
-     * @return token description
+     * This method returns the next token from the input string and advances the internal position.
+     *
+     * @return The next token from the input string.
      */
     SyntaxToken nextToken();
 
 private:
     /**
-     * line description
+     * @brief The input string to be tokenized.
      */
     string mLine;
 
     /**
-     * position description
+     * @brief The current position in the input string.
      */
     int position;
 
     /**
-     * Description
+     * @brief Retrieves the current character at the current position in the input string.
      *
-     * @return character description
+     * @return The current character at the current position.
      */
     char current();
 
     /**
-     * Description
+     * @brief Advances the position to the next character in the input string.
      *
-     * @return integer description
+     * @return The next position after advancing.
      */
     int nextPos();
 };

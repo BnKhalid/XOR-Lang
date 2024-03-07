@@ -6,91 +6,96 @@
 using namespace std;
 
 /**
- * Description
+ * Represents a syntax token in the XOR language.
  *
+ * @class SyntaxToken
  * @file headers/classes/syntaxtoken.h
  */
 class SyntaxToken {
 public:
     /**
-     * Construct `SyntaxToken` object
+     * Constructs a `SyntaxToken` object with the specified kind, position, text, and value.
      *
-     * @param kind kind description
-     * @param position position description
-     * @param text text description
-     * @param val val description
+     * @param kind The kind of the syntax token.
+     * @param position The position of the syntax token.
+     * @param text The text of the syntax token.
+     * @param val The value of the syntax token.
      */
     SyntaxToken(SyntaxKind kind, int position, string text, Value val);
 
     /**
-     * Construct `SyntaxToken` object
+     * Constructs a `SyntaxToken` object with the specified kind, position, and text.
      *
-     * @param kind kind description
-     * @param position position description
-     * @param text text description
+     * @param kind The kind of the syntax token.
+     * @param position The position of the syntax token.
+     * @param text The text of the syntax token.
      */
     SyntaxToken(SyntaxKind kind, int position, string text);
 
     /**
-     * Description
+     * Prints the syntax token.
      */
     void print();
 
     /**
-     * Description
-     * @return position description
+     * Gets the position of the syntax token.
+     *
+     * @return The position of the syntax token.
      */
     int getPosition();
 
     /**
-     * Description
-     * @return kind description
+     * Gets the kind of the syntax token.
+     *
+     * @return The kind of the syntax token.
      */
     SyntaxKind getKind();
 
     /**
-     * Description
-     * @return text description
+     * Gets the text of the syntax token.
+     *
+     * @return The text of the syntax token.
      */
     string getText();
 
     /**
-     * Description
-     * @return value description
+     * Gets the value of the syntax token.
+     *
+     * @return The value of the syntax token.
      */
     Value getValue();
 
 private:
     /**
-     * position description
+     * The position of the syntax token.
      */
     int mPosition;
 
     /**
-     * kind description
+     * The kind of the syntax token.
      */
     SyntaxKind mKind;
 
     /**
-     * text description
+     * The text of the syntax token.
      */
     string mText;
 
     /**
-     * value description
+     * The value of the syntax token.
      */
     Value mVal;
 
     /**
-     * Description
+     * Prints the value of the syntax token.
      */
     void printValue();
 
     /**
-     * Description
+     * Returns a string representation of the given syntax kind.
      *
-     * @param kind kind description
-     * @return string description
+     * @param kind The syntax kind.
+     * @return The string representation of the syntax kind.
      */
     string printSyntaxKind(SyntaxKind kind);
 };

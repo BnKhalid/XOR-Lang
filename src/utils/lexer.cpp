@@ -1,5 +1,5 @@
 #include "../../headers/utils/lexer.h"
-#include "../../headers/utils/parser.h"
+#include "../../headers/utils/valueparser.h"
 #include "../../types/value.h"
 
 Lexer::Lexer(string line)
@@ -10,25 +10,25 @@ SyntaxToken Lexer::nextToken() {
     if (position >= (int)mLine.length())
         return SyntaxToken(EndOfLineToken, position, "\0");
 
-    if (Parser::isDigit(current())) {
+    if (ValueParser::isDigit(current())) {
         int start = position;
 
-        while (position < (int)mLine.length() && Parser::isDigit(current()))
+        while (position < (int)mLine.length() && ValueParser::isDigit(current()))
             nextPos();
 
         int length = position - start;
         string text = mLine.substr(start, length);
 
         Value val;
-        if (Parser::tryParseInt(text, val))
+        if (ValueParser::tryParseInt(text, val))
             return SyntaxToken(NumberToken, start, text, val);
         else
             return SyntaxToken(BadToken, start, text);
     }
-    else if (Parser::isWhitespace(current())) {
+    else if (ValueParser::isWhitespace(current())) {
         int start = position;
 
-        while (position < (int)mLine.length() && Parser::isWhitespace(current()))
+        while (position < (int)mLine.length() && ValueParser::isWhitespace(current()))
             nextPos();
 
         int length = position - start;
