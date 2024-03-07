@@ -1,57 +1,72 @@
 #pragma once
 
 /**
- * Description
+ * @brief Represents the different kinds of syntax tokens in the XOR language.
  */
 enum SyntaxKind {
     /**
-     * Description
+     * @brief Represents a number token.
      */
     NumberToken,
 
     /**
-     * Description
+     * @brief Represents a whitespace token.
      */
     WhiteSpaceToken,
 
     /**
-     * Description
+     * @brief Represents a plus token.
      */
     PlusToken,
 
     /**
-     * Description
+     * @brief Represents a minus token.
      */
     MinusToken,
 
     /**
-     * Description
+     * @brief Represents a star token.
      */
     StarToken,
 
     /**
-     * Description
+     * @brief Represents a slash token.
      */
     SlashToken,
 
     /**
-     * Description
+     * @brief Represents an open parenthesis token.
      */
     OpenParenthesisToken,
 
     /**
-     * Description
+     * @brief Represents a close parenthesis token.
      */
     CloseParenthesisToken,
 
     /**
-     * Description
+     * @brief Represents an end of line token.
      */
     EndOfLineToken,
 
     /**
-     * Description
+     * @brief Represents a bad token.
      */
-    BadToken
+    BadToken,
+
+    /**
+     * @brief Represents a number expression token.
+     */
+    NumberExpressionToken,
+
+    /**
+     * @brief Represents a binary expression token.
+     */
+    BinaryExpressionToken,
+
+    /**
+     * @brief Represents an expression token.
+     */
+    ExpressionToken
 };
 

@@ -1,6 +1,5 @@
 #include <iostream>
-#include "headers/utils/lexer.h"
-#include "enums/syntaxkind.h"
+#include "globalheaders.h"
 
 using namespace std;
 
@@ -14,17 +13,10 @@ int main() {
         if (line.empty())
             break;
 
-        Lexer lex(line);
+        Parser par(line);
+        ExpressionSyntax *syntax = par.parse();
 
-        while (true) {
-            SyntaxToken token = lex.nextToken();
-
-            if (token.getKind() == EndOfLineToken)
-                break;
-
-            token.print();
-        }
+        utilities::print(syntax, "", true);
     }
     return 0;
 }
-

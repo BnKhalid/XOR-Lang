@@ -1,24 +1,24 @@
-#include "../../headers/utils/parser.h"
+#include "../../headers/utils/valueparser.h"
 
 using namespace std;
 
-bool Parser::isDigit(char c) {
+bool ValueParser::isDigit(char c) {
     return c >= '0' && c <= '9';
 }
 
-bool Parser::isWhitespace(char c) {
+bool ValueParser::isWhitespace(char c) {
     return c == ' ' || c == '\t';
 }
 
-bool Parser::isEndOfLine(char c) {
+bool ValueParser::isEndOfLine(char c) {
     return c == '\n' || c == '\r';
 }
 
-bool Parser::isLetter(char c) {
+bool ValueParser::isLetter(char c) {
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
 }
 
-bool Parser::tryParseInt(string s, Value &val) {
+bool ValueParser::tryParseInt(string s, Value &val) {
     for (char c : s)
         if (isDigit(c) == false)
             return false;
