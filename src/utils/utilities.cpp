@@ -46,16 +46,7 @@ void utilities::print(SyntaxNode *node, string intend, bool isLast) {
 
     intend += isLast ? "    " : "│   ";
 
-    vector<SyntaxNode *> children;
-
-    if (dynamic_cast<BinaryExpressionSyntax *>(node) != nullptr) {
-        BinaryExpressionSyntax *binaryExpression = static_cast<BinaryExpressionSyntax *>(node);
-        children = binaryExpression->getChildren();
-    }
-    else if (dynamic_cast<NumberExpressionSyntax *>(node) != nullptr) {
-        NumberExpressionSyntax *numberExpression = static_cast<NumberExpressionSyntax *>(node);
-        children = numberExpression->getChildren();
-    }
+    vector<SyntaxNode *> children = node->getChildren();
 
     for (size_t i = 0; i < children.size(); i++)
         print(children[i], intend, i == children.size() - 1);
