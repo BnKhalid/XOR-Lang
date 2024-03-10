@@ -1,5 +1,6 @@
-#include "../../headers/classes/lexer.h"
+#include "../../headers/utils/lexer.h"
 #include "../../headers/utils/valueparser.h"
+#include "../../types/value.h"
 
 Lexer::Lexer(string line)
     : mLine(line)
