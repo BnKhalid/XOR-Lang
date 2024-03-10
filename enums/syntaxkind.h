@@ -52,6 +52,21 @@ enum SyntaxKind {
     /**
      * @brief Represents a bad token.
      */
-    BadToken
+    BadToken,
+
+    /**
+     * @brief Represents a number expression token.
+     */
+    NumberExpressionToken,
+
+    /**
+     * @brief Represents a binary expression token.
+     */
+    BinaryExpressionToken,
+
+    /**
+     * @brief Represents an expression token.
+     */
+    ExpressionToken
 };
 
