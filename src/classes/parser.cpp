@@ -18,16 +18,30 @@ Parser::Parser(string line) {
 }
 
 SyntaxTree *Parser::parse() {
-    ExpressionSyntax *expression = parseExpression();
+    ExpressionSyntax *expression = parseTerm();
     SyntaxToken endOfFileToken = *match(EndOfFileToken);
 
     return new SyntaxTree(mDiagnostics, expression, endOfFileToken);
 }
 
-ExpressionSyntax *Parser::parseExpression() {
-    ExpressionSyntax *left = parsePrimaryExpression();
+ExpressionSyntax *Parser::parseTerm() {
+    ExpressionSyntax *left = parseFactor();
 
     while (current()->getKind() == PlusToken || current()->getKind() == MinusToken) {
+        SyntaxToken *operatorToken = nextToken();
+
+        ExpressionSyntax *right = parseFactor();
+
+        left = new BinaryExpressionSyntax(left, operatorToken, right);
+    }
+
+    return left;
+}
+
+ExpressionSyntax *Parser::parseFactor() {
+    ExpressionSyntax *left = parsePrimaryExpression();
+
+    while (current()->getKind() == StarToken || current()->getKind() == SlashToken) {
         SyntaxToken *operatorToken = nextToken();
 
         ExpressionSyntax *right = parsePrimaryExpression();
