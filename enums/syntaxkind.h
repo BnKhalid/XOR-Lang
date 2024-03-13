@@ -49,8 +49,6 @@ enum SyntaxKind {
      */
     EndOfLineToken,
 
-    EndOfFileToken,
-
     /**
      * @brief Represents an end of file token.
      */

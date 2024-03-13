@@ -18,23 +18,14 @@ Parser::Parser(string line) {
 }
 
 SyntaxTree *Parser::parse() {
-<<<<<<< HEAD
-    ExpressionSyntax *expression = parseExpression();
-=======
     ExpressionSyntax *expression = parseTerm();
->>>>>>> parser/add-parser
     SyntaxToken endOfFileToken = *match(EndOfFileToken);
 
     return new SyntaxTree(mDiagnostics, expression, endOfFileToken);
 }
 
-<<<<<<< HEAD
-ExpressionSyntax *Parser::parseExpression() {
-    ExpressionSyntax *left = parsePrimaryExpression();
-=======
 ExpressionSyntax *Parser::parseTerm() {
     ExpressionSyntax *left = parseFactor();
->>>>>>> parser/add-parser
 
     while (current()->getKind() == PlusToken || current()->getKind() == MinusToken) {
         SyntaxToken *operatorToken = nextToken();
@@ -95,10 +86,6 @@ SyntaxToken *Parser::match(SyntaxKind kind) {
 }
 
 ExpressionSyntax *Parser::parsePrimaryExpression() {
-<<<<<<< HEAD
-    SyntaxToken *token = match(NumberToken);
-
-=======
     if (current()->getKind() == OpenParenthesisToken) {
         SyntaxToken *left = match(OpenParenthesisToken);
         ExpressionSyntax *expression = parseTerm();
@@ -109,7 +96,6 @@ ExpressionSyntax *Parser::parsePrimaryExpression() {
 
     SyntaxToken *token = match(NumberToken);
 
->>>>>>> parser/add-parser
     return new NumberExpressionSyntax(token);
 }
 
