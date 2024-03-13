@@ -49,12 +49,20 @@ enum SyntaxKind {
      */
     EndOfLineToken,
 
+    /**
+     * @brief Represents an end of file token.
+     */
     EndOfFileToken,
 
     /**
      * @brief Represents a bad token.
      */
     BadToken,
+
+    /**
+     * @brief Represents an expression token.
+     */
+    ExpressionToken,
 
     /**
      * @brief Represents a number expression token.
@@ -67,8 +75,8 @@ enum SyntaxKind {
     BinaryExpressionToken,
 
     /**
-     * @brief Represents an expression token.
+     * @brief Represents a parenthesized expression token.
      */
-    ExpressionToken
+    ParenthesizedExpressionToken
 };
 

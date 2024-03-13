@@ -3,6 +3,7 @@
 #include "lexer.h"
 #include "../utils/numberexpressionsyntax.h"
 #include "../utils/binaryexpressionsyntax.h"
+#include "../utils/parenthesizedexpressionsyntax.h"
 #include "../utils/syntaxtree.h"
 
 /**

@@ -24,11 +24,13 @@ string Utilities::printSyntaxKind(SyntaxKind kind) {
         case EndOfFileToken:
             return "EndOfFileToken";
         case NumberExpressionToken:
+        case ExpressionToken:
+            return "ExpressionToken";
             return "NumberExpressionToken";
         case BinaryExpressionToken:
             return "BinaryExpressionToken";
-        case ExpressionToken:
-            return "ExpressionToken";
+        case ParenthesizedExpressionToken:
+            return "ParenthesizedExpressionToken";
         default:
             return "BadToken";
     }

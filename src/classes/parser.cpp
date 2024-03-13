@@ -86,6 +86,14 @@ SyntaxToken *Parser::match(SyntaxKind kind) {
 }
 
 ExpressionSyntax *Parser::parsePrimaryExpression() {
+    if (current()->getKind() == OpenParenthesisToken) {
+        SyntaxToken *left = match(OpenParenthesisToken);
+        ExpressionSyntax *expression = parseTerm();
+        SyntaxToken *right = match(CloseParenthesisToken);
+
+        return new ParenthesizedExpressionSyntax(left, expression, right);
+    }
+
     SyntaxToken *token = match(NumberToken);
 
     return new NumberExpressionSyntax(token);

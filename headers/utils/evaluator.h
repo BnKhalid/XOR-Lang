@@ -1,8 +1,6 @@
 #pragma once
 
-#include "numberexpressionsyntax.h"
-#include "binaryexpressionsyntax.h"
-#include <stdexcept>
+#include "expressionsyntax.h"
 
 /**
  * @file evaluator.h
