@@ -14,12 +14,16 @@ int main() {
             break;
 
         Parser par(line);
-        SyntaxTree *syntax = par.parse();
+        SyntaxTree *tree = par.parse();
 
-        Utilities::print(syntax->getRoot(), "", true);
+        Utilities::print(tree->getRoot(), "", true);
 
-        if (syntax->getDiagnostics().empty() == false) {
-            for (auto msg : par.getDiagnostics())
+        if (tree->getDiagnostics().empty()) {
+            Evaluator eval(tree->getRoot());
+            cout << eval.evaluate() << '\n';
+        }
+        else {
+            for (auto msg : tree->getDiagnostics())
                 cout << msg << '\n';
         }
     }

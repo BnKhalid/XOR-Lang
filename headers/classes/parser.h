@@ -10,13 +10,13 @@
  * @brief Contains the declaration of the Parser class.
  */
 
-/**
- * @class Parser
- * @brief Represents a parser for the XOR language.
- *
- * The Parser class is responsible for parsing input lines and generating a syntax tree.
- * It provides methods for parsing expressions, matching tokens, and retrieving diagnostics.
- */
+ /**
+  * @class Parser
+  * @brief Represents a parser for the XOR language.
+  *
+  * The Parser class is responsible for parsing input lines and generating a syntax tree.
+  * It provides methods for parsing expressions, matching tokens, and retrieving diagnostics.
+  */
 class Parser {
 public:
     /**
