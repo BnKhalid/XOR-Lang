@@ -3,6 +3,11 @@
 #include "syntaxnode.h"
 
 /**
+ * @file expressionsyntax.h
+ * @brief Contains the declaration of the ExpressionSyntax class.
+ */
+
+/**
  * @class ExpressionSyntax
  * @brief Base class for expression syntax nodes.
  *

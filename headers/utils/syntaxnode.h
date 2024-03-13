@@ -4,6 +4,12 @@
 #include "../../enums/syntaxkind.h"
 
 using namespace std;
+
+/**
+ * @file syntaxnode.h
+ * @brief Contains the declaration of the SyntaxNode class.
+ */
+
 /**
  * @class SyntaxNode
  * @brief Base class for all syntax nodes in the XOR language.

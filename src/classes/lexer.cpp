@@ -70,4 +70,3 @@ char Lexer::current() {
 int Lexer::nextPos() {
     return position++;
 }
-

@@ -4,8 +4,17 @@
 #include "syntaxtoken.h"
 
 /**
- * Represents a syntax node for a number expression.
- * Inherits from ExpressionSyntax.
+ * @file numberexpressionsyntax.h
+ * @brief Contains the declaration of the NumberExpressionSyntax class.
+ */
+
+/**
+ * @class NumberExpressionSyntax
+ * @brief Represents a number expression in the syntax tree.
+ * 
+ * This class represents a number expression in the syntax tree of a parsed input line.
+ * It inherits from the ExpressionSyntax class and provides methods for getting the kind of the number expression,
+ * retrieving the children of the number expression, and getting the number token.
  */
 class NumberExpressionSyntax : public ExpressionSyntax {
 public:

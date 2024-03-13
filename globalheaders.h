@@ -10,3 +10,6 @@
 #include "headers/utils/numberexpressionsyntax.h"
 #include "headers/utils/binaryexpressionsyntax.h"
 #include "headers/utils/utilities.h"
+
+// This file is used to include all the headers in the project. 
+// To be used in the main.cpp file

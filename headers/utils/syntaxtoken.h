@@ -7,9 +7,16 @@
 using namespace std;
 
 /**
- * Represents a syntax token in the XOR language.
- *
- * @file headers/classes/syntaxtoken.h
+ * @file syntaxtoken.h
+ * @brief Contains the declaration of the SyntaxToken class.
+ */
+
+/**
+ * @class SyntaxToken
+ * @brief Represents a token in the syntax tree.
+ * 
+ * This class represents a token in the syntax tree of a parsed input line.
+ * It inherits from the SyntaxNode class and provides methods for getting the kind, position, text, and value of the token.
  */
 class SyntaxToken : public SyntaxNode {
 public:

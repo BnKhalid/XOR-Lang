@@ -5,6 +5,11 @@
 #include "numberexpressionsyntax.h"
 
 /**
+ * @file utilities.h
+ * @brief Contains the declaration of the Utilities class.
+ */
+
+/**
  * @class Utilities
  * @brief A utility class that provides helper functions for various operations.
  */
