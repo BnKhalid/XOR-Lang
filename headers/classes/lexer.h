@@ -9,13 +9,13 @@ using namespace std;
  * @brief Contains the declaration of the Lexer class.
  */
 
-/**
- * @class Lexer
- * @brief The Lexer class represents a lexer for tokenizing input strings.
- *
- * This class is responsible for breaking down an input string into individual tokens.
- * It provides methods for retrieving the next token from the input string.
- */
+ /**
+  * @class Lexer
+  * @brief The Lexer class represents a lexer for tokenizing input strings.
+  *
+  * This class is responsible for breaking down an input string into individual tokens.
+  * It provides methods for retrieving the next token from the input string.
+  */
 class Lexer {
 public:
     /**

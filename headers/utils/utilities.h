@@ -9,10 +9,10 @@
  * @brief Contains the declaration of the Utilities class.
  */
 
-/**
- * @class Utilities
- * @brief A utility class that provides helper functions for various operations.
- */
+ /**
+  * @class Utilities
+  * @brief A utility class that provides helper functions for various operations.
+  */
 class Utilities {
 public:
     /**

@@ -18,7 +18,11 @@ int main() {
 
         Utilities::print(syntax->getRoot(), "", true);
 
-        if (syntax->getDiagnostics().empty() == false) {
+        if (syntax->getDiagnostics().empty()) {
+            Evaluator eval(syntax->getRoot());
+            cout << eval.evaluate() << '\n';
+        }
+        else {
             for (auto msg : par.getDiagnostics())
                 cout << msg << '\n';
         }
