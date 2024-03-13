@@ -30,6 +30,8 @@ public:
      */
     SyntaxToken nextToken();
 
+    vector<string> getDiagnostics();
+
 private:
     /**
      * @brief The input string to be tokenized.
@@ -40,6 +42,8 @@ private:
      * @brief The current position in the input string.
      */
     int position;
+
+    vector<string> mDiagnostics;
 
     /**
      * @brief Retrieves the current character at the current position in the input string.

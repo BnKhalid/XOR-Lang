@@ -3,6 +3,7 @@
 #include "lexer.h"
 #include "../utils/numberexpressionsyntax.h"
 #include "../utils/binaryexpressionsyntax.h"
+#include "../utils/syntaxtree.h"
 
 /**
  * @class Parser
@@ -20,11 +21,16 @@ public:
      * @brief Parses the input line and returns the root expression syntax node.
      * @return The root expression syntax node.
      */
-    ExpressionSyntax *parse();
+    ExpressionSyntax *parseExpression();
+
+    SyntaxTree *parse();
+
+    vector<string> getDiagnostics();
 
 private:
     int mPosition = 0;
     vector<SyntaxToken> mTokens;
+    vector<string> mDiagnostics;
 
     /**
      * @brief Peeks at the token at the specified offset from the current position.

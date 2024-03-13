@@ -1,4 +1,4 @@
-#include "../../headers/utils/lexer.h"
+#include "../../headers/classes/lexer.h"
 #include "../../headers/utils/valueparser.h"
 #include "../../types/value.h"
 
@@ -8,7 +8,7 @@ Lexer::Lexer(string line)
 
 SyntaxToken Lexer::nextToken() {
     if (position >= (int)mLine.length())
-        return SyntaxToken(EndOfLineToken, position, "\0");
+        return SyntaxToken(EndOfFileToken, position, "\0");
 
     if (ValueParser::isDigit(current())) {
         int start = position;
@@ -48,10 +48,16 @@ SyntaxToken Lexer::nextToken() {
         return SyntaxToken(OpenParenthesisToken, nextPos(), "(");
     else if (current() == ')')
         return SyntaxToken(CloseParenthesisToken, nextPos(), ")");
-    else {
-        string text = mLine.substr(position, 1);
-        return SyntaxToken(BadToken, nextPos(), text);
-    }
+
+    string text = mLine.substr(position, 1);
+
+    mDiagnostics.push_back("ERROR: Bad character input: " + text);
+
+    return SyntaxToken(BadToken, nextPos(), text);
+}
+
+vector<string> Lexer::getDiagnostics() {
+    return mDiagnostics;
 }
 
 char Lexer::current() {
