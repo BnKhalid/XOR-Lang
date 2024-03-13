@@ -3,6 +3,7 @@
 #include "lexer.h"
 #include "../utils/numberexpressionsyntax.h"
 #include "../utils/binaryexpressionsyntax.h"
+#include "../utils/parenthesizedexpressionsyntax.h"
 #include "../utils/syntaxtree.h"
 
 /**
@@ -26,10 +27,16 @@ public:
     Parser(string line);
 
     /**
-     * @brief Parses an expression.
-     * @return A pointer to the parsed expression syntax node.
+     * @brief Parses a primary expression.
+     * @return A pointer to the parsed primary expression syntax node.
      */
-    ExpressionSyntax *parseExpression();
+    ExpressionSyntax *parseTerm();
+
+    /**
+     * @brief Parses a factor expression.
+     * @return A pointer to the parsed factor expression syntax node.
+     */
+    ExpressionSyntax *parseFactor();
 
     /**
      * @brief Parses the input line and generates a syntax tree.

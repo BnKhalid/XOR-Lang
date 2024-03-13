@@ -1,4 +1,8 @@
+#include <stdexcept>
 #include "../../headers/utils/evaluator.h"
+#include "../../headers/utils/numberexpressionsyntax.h"
+#include "../../headers/utils/binaryexpressionsyntax.h"
+#include "../../headers/utils/parenthesizedexpressionsyntax.h"
 
 Evaluator::Evaluator(ExpressionSyntax *root)
     : mRoot(root) {}
@@ -31,6 +35,10 @@ int Evaluator::evaluateExpression(ExpressionSyntax *node) {
                 throw runtime_error("Unexpected binary operator");
         }
     }
+
+    ParenthesizedExpressionSyntax *parenthesizedExpression = dynamic_cast<ParenthesizedExpressionSyntax *>(node);
+    if (parenthesizedExpression)
+        return evaluateExpression(parenthesizedExpression->getExpression());
 
     throw runtime_error("Unexpected node");
 }
