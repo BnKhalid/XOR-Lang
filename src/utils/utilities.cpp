@@ -1,7 +1,7 @@
 #include <iostream>
 #include "../../headers/utils/utilities.h"
 
-string utilities::printSyntaxKind(SyntaxKind kind) {
+string Utilities::printSyntaxKind(SyntaxKind kind) {
     switch (kind) {
         case NumberToken:
             return "NumberToken";
@@ -21,6 +21,8 @@ string utilities::printSyntaxKind(SyntaxKind kind) {
             return "CloseParenthesisToken";
         case EndOfLineToken:
             return "EndOfLineToken";
+        case EndOfFileToken:
+            return "EndOfFileToken";
         case NumberExpressionToken:
             return "NumberExpressionToken";
         case BinaryExpressionToken:
@@ -32,7 +34,7 @@ string utilities::printSyntaxKind(SyntaxKind kind) {
     }
 }
 
-void utilities::print(SyntaxNode *node, string intend, bool isLast) {
+void Utilities::print(SyntaxNode *node, string intend, bool isLast) {
     string mark = isLast ? "└── " : "├── ";
 
     cout << intend << mark << printSyntaxKind(node->getKind()) << ' ';

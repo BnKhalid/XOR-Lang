@@ -5,10 +5,15 @@
 #include "numberexpressionsyntax.h"
 
 /**
- * @class utilities
+ * @file utilities.h
+ * @brief Contains the declaration of the Utilities class.
+ */
+
+/**
+ * @class Utilities
  * @brief A utility class that provides helper functions for various operations.
  */
-class utilities {
+class Utilities {
 public:
     /**
      * @brief Prints the syntax kind of a given node.

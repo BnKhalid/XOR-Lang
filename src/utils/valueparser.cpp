@@ -28,4 +28,3 @@ bool ValueParser::tryParseInt(string s, Value &val) {
 
     return true;
 }
-

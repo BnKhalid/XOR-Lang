@@ -4,13 +4,19 @@
 
 using namespace std;
 
+
+
 /**
+ * @file headers/utils/parser.h
  * @brief The Value Parser class provides utility functions for parsing characters and strings.
- *
+ */
+
+/**
+ * @class ValueParser
+ * @brief The Value Parser class provides utility functions for parsing characters and strings.
+ * 
  * This class contains static member functions that can be used to check if a character is a digit,
  * whitespace, end of line, or letter. It also provides a function to try parsing an integer from a string.
- *
- * @file headers/utils/parser.h
  */
 class ValueParser {
 public:
@@ -57,4 +63,3 @@ public:
      */
     static bool tryParseInt(string s, Value &val);
 };
-

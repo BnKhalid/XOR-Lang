@@ -14,9 +14,14 @@ int main() {
             break;
 
         Parser par(line);
-        ExpressionSyntax *syntax = par.parse();
+        SyntaxTree *syntax = par.parse();
 
-        utilities::print(syntax, "", true);
+        Utilities::print(syntax->getRoot(), "", true);
+
+        if (syntax->getDiagnostics().empty() == false) {
+            for (auto msg : par.getDiagnostics())
+                cout << msg << '\n';
+        }
     }
     return 0;
 }

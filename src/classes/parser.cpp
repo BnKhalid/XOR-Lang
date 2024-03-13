@@ -1,4 +1,5 @@
 #include "../../headers/classes/parser.h"
+#include "../../headers/utils/utilities.h"
 
 Parser::Parser(string line) {
     Lexer lex(line);
@@ -6,16 +7,24 @@ Parser::Parser(string line) {
     while (true) {
         mTokens.push_back(lex.nextToken());
 
-        SyntaxKind kind = mTokens.back().getKind();
-        if (kind == WhiteSpaceToken || kind == BadToken || kind == EndOfLineToken)
+        if (mTokens.back().getKind() == WhiteSpaceToken)
             mTokens.pop_back();
 
-        if (kind == EndOfLineToken)
+        if (mTokens.back().getKind() == EndOfFileToken)
             break;
     }
+
+    mDiagnostics = lex.getDiagnostics();
 }
 
-ExpressionSyntax *Parser::parse() {
+SyntaxTree *Parser::parse() {
+    ExpressionSyntax *expression = parseExpression();
+    SyntaxToken endOfFileToken = *match(EndOfFileToken);
+
+    return new SyntaxTree(mDiagnostics, expression, endOfFileToken);
+}
+
+ExpressionSyntax *Parser::parseExpression() {
     ExpressionSyntax *left = parsePrimaryExpression();
 
     while (current()->getKind() == PlusToken || current()->getKind() == MinusToken) {
@@ -53,14 +62,21 @@ SyntaxToken *Parser::match(SyntaxKind kind) {
     if (current()->getKind() == kind)
         return nextToken();
 
+    mDiagnostics.push_back(
+        "ERROR: UNEXPECTED token "
+        + Utilities::printSyntaxKind(current()->getKind())
+        + ", EXPECTED "
+        + Utilities::printSyntaxKind(kind)
+    );
     return new SyntaxToken(BadToken, mPosition, "");
 }
 
 ExpressionSyntax *Parser::parsePrimaryExpression() {
-    if (current()->getKind() == NumberToken) {
-        SyntaxToken *numberToken = match(NumberToken);
+    SyntaxToken *token = match(NumberToken);
 
-        return new NumberExpressionSyntax(numberToken);
-    }
-    return new NumberExpressionSyntax(new SyntaxToken(BadToken, mPosition, ""));
+    return new NumberExpressionSyntax(token);
+}
+
+vector<string> Parser::getDiagnostics() {
+    return mDiagnostics;
 }

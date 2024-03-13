@@ -5,12 +5,16 @@
 using namespace std;
 
 /**
+ * @file lexer.h
+ * @brief Contains the declaration of the Lexer class.
+ */
+
+/**
+ * @class Lexer
  * @brief The Lexer class represents a lexer for tokenizing input strings.
  *
  * This class is responsible for breaking down an input string into individual tokens.
  * It provides methods for retrieving the next token from the input string.
- *
- * @file headers/utils/lexer.h
  */
 class Lexer {
 public:
@@ -30,6 +34,13 @@ public:
      */
     SyntaxToken nextToken();
 
+    /**
+     * @brief Retrieves the diagnostics generated during tokenization.
+     *
+     * @return A vector of strings representing the diagnostics.
+     */
+    vector<string> getDiagnostics();
+
 private:
     /**
      * @brief The input string to be tokenized.
@@ -40,6 +51,11 @@ private:
      * @brief The current position in the input string.
      */
     int position;
+
+    /**
+     * @brief The diagnostics generated during tokenization.
+     */
+    vector<string> mDiagnostics;
 
     /**
      * @brief Retrieves the current character at the current position in the input string.
@@ -55,4 +71,3 @@ private:
      */
     int nextPos();
 };
-
