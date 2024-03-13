@@ -23,7 +23,8 @@ SyntaxToken Lexer::nextToken() {
         if (ValueParser::tryParseInt(text, val))
             return SyntaxToken(NumberToken, start, text, val);
         else
-            return SyntaxToken(BadToken, start, text);
+            mDiagnostics.push_back("Could not parse number: " + text + " at position " + to_string(start) + " to Int32");
+        return SyntaxToken(NumberToken, start, text);
     }
     else if (ValueParser::isWhitespace(current())) {
         int start = position;

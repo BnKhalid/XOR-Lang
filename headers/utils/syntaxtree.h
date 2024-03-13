@@ -8,13 +8,13 @@
  * @brief Contains the declaration of the SyntaxTree class.
  */
 
-/**
- * @class SyntaxTree
- * @brief Represents a syntax tree for the XOR language.
- *
- * The SyntaxTree class is responsible for representing the syntax tree of a parsed input line.
- * It provides methods for retrieving the root expression syntax node and the end of file token.
- */
+ /**
+  * @class SyntaxTree
+  * @brief Represents a syntax tree for the XOR language.
+  *
+  * The SyntaxTree class is responsible for representing the syntax tree of a parsed input line.
+  * It provides methods for retrieving the root expression syntax node and the end of file token.
+  */
 class SyntaxTree {
 public:
     /**

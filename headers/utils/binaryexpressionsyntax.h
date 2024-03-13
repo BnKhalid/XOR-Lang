@@ -8,14 +8,14 @@
  * @brief Contains the declaration of the BinaryExpressionSyntax class.
  */
 
-/**
- * @class BinaryExpressionSyntax
- * @brief Represents a binary expression in the syntax tree.
- * 
- * This class represents a binary expression in the syntax tree of a parsed input line.
- * It inherits from the ExpressionSyntax class and provides methods for getting the kind of the binary expression,
- * retrieving the children of the binary expression, and getting the left expression, operator token, and right expression.
- */
+ /**
+  * @class BinaryExpressionSyntax
+  * @brief Represents a binary expression in the syntax tree.
+  *
+  * This class represents a binary expression in the syntax tree of a parsed input line.
+  * It inherits from the ExpressionSyntax class and provides methods for getting the kind of the binary expression,
+  * retrieving the children of the binary expression, and getting the left expression, operator token, and right expression.
+  */
 class BinaryExpressionSyntax : public ExpressionSyntax {
 public:
     /**

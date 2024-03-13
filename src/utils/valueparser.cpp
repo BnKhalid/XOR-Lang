@@ -19,9 +19,16 @@ bool ValueParser::isLetter(char c) {
 }
 
 bool ValueParser::tryParseInt(string s, Value &val) {
+    int cnt = 0;
+
     for (char c : s)
         if (isDigit(c) == false)
             return false;
+        else
+            cnt++;
+
+    if (cnt > 9)
+        return false;
 
     val.pInt = new int;
     *val.pInt = stoi(s);

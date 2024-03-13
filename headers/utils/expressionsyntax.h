@@ -7,14 +7,14 @@
  * @brief Contains the declaration of the ExpressionSyntax class.
  */
 
-/**
- * @class ExpressionSyntax
- * @brief Base class for expression syntax nodes.
- *
- * This class represents a syntax node that represents an expression in the XOR language.
- * It inherits from the SyntaxNode class and provides virtual functions for getting the kind of the expression
- * and retrieving the children of the expression.
- */
+ /**
+  * @class ExpressionSyntax
+  * @brief Base class for expression syntax nodes.
+  *
+  * This class represents a syntax node that represents an expression in the XOR language.
+  * It inherits from the SyntaxNode class and provides virtual functions for getting the kind of the expression
+  * and retrieving the children of the expression.
+  */
 class ExpressionSyntax : public SyntaxNode {
 public:
     /**

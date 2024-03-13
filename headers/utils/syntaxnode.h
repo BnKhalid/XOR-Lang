@@ -10,13 +10,13 @@ using namespace std;
  * @brief Contains the declaration of the SyntaxNode class.
  */
 
-/**
- * @class SyntaxNode
- * @brief Base class for all syntax nodes in the XOR language.
- *
- * The `SyntaxNode` class represents a node in the abstract syntax tree (AST) of the XOR language.
- * It provides common functionality and properties that are shared by all syntax nodes.
- */
+ /**
+  * @class SyntaxNode
+  * @brief Base class for all syntax nodes in the XOR language.
+  *
+  * The `SyntaxNode` class represents a node in the abstract syntax tree (AST) of the XOR language.
+  * It provides common functionality and properties that are shared by all syntax nodes.
+  */
 class SyntaxNode {
 public:
     /**
