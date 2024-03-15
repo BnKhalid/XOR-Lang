@@ -5,24 +5,24 @@
 
 /**
  * @file numberexpressionsyntax.h
- * @brief Contains the declaration of the NumberExpressionSyntax class.
+ * @brief Contains the declaration of the LiteralExpressionSyntax class.
  */
 
  /**
-  * @class NumberExpressionSyntax
+  * @class LiteralExpressionSyntax
   * @brief Represents a number expression in the syntax tree.
   *
   * This class represents a number expression in the syntax tree of a parsed input line.
   * It inherits from the ExpressionSyntax class and provides methods for getting the kind of the number expression,
   * retrieving the children of the number expression, and getting the number token.
   */
-class NumberExpressionSyntax : public ExpressionSyntax {
+class LiteralExpressionSyntax : public ExpressionSyntax {
 public:
     /**
-     * Constructs a NumberExpressionSyntax object with the given number token.
+     * Constructs a LiteralExpressionSyntax object with the given number token.
      * @param numberToken The token representing the number.
      */
-    NumberExpressionSyntax(SyntaxToken *numberToken);
+    LiteralExpressionSyntax(SyntaxToken *numberToken);
 
     /**
      * Gets the kind of the syntax node.

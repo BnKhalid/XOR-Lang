@@ -1,14 +1,12 @@
 #include "../../headers/classes/lexer.h"
-#include "../../headers/utils/valueparser.h"
-#include "../../types/value.h"
 
 Lexer::Lexer(string line)
     : mLine(line)
     , position(0) {}
 
-SyntaxToken Lexer::nextToken() {
+SyntaxToken Lexer::lex() {
     if (position >= (int)mLine.length())
-        return SyntaxToken(EndOfFileToken, position, "\0");
+        return SyntaxToken(EndOfLineToken, position, "\0");
 
     if (ValueParser::isDigit(current())) {
         int start = position;

@@ -1,8 +1,9 @@
 #pragma once
 
+#include <iostream>
 #include "syntaxnode.h"
 #include "binaryexpressionsyntax.h"
-#include "numberexpressionsyntax.h"
+#include "literalexpressionsyntax.h"
 
 /**
  * @file utilities.h

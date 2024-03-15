@@ -1,5 +1,10 @@
 #pragma once
 
+#include <stdexcept>
+#include "literalexpressionsyntax.h"
+#include "unaryexpressionsyntax.h"
+#include "binaryexpressionsyntax.h"
+#include "parenthesizedexpressionsyntax.h"
 #include "expressionsyntax.h"
 
 /**

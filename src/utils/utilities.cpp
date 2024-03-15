@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../../headers/utils/utilities.h"
 
 string Utilities::printSyntaxKind(SyntaxKind kind) {
@@ -23,10 +22,10 @@ string Utilities::printSyntaxKind(SyntaxKind kind) {
             return "EndOfLineToken";
         case EndOfFileToken:
             return "EndOfFileToken";
-        case NumberExpressionToken:
         case ExpressionToken:
             return "ExpressionToken";
-            return "NumberExpressionToken";
+        case LiteralExpressionToken:
+            return "LiteralExpressionToken";
         case BinaryExpressionToken:
             return "BinaryExpressionToken";
         case ParenthesizedExpressionToken:

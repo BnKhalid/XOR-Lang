@@ -67,7 +67,12 @@ enum SyntaxKind {
     /**
      * @brief Represents a number expression token.
      */
-    NumberExpressionToken,
+    LiteralExpressionToken,
+
+    /**
+     * @brief Represents a unary expression token.
+     */
+    UnaryExpressionToken,
 
     /**
      * @brief Represents a binary expression token.

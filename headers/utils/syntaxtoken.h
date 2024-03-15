@@ -1,8 +1,9 @@
 #pragma once
 
+#include <iostream>
 #include <string>
 #include "../../types/value.h"
-#include "../../headers/utils/syntaxnode.h"
+#include "syntaxnode.h"
 
 using namespace std;
 

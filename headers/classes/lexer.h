@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../utils/syntaxtoken.h"
+#include "../utils/valueparser.h"
+#include "../../types/value.h"
 
 using namespace std;
 
@@ -32,7 +34,7 @@ public:
      *
      * @return The next token from the input string.
      */
-    SyntaxToken nextToken();
+    SyntaxToken lex();
 
     /**
      * @brief Retrieves the diagnostics generated during tokenization.

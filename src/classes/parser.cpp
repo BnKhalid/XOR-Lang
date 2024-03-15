@@ -1,16 +1,15 @@
 #include "../../headers/classes/parser.h"
-#include "../../headers/utils/utilities.h"
 
 Parser::Parser(string line) {
     Lexer lex(line);
 
     while (true) {
-        mTokens.push_back(lex.nextToken());
+        mTokens.push_back(lex.lex());
 
         if (mTokens.back().getKind() == WhiteSpaceToken)
             mTokens.pop_back();
 
-        if (mTokens.back().getKind() == EndOfFileToken)
+        if (mTokens.back().getKind() == EndOfLineToken)
             break;
     }
 
@@ -18,19 +17,35 @@ Parser::Parser(string line) {
 }
 
 SyntaxTree *Parser::parse() {
-    ExpressionSyntax *expression = parseTerm();
-    SyntaxToken endOfFileToken = *match(EndOfFileToken);
+    ExpressionSyntax *expression = parseExpression();
+    SyntaxToken endOfLineToken = *match(EndOfLineToken);
 
-    return new SyntaxTree(mDiagnostics, expression, endOfFileToken);
+    return new SyntaxTree(mDiagnostics, expression, endOfLineToken);
 }
 
-ExpressionSyntax *Parser::parseTerm() {
-    ExpressionSyntax *left = parseFactor();
+ExpressionSyntax *Parser::parseExpression(int parentPrecedence) {
+    ExpressionSyntax *left;
 
-    while (current()->getKind() == PlusToken || current()->getKind() == MinusToken) {
+    int unaryPrecedence = getUnaryOperatorPrecedence(current()->getKind());
+
+    if (unaryPrecedence != 0 && unaryPrecedence >= parentPrecedence) {
+        SyntaxToken *operatorToken = nextToken();
+        ExpressionSyntax *operand = parseExpression(unaryPrecedence);
+
+        left = new UnaryExpressionSyntax(operatorToken, operand);
+    }
+    else
+        left = parsePrimaryExpression();
+
+    while (true) {
+        int BinaryPrecedence = getBinaryOperatorPrecedence(current()->getKind());
+
+        if (BinaryPrecedence == 0 || BinaryPrecedence <= parentPrecedence)
+            break;
+
         SyntaxToken *operatorToken = nextToken();
 
-        ExpressionSyntax *right = parseFactor();
+        ExpressionSyntax *right = parseExpression(BinaryPrecedence);
 
         left = new BinaryExpressionSyntax(left, operatorToken, right);
     }
@@ -38,18 +53,27 @@ ExpressionSyntax *Parser::parseTerm() {
     return left;
 }
 
-ExpressionSyntax *Parser::parseFactor() {
-    ExpressionSyntax *left = parsePrimaryExpression();
-
-    while (current()->getKind() == StarToken || current()->getKind() == SlashToken) {
-        SyntaxToken *operatorToken = nextToken();
-
-        ExpressionSyntax *right = parsePrimaryExpression();
-
-        left = new BinaryExpressionSyntax(left, operatorToken, right);
+int Parser::getUnaryOperatorPrecedence(SyntaxKind kind) {
+    switch (kind) {
+        case PlusToken:
+        case MinusToken:
+            return 3;
+        default:
+            return 0;
     }
+}
 
-    return left;
+int Parser::getBinaryOperatorPrecedence(SyntaxKind kind) {
+    switch (kind) {
+        case PlusToken:
+        case MinusToken:
+            return 1;
+        case StarToken:
+        case SlashToken:
+            return 2;
+        default:
+            return 0;
+    }
 }
 
 SyntaxToken *Parser::peek(int offset) {
@@ -88,7 +112,7 @@ SyntaxToken *Parser::match(SyntaxKind kind) {
 ExpressionSyntax *Parser::parsePrimaryExpression() {
     if (current()->getKind() == OpenParenthesisToken) {
         SyntaxToken *left = match(OpenParenthesisToken);
-        ExpressionSyntax *expression = parseTerm();
+        ExpressionSyntax *expression = parseExpression();
         SyntaxToken *right = match(CloseParenthesisToken);
 
         return new ParenthesizedExpressionSyntax(left, expression, right);
@@ -96,7 +120,7 @@ ExpressionSyntax *Parser::parsePrimaryExpression() {
 
     SyntaxToken *token = match(NumberToken);
 
-    return new NumberExpressionSyntax(token);
+    return new LiteralExpressionSyntax(token);
 }
 
 vector<string> Parser::getDiagnostics() {

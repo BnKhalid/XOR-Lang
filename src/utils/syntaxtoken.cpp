@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../../headers/utils/syntaxtoken.h"
 
 using namespace std;

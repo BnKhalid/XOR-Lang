@@ -1,8 +1,4 @@
-#include <stdexcept>
 #include "../../headers/utils/evaluator.h"
-#include "../../headers/utils/numberexpressionsyntax.h"
-#include "../../headers/utils/binaryexpressionsyntax.h"
-#include "../../headers/utils/parenthesizedexpressionsyntax.h"
 
 Evaluator::Evaluator(ExpressionSyntax *root)
     : mRoot(root) {}
@@ -12,15 +8,27 @@ int Evaluator::evaluate() {
 }
 
 int Evaluator::evaluateExpression(ExpressionSyntax *node) {
-    NumberExpressionSyntax *numberExpression = dynamic_cast<NumberExpressionSyntax *>(node);
+    LiteralExpressionSyntax *numberExpression = dynamic_cast<LiteralExpressionSyntax *>(node);
     if (numberExpression) {
         return *numberExpression->getNumberToken()->getValue().pInt;
     }
 
+    UnaryExpressionSyntax *unaryExpression = dynamic_cast<UnaryExpressionSyntax *>(node);
+    if (unaryExpression) {
+        int operand = evaluateExpression(unaryExpression->getOperand());
+
+        if (unaryExpression->getOperator()->getKind() == PlusToken)
+            return operand;
+        else if (unaryExpression->getOperator()->getKind() == MinusToken)
+            return -operand;
+
+        throw runtime_error("Unexpected unary operator " + to_string(unaryExpression->getOperator()->getKind()));
+    }
+
     BinaryExpressionSyntax *binaryExpression = dynamic_cast<BinaryExpressionSyntax *>(node);
     if (binaryExpression) {
-        auto left = evaluateExpression(binaryExpression->getLeft());
-        auto right = evaluateExpression(binaryExpression->getRight());
+        int left = evaluateExpression(binaryExpression->getLeft());
+        int right = evaluateExpression(binaryExpression->getRight());
 
         switch (binaryExpression->getOperator()->getKind()) {
             case PlusToken:

@@ -1,10 +1,12 @@
 #pragma once
 
 #include "lexer.h"
-#include "../utils/numberexpressionsyntax.h"
+#include "../utils/literalexpressionsyntax.h"
+#include "../utils/unaryexpressionsyntax.h"
 #include "../utils/binaryexpressionsyntax.h"
 #include "../utils/parenthesizedexpressionsyntax.h"
 #include "../utils/syntaxtree.h"
+#include "../utils/utilities.h"
 
 /**
  * @file parser.h
@@ -27,16 +29,11 @@ public:
     Parser(string line);
 
     /**
-     * @brief Parses a primary expression.
-     * @return A pointer to the parsed primary expression syntax node.
+     * @brief Parses a binary expression.
+     * @param precedence The precedence of the binary operator.
+     * @return A pointer to the parsed binary expression syntax node.
      */
-    ExpressionSyntax *parseTerm();
-
-    /**
-     * @brief Parses a factor expression.
-     * @return A pointer to the parsed factor expression syntax node.
-     */
-    ExpressionSyntax *parseFactor();
+    ExpressionSyntax *parseExpression(int parentPrecedence = 0);
 
     /**
      * @brief Parses the input line and generates a syntax tree.
@@ -86,4 +83,18 @@ private:
      * @return A pointer to the parsed primary expression syntax node.
      */
     ExpressionSyntax *parsePrimaryExpression();
+
+    /**
+     * @brief Gets the precedence of the specified binary operator.
+     * @param kind The kind of the binary operator.
+     * @return The precedence of the binary operator.
+     */
+    int getBinaryOperatorPrecedence(SyntaxKind kind);
+
+    /**
+     * @brief Gets the precedence of the specified unary operator.
+     * @param kind The kind of the unary operator.
+     * @return The precedence of the unary operator.
+     */
+    int getUnaryOperatorPrecedence(SyntaxKind kind);
 };
