@@ -10,11 +10,6 @@ enum SyntaxKind {
     NumberToken,
 
     /**
-     * @brief Represents a whitespace token.
-     */
-    WhiteSpaceToken,
-
-    /**
      * @brief Represents a plus token.
      */
     PlusToken,
@@ -35,6 +30,21 @@ enum SyntaxKind {
     SlashToken,
 
     /**
+     * @brief Represents a false keyword token.
+     */
+    FalseKeywordToken,
+
+    /**
+     * @brief Represents a true keyword token.
+     */
+    TrueKeywordToken,
+
+    /**
+     * @brief Represents an identifier token.
+     */
+    IdentifierToken,
+
+    /**
      * @brief Represents an open parenthesis token.
      */
     OpenParenthesisToken,
@@ -43,6 +53,11 @@ enum SyntaxKind {
      * @brief Represents a close parenthesis token.
      */
     CloseParenthesisToken,
+
+    /**
+     * @brief Represents a whitespace token.
+     */
+    WhiteSpaceToken,
 
     /**
      * @brief Represents an end of line token.

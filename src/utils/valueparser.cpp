@@ -18,7 +18,7 @@ bool ValueParser::isLetter(char c) {
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
 }
 
-bool ValueParser::tryParseInt(string s, Value &val) {
+bool ValueParser::tryParseInt(string s, void **val) {
     int cnt = 0;
 
     for (char c : s)
@@ -30,8 +30,7 @@ bool ValueParser::tryParseInt(string s, Value &val) {
     if (cnt > 9)
         return false;
 
-    val.pInt = new int;
-    *val.pInt = stoi(s);
+    *val = new int(stoi(s));
 
     return true;
 }

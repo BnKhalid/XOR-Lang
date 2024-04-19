@@ -2,37 +2,56 @@
 
 string Utilities::printSyntaxKind(SyntaxKind kind) {
     switch (kind) {
+        case FalseKeywordToken:
+            return "False Keyword Token";
+        case TrueKeywordToken:
+            return "True Keyword Token";
+        case IdentifierToken:
+            return "Identifier Token";
+
         case NumberToken:
-            return "NumberToken";
-        case WhiteSpaceToken:
-            return "WhiteSpaceToken";
+            return "Number Token";
         case PlusToken:
-            return "PlusToken";
+            return "Plus Token";
         case MinusToken:
-            return "MinusToken";
+            return "Minus Token";
         case StarToken:
-            return "StarToken";
+            return "Star Token";
         case SlashToken:
-            return "SlashToken";
+            
+            return "Slash Token";
         case OpenParenthesisToken:
-            return "OpenParenthesisToken";
+            return "Open Parenthesis Token";
         case CloseParenthesisToken:
-            return "CloseParenthesisToken";
+            return "Close Parenthesis Token";
+
+        case WhiteSpaceToken:
+            return "White Space Token";
         case EndOfLineToken:
-            return "EndOfLineToken";
+            return "End Of Line Token";
         case EndOfFileToken:
-            return "EndOfFileToken";
+            return "End Of File Token";
+
         case ExpressionToken:
-            return "ExpressionToken";
+            return "Expression Token";
         case LiteralExpressionToken:
-            return "LiteralExpressionToken";
+            return "Literal Expression Token";
         case BinaryExpressionToken:
-            return "BinaryExpressionToken";
+            return "Binary Expression Token";
         case ParenthesizedExpressionToken:
-            return "ParenthesizedExpressionToken";
+            return "Parenthesized Expression Token";
         default:
-            return "BadToken";
+            return "Bad Token";
     }
+}
+
+SyntaxKind Utilities::getKind(string text) {
+    if (text == "false")
+        return FalseKeywordToken;
+    else if (text == "true")
+        return TrueKeywordToken;
+    else
+        return IdentifierToken;
 }
 
 void Utilities::print(SyntaxNode *node, string intend, bool isLast) {
@@ -40,10 +59,9 @@ void Utilities::print(SyntaxNode *node, string intend, bool isLast) {
 
     cout << intend << mark << printSyntaxKind(node->getKind()) << ' ';
 
-    if (dynamic_cast<SyntaxToken *>(node) != nullptr) {
-        SyntaxToken *token = static_cast<SyntaxToken *>(node);
-        token->printValue();
-    }
+    SyntaxToken *token = dynamic_cast<SyntaxToken *>(node);
+    if (token)
+        Utilities::printValue(token->getValue());
 
     cout << '\n';
 
@@ -51,6 +69,18 @@ void Utilities::print(SyntaxNode *node, string intend, bool isLast) {
 
     vector<SyntaxNode *> children = node->getChildren();
 
-    for (size_t i = 0; i < children.size(); i++)
-        print(children[i], intend, i == children.size() - 1);
+    for (SyntaxNode *child : children)
+        print(child, intend, child == children.back());
+}
+
+void Utilities::printValue(void *val) {
+    if (val == nullptr) return;
+    else if (static_cast<int *>(val))
+        cout << "Value: " << *static_cast<int *>(val);
+    else if (static_cast<double *>(val))
+        cout << "Value: " << *static_cast<double *>(val);
+    else if (static_cast<char *>(val))
+        cout << "Value: " << *static_cast<char *>(val);
+    else if (static_cast<string *>(val))
+        cout << "Value: " << *static_cast<string *>(val);
 }

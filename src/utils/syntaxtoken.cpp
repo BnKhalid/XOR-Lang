@@ -1,8 +1,9 @@
 #include "../../headers/utils/syntaxtoken.h"
+#include "../../headers/utils/utilities.h"
 
 using namespace std;
 
-SyntaxToken::SyntaxToken(SyntaxKind kind, int position, string text, Value val)
+SyntaxToken::SyntaxToken(SyntaxKind kind, int position, string text, void *val)
     : mKind(kind)
     , mPosition(position)
     , mText(text)
@@ -11,25 +12,15 @@ SyntaxToken::SyntaxToken(SyntaxKind kind, int position, string text, Value val)
 SyntaxToken::SyntaxToken(SyntaxKind kind, int position, string text)
     : mKind(kind)
     , mPosition(position)
-    , mText(text) {}
+    , mText(text)
+    , mVal(nullptr) {}
 
 void SyntaxToken::print() {
     cout << "'" << mText << "' ";
     cout << "at " << mPosition << " ";
     // cout << "with kind " << printSyntaxKind(mKind) << " ";
-    printValue();
+    Utilities::printValue(mVal);
     cout << '\n';
-}
-
-void SyntaxToken::printValue() {
-    if (mVal.pInt != nullptr)
-        return void(cout << "Value: " << *mVal.pInt);
-    if (mVal.pDouble != nullptr)
-        return void(cout << "Value: " << *mVal.pDouble);
-    if (mVal.pChar != nullptr)
-        return void(cout << "Value: " << *mVal.pChar);
-    if (mVal.pString != nullptr)
-        return void(cout << "Value: " << *mVal.pString);
 }
 
 SyntaxKind SyntaxToken::getKind() {
@@ -44,7 +35,7 @@ string SyntaxToken::getText() {
     return mText;
 }
 
-Value SyntaxToken::getValue() {
+void *SyntaxToken::getValue() {
     return mVal;
 }
 

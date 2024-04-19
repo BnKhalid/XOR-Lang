@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "../../types/value.h"
+// #include "../../types/value.h"
 
 using namespace std;
 
@@ -61,5 +61,5 @@ public:
      * @param val The Value object to store the parsed integer.
      * @return true if the parsing is successful, false otherwise.
      */
-    static bool tryParseInt(string s, Value &val);
+    static bool tryParseInt(string s, void **val);
 };

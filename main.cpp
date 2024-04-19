@@ -20,15 +20,12 @@ int main() {
         }
         else if (line == "showTree") {
             showTree = !showTree;
-            cout << (showTree ? "Showing" : "Hiding") << " syntax tree." << '\n';
+            cout << (showTree ? "Showing" : "Hiding") << " syntax tree.\n";
             continue;
         }
 
         Parser par(line);
         SyntaxTree *tree = par.parse();
-
-        if (showTree)
-            Utilities::print(tree->getRoot(), "", true);
 
         if (tree->getDiagnostics().empty()) {
             Evaluator eval(tree->getRoot());
@@ -38,6 +35,9 @@ int main() {
             for (auto msg : tree->getDiagnostics())
                 cout << msg << '\n';
         }
+
+        if (showTree)
+            Utilities::print(tree->getRoot(), "", true);
     }
     return 0;
 }

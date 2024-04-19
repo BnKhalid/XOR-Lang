@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <string>
-#include "../../types/value.h"
 #include "syntaxnode.h"
+// #include "utilities.h"
 
 using namespace std;
 
@@ -29,7 +29,7 @@ public:
      * @param text The text of the syntax token.
      * @param val The value of the syntax token.
      */
-    SyntaxToken(SyntaxKind kind, int position, string text, Value val);
+    SyntaxToken(SyntaxKind kind, int position, string text, void *val);
 
     /**
      * Constructs a `SyntaxToken` object with the specified kind, position, and text.
@@ -44,11 +44,6 @@ public:
      * Prints the syntax token.
      */
     void print();
-
-    /**
-     * Prints the value of the syntax token.
-     */
-    void printValue();
 
     /**
      * Gets the position of the syntax token.
@@ -76,7 +71,7 @@ public:
      *
      * @return The value of the syntax token.
      */
-    Value getValue();
+    void *getValue();
 
 private:
     /**
@@ -97,7 +92,7 @@ private:
     /**
      * The value of the syntax token.
      */
-    Value mVal;
+    void *mVal;
 
     /**
      * Returns a vector of SyntaxNode objects representing the children of this SyntaxToken.

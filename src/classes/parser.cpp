@@ -110,17 +110,31 @@ SyntaxToken *Parser::match(SyntaxKind kind) {
 }
 
 ExpressionSyntax *Parser::parsePrimaryExpression() {
-    if (current()->getKind() == OpenParenthesisToken) {
-        SyntaxToken *left = match(OpenParenthesisToken);
-        ExpressionSyntax *expression = parseExpression();
-        SyntaxToken *right = match(CloseParenthesisToken);
-
-        return new ParenthesizedExpressionSyntax(left, expression, right);
+    switch (current()->getKind()) {
+        case OpenParenthesisToken: {
+            SyntaxToken *left = match(OpenParenthesisToken);
+            ExpressionSyntax *expression = parseExpression();
+            SyntaxToken *right = match(CloseParenthesisToken);
+            return new ParenthesizedExpressionSyntax(left, expression, right);
+        }
+        case TrueKeywordToken:
+        case FalseKeywordToken: {
+            SyntaxToken *token = nextToken();
+            return new LiteralExpressionSyntax(token);
+        }
+        case NumberToken: {
+            SyntaxToken *token = match(NumberToken);
+            return new LiteralExpressionSyntax(token);
+        }
+        default: {
+            mDiagnostics.push_back(
+                "ERROR: UNEXPECTED token "
+                + Utilities::printSyntaxKind(current()->getKind())
+                + ", EXPECTED primary expression"
+            );
+            return new LiteralExpressionSyntax(new SyntaxToken(BadToken, mPosition, ""));
+        }
     }
-
-    SyntaxToken *token = match(NumberToken);
-
-    return new LiteralExpressionSyntax(token);
 }
 
 vector<string> Parser::getDiagnostics() {

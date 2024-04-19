@@ -1,4 +1,5 @@
 #include "../../headers/utils/evaluator.h"
+#include "../../headers/utils/utilities.h"
 
 Evaluator::Evaluator(ExpressionSyntax *root)
     : mRoot(root) {}
@@ -10,7 +11,8 @@ int Evaluator::evaluate() {
 int Evaluator::evaluateExpression(ExpressionSyntax *node) {
     LiteralExpressionSyntax *numberExpression = dynamic_cast<LiteralExpressionSyntax *>(node);
     if (numberExpression) {
-        return *numberExpression->getNumberToken()->getValue().pInt;
+        int val = *static_cast<int *>(numberExpression->getNumberToken()->getValue());
+        return val;
     }
 
     UnaryExpressionSyntax *unaryExpression = dynamic_cast<UnaryExpressionSyntax *>(node);
