@@ -9,9 +9,9 @@ int Evaluator::evaluate() {
 }
 
 int Evaluator::evaluateExpression(ExpressionSyntax *node) {
-    LiteralExpressionSyntax *numberExpression = dynamic_cast<LiteralExpressionSyntax *>(node);
-    if (numberExpression) {
-        int val = *static_cast<int *>(numberExpression->getNumberToken()->getValue());
+    LiteralExpressionSyntax *literalExpression = dynamic_cast<LiteralExpressionSyntax *>(node);
+    if (literalExpression) {
+        int val = *static_cast<int *>(literalExpression->getValue());
         return val;
     }
 
@@ -23,6 +23,8 @@ int Evaluator::evaluateExpression(ExpressionSyntax *node) {
             return operand;
         else if (unaryExpression->getOperator()->getKind() == MinusToken)
             return -operand;
+        else if (unaryExpression->getOperator()->getKind() == BangToken)
+            return !operand;
 
         throw runtime_error("Unexpected unary operator " + to_string(unaryExpression->getOperator()->getKind()));
     }
@@ -41,6 +43,10 @@ int Evaluator::evaluateExpression(ExpressionSyntax *node) {
                 return left * right;
             case SlashToken:
                 return left / right;
+            case AmpersandAmpersandToken:
+                return left && right;
+            case PipePipeToken:
+                return left || right;
             default:
                 throw runtime_error("Unexpected binary operator");
         }

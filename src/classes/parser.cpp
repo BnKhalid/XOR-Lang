@@ -57,7 +57,8 @@ int Parser::getUnaryOperatorPrecedence(SyntaxKind kind) {
     switch (kind) {
         case PlusToken:
         case MinusToken:
-            return 3;
+        case BangToken:
+            return 4;
         default:
             return 0;
     }
@@ -65,12 +66,15 @@ int Parser::getUnaryOperatorPrecedence(SyntaxKind kind) {
 
 int Parser::getBinaryOperatorPrecedence(SyntaxKind kind) {
     switch (kind) {
-        case PlusToken:
-        case MinusToken:
-            return 1;
         case StarToken:
         case SlashToken:
+            return 3;
+        case PlusToken:
+        case MinusToken:
             return 2;
+        case AmpersandAmpersandToken:
+        case PipePipeToken:
+            return 1;
         default:
             return 0;
     }

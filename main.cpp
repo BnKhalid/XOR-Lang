@@ -27,17 +27,17 @@ int main() {
         Parser par(line);
         SyntaxTree *tree = par.parse();
 
+        if (showTree)
+            Utilities::print(tree->getRoot(), "", true);
+
         if (tree->getDiagnostics().empty()) {
             Evaluator eval(tree->getRoot());
-            cout << eval.evaluate() << '\n';
+            cout << "The answer is: " << eval.evaluate() << '\n';
         }
         else {
             for (auto msg : tree->getDiagnostics())
                 cout << msg << '\n';
         }
-
-        if (showTree)
-            Utilities::print(tree->getRoot(), "", true);
     }
     return 0;
 }

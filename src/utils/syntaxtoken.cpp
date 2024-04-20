@@ -10,10 +10,7 @@ SyntaxToken::SyntaxToken(SyntaxKind kind, int position, string text, void *val)
     , mVal(val) {}
 
 SyntaxToken::SyntaxToken(SyntaxKind kind, int position, string text)
-    : mKind(kind)
-    , mPosition(position)
-    , mText(text)
-    , mVal(nullptr) {}
+    : SyntaxToken(kind, position, text, nullptr) {}
 
 void SyntaxToken::print() {
     cout << "'" << mText << "' ";

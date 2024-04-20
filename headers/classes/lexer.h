@@ -60,11 +60,26 @@ private:
     vector<string> mDiagnostics;
 
     /**
+     * @brief Retrieves the character at the specified offset from the current position in the input string.
+     *
+     * @param offset The offset from the current position.
+     * @return The character at the specified offset.
+     */
+    char peek(int offset);
+
+    /**
      * @brief Retrieves the current character at the current position in the input string.
      *
      * @return The current character at the current position.
      */
     char current();
+
+    /**
+     * @brief Retrieves the character at the next position in the input string.
+     *
+     * @return The character at the next position.
+     */
+    char lookAhead();
 
     /**
      * @brief Advances the position to the next character in the input string.

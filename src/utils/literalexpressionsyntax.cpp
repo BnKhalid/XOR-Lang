@@ -1,7 +1,11 @@
 #include "../../headers/utils/literalexpressionsyntax.h"
 
+LiteralExpressionSyntax::LiteralExpressionSyntax(SyntaxToken *numberToken, void *value)
+    : mNumberToken(numberToken) 
+    , mValue(value) {}
+
 LiteralExpressionSyntax::LiteralExpressionSyntax(SyntaxToken *numberToken)
-    : mNumberToken(numberToken) {}
+    : LiteralExpressionSyntax(numberToken, numberToken->getValue()) {}
 
 SyntaxKind LiteralExpressionSyntax::getKind() {
     return LiteralExpressionToken;
@@ -15,4 +19,8 @@ vector<SyntaxNode *> LiteralExpressionSyntax::getChildren() {
 
 SyntaxToken *LiteralExpressionSyntax::getNumberToken() {
     return mNumberToken;
+}
+
+void *LiteralExpressionSyntax::getValue() {
+    return mValue;
 }

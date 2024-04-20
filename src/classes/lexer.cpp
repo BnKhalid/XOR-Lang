@@ -63,7 +63,17 @@ SyntaxToken Lexer::lex() {
         return SyntaxToken(OpenParenthesisToken, nextPos(), "(");
     else if (current() == ')')
         return SyntaxToken(CloseParenthesisToken, nextPos(), ")");
-
+    else if (current() == '!')
+        return SyntaxToken(BangToken, nextPos(), "!");
+    else if (current() == '&' && lookAhead() == '&') {
+        nextPos();
+        return SyntaxToken(AmpersandAmpersandToken, nextPos(), "&&");
+    }
+    else if (current() == '|' && lookAhead() == '|') {
+        nextPos();
+        return SyntaxToken(PipePipeToken, nextPos(), "||");
+    }
+    
     string text = mLine.substr(position, 1);
 
     mDiagnostics.push_back("ERROR: Bad character input: " + text);
@@ -75,11 +85,21 @@ vector<string> Lexer::getDiagnostics() {
     return mDiagnostics;
 }
 
-char Lexer::current() {
-    if (position >= (int)mLine.length())
+char Lexer::peek(int offset) {
+    int index = position + offset;
+
+    if (index >= (int)mLine.length())
         return '\0';
 
-    return mLine[position];
+    return mLine[index];
+}
+
+char Lexer::current() {
+    return peek(0);
+}
+
+char Lexer::lookAhead() {
+    return peek(1);
 }
 
 int Lexer::nextPos() {

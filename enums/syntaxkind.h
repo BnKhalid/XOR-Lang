@@ -40,6 +40,21 @@ enum SyntaxKind {
     TrueKeywordToken,
 
     /**
+     * @brief Represents a bang token.
+     */
+    BangToken,
+
+    /**
+     * @brief Represents an ampersand ampersand token.
+     */
+    AmpersandAmpersandToken,
+
+    /**
+     * @brief Represents a pipe pipe token.
+     */
+    PipePipeToken,
+
+    /**
      * @brief Represents an identifier token.
      */
     IdentifierToken,

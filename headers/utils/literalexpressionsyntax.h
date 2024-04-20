@@ -25,6 +25,13 @@ public:
     LiteralExpressionSyntax(SyntaxToken *numberToken);
 
     /**
+     * Constructs a LiteralExpressionSyntax object with the given number token and value.
+     * @param numberToken The token representing the number.
+     * @param value The value of the number.
+     */
+    LiteralExpressionSyntax(SyntaxToken *numberToken, void *value);
+
+    /**
      * Gets the kind of the syntax node.
      * @return The syntax kind.
      */
@@ -42,9 +49,17 @@ public:
      */
     SyntaxToken *getNumberToken();
 
+    /**
+     * Gets the value of the number expression.
+     * @return The value.
+     */
+    void *getValue();
+
 private:
     /**
      * Represents a number token in the syntax tree.
      */
     SyntaxToken *mNumberToken;
+
+    void *mValue;
 };

@@ -6,6 +6,13 @@ string Utilities::printSyntaxKind(SyntaxKind kind) {
             return "False Keyword Token";
         case TrueKeywordToken:
             return "True Keyword Token";
+        case BangToken:
+            return "Bang Token";
+        case AmpersandAmpersandToken:
+            return "Ampersand Ampersand Token";
+        case PipePipeToken:
+            return "Pipe Pipe Token";
+
         case IdentifierToken:
             return "Identifier Token";
 
@@ -18,7 +25,7 @@ string Utilities::printSyntaxKind(SyntaxKind kind) {
         case StarToken:
             return "Star Token";
         case SlashToken:
-            
+
             return "Slash Token";
         case OpenParenthesisToken:
             return "Open Parenthesis Token";
@@ -36,6 +43,8 @@ string Utilities::printSyntaxKind(SyntaxKind kind) {
             return "Expression Token";
         case LiteralExpressionToken:
             return "Literal Expression Token";
+        case UnaryExpressionToken:
+            return "Unary Expression Token";
         case BinaryExpressionToken:
             return "Binary Expression Token";
         case ParenthesizedExpressionToken:
@@ -61,7 +70,7 @@ void Utilities::print(SyntaxNode *node, string intend, bool isLast) {
 
     SyntaxToken *token = dynamic_cast<SyntaxToken *>(node);
     if (token)
-        Utilities::printValue(token->getValue());
+        printValue(token->getValue());
 
     cout << '\n';
 
