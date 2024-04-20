@@ -6,7 +6,7 @@ BinaryExpressionSyntax::BinaryExpressionSyntax(ExpressionSyntax *left, SyntaxTok
     , mRight(right) {}
 
 SyntaxKind BinaryExpressionSyntax::getKind() {
-    return BinaryExpressionToken;
+    return BinaryExpression;
 }
 
 vector<SyntaxNode *> BinaryExpressionSyntax::getChildren() {

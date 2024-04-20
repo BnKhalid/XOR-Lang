@@ -2,7 +2,6 @@
 
 #include "../utils/syntaxtoken.h"
 #include "../utils/valueparser.h"
-// #include "../../types/value.h"
 
 using namespace std;
 
@@ -18,6 +17,7 @@ using namespace std;
   * This class is responsible for breaking down an input string into individual tokens.
   * It provides methods for retrieving the next token from the input string.
   */
+
 class Lexer {
 public:
     /**

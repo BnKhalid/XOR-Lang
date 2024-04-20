@@ -10,6 +10,32 @@ enum SyntaxKind {
     NumberToken,
 
     /**
+     * @brief Represents a true keyword token.
+     */
+    TrueToken,
+
+    /**
+     * @brief Represents a false keyword token.
+     */
+    FalseToken,
+
+    /**
+     * @brief Represents an identifier token.
+     */
+    IdentifierToken,
+
+    /**
+     * @brief Represents an open parenthesis token.
+     */
+    OpenParenthesisToken,
+
+    /**
+     * @brief Represents a close parenthesis token.
+     */
+    CloseParenthesisToken,
+
+
+    /**
      * @brief Represents a plus token.
      */
     PlusToken,
@@ -30,21 +56,6 @@ enum SyntaxKind {
     SlashToken,
 
     /**
-     * @brief Represents a false keyword token.
-     */
-    FalseKeywordToken,
-
-    /**
-     * @brief Represents a true keyword token.
-     */
-    TrueKeywordToken,
-
-    /**
-     * @brief Represents a bang token.
-     */
-    BangToken,
-
-    /**
      * @brief Represents an ampersand ampersand token.
      */
     AmpersandAmpersandToken,
@@ -55,19 +66,40 @@ enum SyntaxKind {
     PipePipeToken,
 
     /**
-     * @brief Represents an identifier token.
+     * @brief Represents a equal equal token.
      */
-    IdentifierToken,
+    EqualEqualToken,
 
     /**
-     * @brief Represents an open parenthesis token.
+     * @brief Represents a bang equal token.
      */
-    OpenParenthesisToken,
+    BangEqualToken,
 
     /**
-     * @brief Represents a close parenthesis token.
+     * @brief Represents a bigger token.
      */
-    CloseParenthesisToken,
+    BiggerToken,
+
+    /**
+     * @brief Represents a smaller token.
+     */
+    SmallerToken,
+
+    /**
+     * @brief Represents a bigger equal token.
+     */
+    BiggerEqualToken,
+
+    /**
+     * @brief Represents a smaller equal token.
+     */
+    SmallerEqualToken,
+
+    /**
+     * @brief Represents a bang token.
+     */
+    BangToken,
+    
 
     /**
      * @brief Represents a whitespace token.
@@ -88,30 +120,31 @@ enum SyntaxKind {
      * @brief Represents a bad token.
      */
     BadToken,
+    
 
     /**
      * @brief Represents an expression token.
      */
-    ExpressionToken,
+    Expression,
 
     /**
      * @brief Represents a number expression token.
      */
-    LiteralExpressionToken,
+    LiteralExpression,
 
     /**
      * @brief Represents a unary expression token.
      */
-    UnaryExpressionToken,
+    UnaryExpression,
 
     /**
      * @brief Represents a binary expression token.
      */
-    BinaryExpressionToken,
+    BinaryExpression,
 
     /**
      * @brief Represents a parenthesized expression token.
      */
-    ParenthesizedExpressionToken
+    ParenthesizedExpression
 };
 

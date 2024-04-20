@@ -58,7 +58,7 @@ int Parser::getUnaryOperatorPrecedence(SyntaxKind kind) {
         case PlusToken:
         case MinusToken:
         case BangToken:
-            return 4;
+            return 5;
         default:
             return 0;
     }
@@ -68,10 +68,17 @@ int Parser::getBinaryOperatorPrecedence(SyntaxKind kind) {
     switch (kind) {
         case StarToken:
         case SlashToken:
-            return 3;
+            return 4;
         case PlusToken:
         case MinusToken:
+            return 3;
+        case EqualEqualToken:
+        case BangEqualToken:
             return 2;
+        case BiggerToken:
+        case SmallerToken:
+        case BiggerEqualToken:
+        case SmallerEqualToken:
         case AmpersandAmpersandToken:
         case PipePipeToken:
             return 1;
@@ -121,8 +128,8 @@ ExpressionSyntax *Parser::parsePrimaryExpression() {
             SyntaxToken *right = match(CloseParenthesisToken);
             return new ParenthesizedExpressionSyntax(left, expression, right);
         }
-        case TrueKeywordToken:
-        case FalseKeywordToken: {
+        case TrueToken:
+        case FalseToken: {
             SyntaxToken *token = nextToken();
             return new LiteralExpressionSyntax(token);
         }

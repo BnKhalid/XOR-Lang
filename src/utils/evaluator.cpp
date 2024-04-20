@@ -47,6 +47,18 @@ int Evaluator::evaluateExpression(ExpressionSyntax *node) {
                 return left && right;
             case PipePipeToken:
                 return left || right;
+            case EqualEqualToken:
+                return left == right;
+            case BangEqualToken:
+                return left != right;
+            case BiggerToken:
+                return left > right;
+            case SmallerToken:
+                return left < right;
+            case BiggerEqualToken:
+                return left >= right;
+            case SmallerEqualToken:
+                return left <= right;
             default:
                 throw runtime_error("Unexpected binary operator");
         }

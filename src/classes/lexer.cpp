@@ -46,8 +46,8 @@ SyntaxToken Lexer::lex() {
         string text = mLine.substr(start, length);
         SyntaxKind kind = Utilities::getKind(text);
 
-        if (kind == TrueKeywordToken || kind == FalseKeywordToken)
-            return SyntaxToken(kind, start, text, new int(kind == TrueKeywordToken));
+        if (kind == TrueToken || kind == FalseToken)
+            return SyntaxToken(kind, start, text, new int(kind == TrueToken));
         else
             return SyntaxToken(kind, start, text);
     }
@@ -63,8 +63,6 @@ SyntaxToken Lexer::lex() {
         return SyntaxToken(OpenParenthesisToken, nextPos(), "(");
     else if (current() == ')')
         return SyntaxToken(CloseParenthesisToken, nextPos(), ")");
-    else if (current() == '!')
-        return SyntaxToken(BangToken, nextPos(), "!");
     else if (current() == '&' && lookAhead() == '&') {
         nextPos();
         return SyntaxToken(AmpersandAmpersandToken, nextPos(), "&&");
@@ -73,6 +71,28 @@ SyntaxToken Lexer::lex() {
         nextPos();
         return SyntaxToken(PipePipeToken, nextPos(), "||");
     }
+    else if (current() == '=' && lookAhead() == '=') {
+        nextPos();
+        return SyntaxToken(EqualEqualToken, nextPos(), "==");
+    }
+    else if (current() == '!' && lookAhead() == '=') {
+        nextPos();
+        return SyntaxToken(BangEqualToken, nextPos(), "!=");
+    }
+    else if (current() == '!')
+        return SyntaxToken(BangToken, nextPos(), "!");
+    else if (current() == '>' && lookAhead() == '=') {
+        nextPos();
+        return SyntaxToken(BiggerEqualToken, nextPos(), ">=");
+    }
+    else if (current() == '<' && lookAhead() == '=') {
+        nextPos();
+        return SyntaxToken(SmallerEqualToken, nextPos(), "<=");
+    }
+    else if (current() == '>')
+        return SyntaxToken(BiggerToken, nextPos(), ">");
+    else if (current() == '<')
+        return SyntaxToken(SmallerToken, nextPos(), "<");
     
     string text = mLine.substr(position, 1);
 

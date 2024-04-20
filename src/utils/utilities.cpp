@@ -2,22 +2,19 @@
 
 string Utilities::printSyntaxKind(SyntaxKind kind) {
     switch (kind) {
-        case FalseKeywordToken:
-            return "False Keyword Token";
-        case TrueKeywordToken:
-            return "True Keyword Token";
-        case BangToken:
-            return "Bang Token";
-        case AmpersandAmpersandToken:
-            return "Ampersand Ampersand Token";
-        case PipePipeToken:
-            return "Pipe Pipe Token";
-
-        case IdentifierToken:
-            return "Identifier Token";
-
         case NumberToken:
             return "Number Token";
+        case TrueToken:
+            return "True Token";
+        case FalseToken:
+            return "False Token";
+        case IdentifierToken:
+            return "Identifier Token";
+        case OpenParenthesisToken:
+            return "Open Parenthesis Token";
+        case CloseParenthesisToken:
+            return "Close Parenthesis Token";
+
         case PlusToken:
             return "Plus Token";
         case MinusToken:
@@ -25,12 +22,25 @@ string Utilities::printSyntaxKind(SyntaxKind kind) {
         case StarToken:
             return "Star Token";
         case SlashToken:
-
             return "Slash Token";
-        case OpenParenthesisToken:
-            return "Open Parenthesis Token";
-        case CloseParenthesisToken:
-            return "Close Parenthesis Token";
+        case AmpersandAmpersandToken:
+            return "Ampersand Ampersand Token";
+        case PipePipeToken:
+            return "Pipe Pipe Token";
+        case EqualEqualToken:
+            return "Equal Equal Token";
+        case BangEqualToken:
+            return "Bang Equal Token";
+        case BiggerToken:
+            return "Bigger Token";
+        case SmallerToken:
+            return "Smaller Token";
+        case BiggerEqualToken:
+            return "Bigger Equal Token";
+        case SmallerEqualToken:
+            return "Smaller Equal Token";
+        case BangToken:
+            return "Bang Token";
 
         case WhiteSpaceToken:
             return "White Space Token";
@@ -39,16 +49,17 @@ string Utilities::printSyntaxKind(SyntaxKind kind) {
         case EndOfFileToken:
             return "End Of File Token";
 
-        case ExpressionToken:
-            return "Expression Token";
-        case LiteralExpressionToken:
-            return "Literal Expression Token";
-        case UnaryExpressionToken:
-            return "Unary Expression Token";
-        case BinaryExpressionToken:
-            return "Binary Expression Token";
-        case ParenthesizedExpressionToken:
-            return "Parenthesized Expression Token";
+        case Expression:
+            return "Expression";
+        case LiteralExpression:
+            return "Literal Expression";
+        case UnaryExpression:
+            return "Unary Expression";
+        case BinaryExpression:
+            return "Binary Expression";
+        case ParenthesizedExpression:
+            return "Parenthesized Expression";
+
         default:
             return "Bad Token";
     }
@@ -56,9 +67,9 @@ string Utilities::printSyntaxKind(SyntaxKind kind) {
 
 SyntaxKind Utilities::getKind(string text) {
     if (text == "false")
-        return FalseKeywordToken;
+        return FalseToken;
     else if (text == "true")
-        return TrueKeywordToken;
+        return TrueToken;
     else
         return IdentifierToken;
 }

@@ -5,7 +5,7 @@ UnaryExpressionSyntax::UnaryExpressionSyntax(SyntaxToken *operatorToken, Express
     , mOperand(operand) {}
 
 SyntaxKind UnaryExpressionSyntax::getKind() {
-    return UnaryExpressionToken;
+    return UnaryExpression;
 }
 
 vector<SyntaxNode *> UnaryExpressionSyntax::getChildren() {

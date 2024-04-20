@@ -8,7 +8,7 @@ ParenthesizedExpressionSyntax::ParenthesizedExpressionSyntax
     , mCloseParenthesisToken(closeParenthesisToken) {}
 
 SyntaxKind ParenthesizedExpressionSyntax::getKind() {
-    return ParenthesizedExpressionToken;
+    return ParenthesizedExpression;
 }
 
 vector<SyntaxNode *> ParenthesizedExpressionSyntax::getChildren() {
