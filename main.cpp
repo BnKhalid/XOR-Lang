@@ -6,9 +6,10 @@ using namespace std;
 int main() {
     string line;
     bool showTree = false;
+    int lineNum = 1;
 
     while (true) {
-        cout << "> ";
+        cout << lineNum++ << "> ";
         getline(cin, line);
 
         if (line.empty())
@@ -30,13 +31,33 @@ int main() {
         if (showTree)
             Utilities::print(tree->getRoot(), "", true);
 
-        if (tree->getDiagnostics().empty()) {
+        if (tree->getErrors().empty()) {
             Evaluator eval(tree->getRoot());
             cout << "The answer is: " << eval.evaluate() << '\n';
         }
         else {
-            for (auto msg : tree->getDiagnostics())
-                cout << msg << '\n';
+            auto errors = tree->getErrors();
+            for (int i = 0; i < errors.size(); i++) {
+                Error *err;
+
+                err = dynamic_cast<RuntimeError *>(errors[i]);
+                if (err) {
+                    cout << err->getMessage() << '\n';
+                    continue;
+                }
+
+                err = dynamic_cast<IlligalCharacterError *>(errors[i]);
+                if (err) {
+                    cout << err->getMessage() << '\n';
+                    continue;
+                }
+
+                err = dynamic_cast<SyntaxError *>(errors[i]);
+                if (err) {
+                    cout << err->getMessage() << '\n';
+                    continue;
+                }
+            }
         }
     }
     return 0;

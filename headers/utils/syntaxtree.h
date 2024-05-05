@@ -2,6 +2,7 @@
 
 #include "expressionsyntax.h"
 #include "syntaxtoken.h"
+#include "../errors/errorlist.h"
 
 /**
  * @file syntaxtree.h
@@ -19,17 +20,17 @@ class SyntaxTree {
 public:
     /**
      * Constructs a SyntaxTree object.
-     * @param diagnostics The list of diagnostics associated with the syntax tree.
+     * @param errors The list of errors associated with the syntax tree.
      * @param root The root expression syntax node of the syntax tree.
      * @param endOfFileToken The end of file token of the syntax tree.
      */
-    SyntaxTree(vector<string> diagnostics, ExpressionSyntax *root, SyntaxToken endOfFileToken);
+    SyntaxTree(ErrorList errors, ExpressionSyntax *root, SyntaxToken endOfFileToken);
 
     /**
-     * Gets the list of diagnostics associated with the syntax tree.
-     * @return The list of diagnostics.
+     * Gets the list of errors associated with the syntax tree.
+     * @return The list of errors.
      */
-    vector<string> getDiagnostics();
+    ErrorList getErrors();
 
     /**
      * Gets the root expression syntax node of the syntax tree.
@@ -44,7 +45,7 @@ public:
     SyntaxToken getEndOfFileToken();
 
 private:
-    vector<string> mDiagnostics; // The list of diagnostics associated with the syntax tree.
+    ErrorList mErrors; // The list of errors associated with the syntax tree.
     ExpressionSyntax *mRoot; // The root expression syntax node of the syntax tree.
     SyntaxToken mEndOfFileToken; // The end of file token of the syntax tree.
 };

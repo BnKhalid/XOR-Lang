@@ -13,14 +13,17 @@ Parser::Parser(string line) {
             break;
     }
 
-    mDiagnostics = lex.getDiagnostics();
+    mErrors = lex.getErrors();
 }
 
 SyntaxTree *Parser::parse() {
+    if (!mErrors.empty())
+        return new SyntaxTree(mErrors, nullptr, SyntaxToken(EndOfLineToken, mPosition, ""));
+
     ExpressionSyntax *expression = parseExpression();
     SyntaxToken endOfLineToken = *match(EndOfLineToken);
 
-    return new SyntaxTree(mDiagnostics, expression, endOfLineToken);
+    return new SyntaxTree(mErrors, expression, endOfLineToken);
 }
 
 ExpressionSyntax *Parser::parseExpression(int parentPrecedence) {
@@ -111,12 +114,8 @@ SyntaxToken *Parser::match(SyntaxKind kind) {
     if (current()->getKind() == kind)
         return nextToken();
 
-    mDiagnostics.push_back(
-        "ERROR: UNEXPECTED token "
-        + Utilities::printSyntaxKind(current()->getKind())
-        + ", EXPECTED "
-        + Utilities::printSyntaxKind(kind)
-    );
+    mErrors.throwError(new SyntaxError(kind, current()->getKind()));
+
     return new SyntaxToken(BadToken, mPosition, "");
 }
 
@@ -138,16 +137,12 @@ ExpressionSyntax *Parser::parsePrimaryExpression() {
             return new LiteralExpressionSyntax(token);
         }
         default: {
-            mDiagnostics.push_back(
-                "ERROR: UNEXPECTED token "
-                + Utilities::printSyntaxKind(current()->getKind())
-                + ", EXPECTED primary expression"
-            );
+            mErrors.throwError(new SyntaxError(Expression, current()->getKind()));
             return new LiteralExpressionSyntax(new SyntaxToken(BadToken, mPosition, ""));
         }
     }
 }
 
-vector<string> Parser::getDiagnostics() {
-    return mDiagnostics;
+ErrorList Parser::getErrors() {
+    return mErrors;
 }

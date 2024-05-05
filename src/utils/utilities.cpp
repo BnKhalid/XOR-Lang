@@ -1,6 +1,6 @@
 #include "../../headers/utils/utilities.h"
 
-string Utilities::printSyntaxKind(SyntaxKind kind) {
+string Utilities::parseSyntaxKind(SyntaxKind kind) {
     switch (kind) {
         case NumberToken:
             return "Number Token";
@@ -77,7 +77,7 @@ SyntaxKind Utilities::getKind(string text) {
 void Utilities::print(SyntaxNode *node, string intend, bool isLast) {
     string mark = isLast ? "└── " : "├── ";
 
-    cout << intend << mark << printSyntaxKind(node->getKind()) << ' ';
+    cout << intend << mark << parseSyntaxKind(node->getKind()) << ' ';
 
     SyntaxToken *token = dynamic_cast<SyntaxToken *>(node);
     if (token)

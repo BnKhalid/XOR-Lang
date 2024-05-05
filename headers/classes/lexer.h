@@ -2,6 +2,10 @@
 
 #include "../utils/syntaxtoken.h"
 #include "../utils/valueparser.h"
+#include "../utils/utilities.h"
+#include "../errors/errorlist.h"
+#include "../errors/runtimeerror.h"
+#include "../errors/illigalcharactererror.h"
 
 using namespace std;
 
@@ -37,11 +41,11 @@ public:
     SyntaxToken lex();
 
     /**
-     * @brief Retrieves the diagnostics generated during tokenization.
+     * @brief Retrieves the errors generated during tokenization.
      *
-     * @return A vector of strings representing the diagnostics.
+     * @return A vector of strings representing the errors.
      */
-    vector<string> getDiagnostics();
+    ErrorList getErrors();
 
 private:
     /**
@@ -55,9 +59,9 @@ private:
     int position;
 
     /**
-     * @brief The diagnostics generated during tokenization.
+     * @brief The errors generated during tokenization.
      */
-    vector<string> mDiagnostics;
+    ErrorList mErrors;
 
     /**
      * @brief Retrieves the character at the specified offset from the current position in the input string.

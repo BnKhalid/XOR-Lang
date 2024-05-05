@@ -1,12 +1,12 @@
 #include "../../headers/utils/syntaxtree.h"
 
-SyntaxTree::SyntaxTree(vector<string> diagnostics, ExpressionSyntax *root, SyntaxToken endOfFileToken)
-    : mDiagnostics(diagnostics)
+SyntaxTree::SyntaxTree(ErrorList errors, ExpressionSyntax *root, SyntaxToken endOfFileToken)
+    : mErrors(errors)
     , mRoot(root)
     , mEndOfFileToken(endOfFileToken) {}
 
-vector<string> SyntaxTree::getDiagnostics() {
-    return mDiagnostics;
+ErrorList SyntaxTree::getErrors() {
+    return mErrors;
 }
 
 ExpressionSyntax *SyntaxTree::getRoot() {

@@ -1,5 +1,4 @@
-#include "../../headers/utils/evaluator.h"
-#include "../../headers/utils/utilities.h"
+#include "../../headers/classes/evaluator.h"
 
 Evaluator::Evaluator(ExpressionSyntax *root)
     : mRoot(root) {}

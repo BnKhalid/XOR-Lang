@@ -12,7 +12,8 @@
 #include "headers/utils/binaryexpressionsyntax.h"
 #include "headers/utils/parenthesizedexpressionsyntax.h"
 #include "headers/utils/utilities.h"
-#include "headers/utils/evaluator.h"
+#include "headers/classes/evaluator.h"
+#include "headers/errors/errorlist.h"
 
 // This file is used to include all the headers in the project. 
 // To be used in the main.cpp file

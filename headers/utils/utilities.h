@@ -16,31 +16,31 @@
   */
 class Utilities {
 public:
-    /**
-     * @brief Prints the syntax kind of a given node.
-     * @param kind The syntax kind to be printed.
-     * @return A string representation of the syntax kind.
-     */
-    static string printSyntaxKind(SyntaxKind kind);
+  /**
+   * @brief Prints the syntax kind of a given node.
+   * @param kind The syntax kind to be printed.
+   * @return A string representation of the syntax kind.
+   */
+  static string parseSyntaxKind(SyntaxKind kind);
 
-    /**
-     * @brief Gets the syntax kind of a given token.
-     * @param text The text of the token.
-     * @return The syntax kind of the token.
-     */
-    static SyntaxKind getKind(string text);
+  /**
+   * @brief Gets the syntax kind of a given token.
+   * @param text The text of the token.
+   * @return The syntax kind of the token.
+   */
+  static SyntaxKind getKind(string text);
 
-    /**
-     * @brief Prints the syntax tree starting from the given node.
-     * @param node The root node of the syntax tree.
-     * @param intend The indentation string to be used for formatting.
-     * @param isLast A flag indicating whether the current node is the last child of its parent.
-     */
-    static void print(SyntaxNode *node, string intend, bool isLast);
+  /**
+   * @brief Prints the syntax tree starting from the given node.
+   * @param node The root node of the syntax tree.
+   * @param intend The indentation string to be used for formatting.
+   * @param isLast A flag indicating whether the current node is the last child of its parent.
+   */
+  static void print(SyntaxNode *node, string intend, bool isLast);
 
-    /**
-     * @brief Prints the value of a given token.
-     * @param val The value to be printed.
-     */
-    static void printValue(void *val);
+  /**
+   * @brief Prints the value of a given token.
+   * @param val The value to be printed.
+   */
+  static void printValue(void *val);
 };
