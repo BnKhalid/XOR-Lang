@@ -4,7 +4,7 @@
 #include "syntaxtoken.h"
 
 /**
- * @file numberexpressionsyntax.h
+ * @file literalexpressionsyntax.h
  * @brief Contains the declaration of the LiteralExpressionSyntax class.
  */
 

@@ -128,6 +128,16 @@ enum SyntaxKind {
     Expression,
 
     /**
+     * @brief Represents a name expression token.
+     */
+    NameExpression,
+
+    /**
+     * @brief Represents an assignment expression token.
+     */
+    AssignmentExpression,
+
+    /**
      * @brief Represents a number expression token.
      */
     LiteralExpression,

@@ -28,7 +28,7 @@ int main() {
         Parser par(line);
         SyntaxTree *tree = par.parse();
 
-        if (showTree)
+        // if (showTree)
             Utilities::print(tree->getRoot(), "", true);
 
         if (tree->getErrors().empty()) {
