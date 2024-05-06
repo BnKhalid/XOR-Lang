@@ -2,7 +2,6 @@
 
 #include "expressionsyntax.h"
 #include "syntaxtoken.h"
-#include "../errors/errorlist.h"
 
 /**
  * @file syntaxtree.h

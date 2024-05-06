@@ -38,7 +38,7 @@ int main() {
 
         Utilities::printResult(result);
 
-        // Utilities::printErrors(tree->getErrors());
+        Utilities::printErrors(errors);
     }
     return 0;
 }

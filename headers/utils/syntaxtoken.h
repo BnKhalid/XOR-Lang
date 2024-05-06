@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string>
 #include "syntaxnode.h"
-// #include "utilities.h"
 
 using namespace std;
 

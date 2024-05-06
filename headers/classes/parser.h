@@ -9,7 +9,6 @@
 #include "../utils/assignmentexpressionsyntax.h"
 #include "../utils/nameexpressionsyntax.h"
 #include "../utils/syntaxtree.h"
-#include "../utils/utilities.h"
 
 /**
  * @file parser.h

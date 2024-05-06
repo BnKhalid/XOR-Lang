@@ -4,7 +4,6 @@
 #include "syntaxnode.h"
 #include "binaryexpressionsyntax.h"
 #include "literalexpressionsyntax.h"
-#include "../errors/errorlist.h"
 
 /**
  * @file utilities.h

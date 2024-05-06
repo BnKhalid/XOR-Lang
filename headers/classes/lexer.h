@@ -4,7 +4,6 @@
 #include "../utils/syntaxtoken.h"
 #include "../utils/valueparser.h"
 #include "../utils/utilities.h"
-#include "../errors/errorlist.h"
 
 using namespace std;
 

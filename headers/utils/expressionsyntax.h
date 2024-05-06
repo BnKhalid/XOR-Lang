@@ -1,6 +1,7 @@
 #pragma once
 
 #include "syntaxnode.h"
+#include "../errors/errorlist.h"
 
 /**
  * @file expressionsyntax.h

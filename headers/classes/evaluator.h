@@ -9,7 +9,7 @@
 #include "../utils/unaryexpressionsyntax.h"
 #include "../utils/binaryexpressionsyntax.h"
 #include "../utils/parenthesizedexpressionsyntax.h"
-#include "../errors/errorlist.h"
+
 /**
  * @file evaluator.h
  * @brief Contains the declaration of the Evaluator class.
