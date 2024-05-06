@@ -18,24 +18,37 @@ Parser::Parser(string line, map<string, void *> *variables) {
 }
 
 SyntaxTree *Parser::parse() {
-    if (!mErrors.empty())
-        return new SyntaxTree(mErrors, nullptr, SyntaxToken(EndOfLineToken, mPosition, ""));
-
-    ExpressionSyntax *expression = parseExpression();
+    ExpressionSyntax *expression = parseStatementExpression();
     SyntaxToken endOfLineToken = *match(EndOfLineToken);
 
     return new SyntaxTree(mErrors, expression, endOfLineToken);
 }
 
-ExpressionSyntax *Parser::parseExpression(int parentPrecedence) {
+ExpressionSyntax *Parser::parseStatementExpression() {
+    if (current()->getKind() == IfToken) {
+        SyntaxToken *ifToken = match(IfToken);
+        ExpressionSyntax *condition = parseAssignmentExpression();
+        SyntaxToken *thenToken = match(ThenToken);
+        ExpressionSyntax *statment = parseStatementExpression();
+
+        return new IfExpressionSyntax(ifToken, condition, thenToken, statment);
+    }
+    return parseAssignmentExpression();
+}
+
+ExpressionSyntax *Parser::parseAssignmentExpression() {
     if (peek(0)->getKind() == IdentifierToken && peek(1)->getKind() == EqualToken) {
-        SyntaxToken *identifierToken = nextToken();
-        SyntaxToken *operatorToken = nextToken();
-        ExpressionSyntax *right = parseExpression();
+        SyntaxToken *identifierToken = match(IdentifierToken);
+        SyntaxToken *operatorToken = match(EqualToken);
+        ExpressionSyntax *right = parseAssignmentExpression();
 
         return new AssignmentExpressionSyntax(identifierToken, operatorToken, right);
     }
 
+    return parseExpression();
+}
+
+ExpressionSyntax *Parser::parseExpression(int parentPrecedence) {
     ExpressionSyntax *left;
 
     int unaryPrecedence = getUnaryOperatorPrecedence(current()->getKind());

@@ -66,6 +66,14 @@ string Utilities::parseSyntaxKind(SyntaxKind kind) {
         case ParenthesizedExpression:
             return "Parenthesized Expression";
 
+        case Statement:
+            return "Statement";
+        case IfExpression:
+            return "If Expression";
+        case IfToken:
+            return "If Token";
+        case ThenToken:
+            return "Then Token";
         default:
             return "Bad Token";
     }
@@ -76,6 +84,10 @@ SyntaxKind Utilities::getKind(string text) {
         return FalseToken;
     else if (text == "true")
         return TrueToken;
+    else if (text == "if")
+        return IfToken;
+    else if (text == "then")
+        return ThenToken;
     else
         return IdentifierToken;
 }

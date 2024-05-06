@@ -8,6 +8,7 @@
 #include "../utils/parenthesizedexpressionsyntax.h"
 #include "../utils/assignmentexpressionsyntax.h"
 #include "../utils/nameexpressionsyntax.h"
+#include "../utils/ifexpressionsyntax.h"
 #include "../utils/syntaxtree.h"
 
 /**
@@ -36,6 +37,18 @@ public:
      * @return A pointer to the generated syntax tree.
      */
     SyntaxTree *parse();
+
+    /**
+     * @brief Parses a statement.
+     * @return A pointer to the parsed statement syntax node.
+     */
+    ExpressionSyntax *parseStatementExpression();
+
+    /**
+     * @brief Parses an expression.
+     * @return A pointer to the parsed expression syntax node.
+     */
+    ExpressionSyntax *parseAssignmentExpression();
 
     /**
      * @brief Parses a binary expression.

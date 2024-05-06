@@ -9,6 +9,7 @@
 #include "../utils/unaryexpressionsyntax.h"
 #include "../utils/binaryexpressionsyntax.h"
 #include "../utils/parenthesizedexpressionsyntax.h"
+#include "../utils/ifexpressionsyntax.h"
 
 /**
  * @file evaluator.h
@@ -36,6 +37,13 @@ public:
      * @return The result of the evaluation.
      */
     void *evaluate();
+
+    /**
+     * @brief Evaluates the given statement node.
+     * @param node The statement node to be evaluated.
+     * @return The result of the evaluation.
+     */
+    void *evaluateStatement(ExpressionSyntax *node);
 
 private:
     ExpressionSyntax *mRoot; // The root expression to be evaluated.

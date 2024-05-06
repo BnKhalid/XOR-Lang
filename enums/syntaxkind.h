@@ -103,7 +103,7 @@ enum SyntaxKind {
      * @brief Represents a bang token.
      */
     BangToken,
-    
+
 
     /**
      * @brief Represents a whitespace token.
@@ -124,7 +124,7 @@ enum SyntaxKind {
      * @brief Represents a bad token.
      */
     BadToken,
-    
+
 
     /**
      * @brief Represents an expression token.
@@ -159,6 +159,26 @@ enum SyntaxKind {
     /**
      * @brief Represents a parenthesized expression token.
      */
-    ParenthesizedExpression
+    ParenthesizedExpression,
+
+    /**
+     * @brief Represents an if expression token.
+     */
+    IfExpression,
+
+    /**
+     * @brief Represents a statement token.
+     */
+    Statement,
+
+    /**
+     * @brief Represents a if token.
+     */
+    IfToken,
+
+    /**
+     * @brief Represents a then token.
+     */
+    ThenToken,
 };
 

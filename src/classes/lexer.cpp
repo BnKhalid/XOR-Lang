@@ -53,7 +53,7 @@ SyntaxToken Lexer::lex() {
 
         if (kind == TrueToken || kind == FalseToken)
             return SyntaxToken(kind, start, text, new int(kind == TrueToken));
-        else if (mVariables->find(text) != mVariables->end())
+        else if (kind == IdentifierToken && mVariables->find(text) != mVariables->end())
             return SyntaxToken(IdentifierToken, start, text, mVariables->at(text));
         else
             return SyntaxToken(kind, start, text);

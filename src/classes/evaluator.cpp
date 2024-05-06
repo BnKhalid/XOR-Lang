@@ -8,7 +8,24 @@ Evaluator::Evaluator(ExpressionSyntax *root, map<string, void *> *variables, Err
 void *Evaluator::evaluate() {
     if (!mErrors->empty() || mRoot == nullptr)
         return nullptr;
-    return evaluateExpression(mRoot);
+    return evaluateStatement(mRoot);
+}
+
+void *Evaluator::evaluateStatement(ExpressionSyntax *node) {
+    IfExpressionSyntax *ifExpressionSyntax = dynamic_cast<IfExpressionSyntax *>(node);
+    if (ifExpressionSyntax) {
+        int *pCondition = static_cast<int *>(evaluateExpression(ifExpressionSyntax->getCondition()));
+        if (pCondition == nullptr)
+            return nullptr;
+
+        int condition = *pCondition;
+        if (condition)
+            return evaluateStatement(ifExpressionSyntax->getStatment());
+
+        return nullptr;
+    }
+
+    return evaluateExpression(node);
 }
 
 void *Evaluator::evaluateExpression(ExpressionSyntax *node) {

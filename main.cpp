@@ -11,7 +11,7 @@ int main() {
     map<string, void *> variables;
 
     while (true) {
-        cout << lineNum++ << "> ";
+        cout << lineNum++ << "❯ ";
         getline(cin, line);
 
         if (line.empty())
