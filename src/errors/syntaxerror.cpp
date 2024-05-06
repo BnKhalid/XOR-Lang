@@ -1,4 +1,5 @@
 #include "../../headers/errors/syntaxerror.h"
+#include "../../headers/utils/utilities.h"
 
 SyntaxError::SyntaxError(SyntaxKind expected, SyntaxKind found)
     : mExpected(expected)

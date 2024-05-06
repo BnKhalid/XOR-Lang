@@ -1,7 +1,6 @@
 #pragma once
 
 #include "error.h"
-#include "../utils/utilities.h"
 #include "../../enums/syntaxkind.h"
 
 /**
