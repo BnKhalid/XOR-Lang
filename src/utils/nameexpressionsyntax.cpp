@@ -1,7 +1,11 @@
 #include "../../headers/utils/nameexpressionsyntax.h"
 
+NameExpressionSyntax::NameExpressionSyntax(SyntaxToken *nameToken, void *value) 
+    : mIdenrifierToken(nameToken)
+    , mValue(value) {}
+
 NameExpressionSyntax::NameExpressionSyntax(SyntaxToken *nameToken) 
-    : mIdenrifierToken(nameToken) {}
+    : NameExpressionSyntax(nameToken, nameToken->getValue()) {}
 
 SyntaxKind NameExpressionSyntax::getKind() {
     return NameExpression;
@@ -13,5 +17,9 @@ vector<SyntaxNode *> NameExpressionSyntax::getChildren() {
 
 SyntaxToken *NameExpressionSyntax::getIdentifierToken() {
     return mIdenrifierToken;
+}
+
+void *NameExpressionSyntax::getValue() {
+    return mValue;
 }
 

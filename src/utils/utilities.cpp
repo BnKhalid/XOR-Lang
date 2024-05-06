@@ -15,6 +15,8 @@ string Utilities::parseSyntaxKind(SyntaxKind kind) {
         case CloseParenthesisToken:
             return "Close Parenthesis Token";
 
+        case EqualToken:
+            return "Equal Token";
         case PlusToken:
             return "Plus Token";
         case MinusToken:
@@ -51,6 +53,10 @@ string Utilities::parseSyntaxKind(SyntaxKind kind) {
 
         case Expression:
             return "Expression";
+        case AssignmentExpression:
+            return "Assignment Expression";
+        case NameExpression:
+            return "Name Expression";
         case LiteralExpression:
             return "Literal Expression";
         case UnaryExpression:
@@ -103,4 +109,36 @@ void Utilities::printValue(void *val) {
         cout << "Value: " << *static_cast<char *>(val);
     else if (static_cast<string *>(val))
         cout << "Value: " << *static_cast<string *>(val);
+}
+
+void Utilities::printErrors(ErrorList errors) {
+    for (int i = 0; i < errors.size(); i++) {
+        Error *err;
+
+        err = dynamic_cast<RuntimeError *>(errors[i]);
+        if (err) {
+            cout << err->getMessage() << '\n';
+            continue;
+        }
+
+        err = dynamic_cast<IlligalCharacterError *>(errors[i]);
+        if (err) {
+            cout << err->getMessage() << '\n';
+            continue;
+        }
+
+        err = dynamic_cast<SyntaxError *>(errors[i]);
+        if (err) {
+            cout << err->getMessage() << '\n';
+            continue;
+        }
+    }
+}
+
+void Utilities::printResult(void *result) {
+    if (result == nullptr) return;
+    else if (static_cast<int *>(result))
+        cout << "The answer is: " << *static_cast<int *>(result) << '\n';
+    else if (static_cast<string *>(result))
+        cout << "The answer is: " << *static_cast<string *>(result) << '\n';
 }

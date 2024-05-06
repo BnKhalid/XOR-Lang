@@ -1,7 +1,10 @@
 #pragma once
 
 #include <vector>
-#include "error.h"
+#include "../errors/error.h"
+#include "../errors/illigalcharactererror.h"
+#include "../errors/runtimeerror.h"
+#include "../errors/syntaxerror.h"
 
 using namespace std;
 
@@ -10,13 +13,13 @@ using namespace std;
  * @brief Contains the declaration of the ErrorList class.
  */
 
-/**
-* @class ErrorList
-* @brief Represents a List of error messages.
-*
-* The ErrorList class is responsible for storing and managing a List of error messages.
-* It provides methods for pushing messages from the List.
-*/
+ /**
+ * @class ErrorList
+ * @brief Represents a List of error messages.
+ *
+ * The ErrorList class is responsible for storing and managing a List of error messages.
+ * It provides methods for pushing messages from the List.
+ */
 class ErrorList {
 public:
     /**

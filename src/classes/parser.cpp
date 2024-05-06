@@ -1,7 +1,8 @@
 #include "../../headers/classes/parser.h"
 
-Parser::Parser(string line) {
-    Lexer lex(line);
+Parser::Parser(string line, map<string, void *> *variables) {
+    mVariables = variables;
+    Lexer lex(line, mVariables);
 
     while (true) {
         mTokens.push_back(lex.lex());
@@ -27,6 +28,14 @@ SyntaxTree *Parser::parse() {
 }
 
 ExpressionSyntax *Parser::parseExpression(int parentPrecedence) {
+    if (peek(0)->getKind() == IdentifierToken && peek(1)->getKind() == EqualToken) {
+        SyntaxToken *identifierToken = nextToken();
+        SyntaxToken *operatorToken = nextToken();
+        ExpressionSyntax *right = parseExpression();
+
+        return new AssignmentExpressionSyntax(identifierToken, operatorToken, right);
+    }
+
     ExpressionSyntax *left;
 
     int unaryPrecedence = getUnaryOperatorPrecedence(current()->getKind());
@@ -135,6 +144,10 @@ ExpressionSyntax *Parser::parsePrimaryExpression() {
         case NumberToken: {
             SyntaxToken *token = match(NumberToken);
             return new LiteralExpressionSyntax(token);
+        }
+        case IdentifierToken: {
+            SyntaxToken *token = match(IdentifierToken);
+            return new NameExpressionSyntax(token);
         }
         default: {
             mErrors.throwError(new SyntaxError(Expression, current()->getKind()));

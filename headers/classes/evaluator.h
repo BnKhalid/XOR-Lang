@@ -1,12 +1,15 @@
 #pragma once
 
 #include <stdexcept>
+#include <map>
+#include "../utils/expressionsyntax.h"
+#include "../utils/nameexpressionsyntax.h"
+#include "../utils/assignmentexpressionsyntax.h"
 #include "../utils/literalexpressionsyntax.h"
 #include "../utils/unaryexpressionsyntax.h"
 #include "../utils/binaryexpressionsyntax.h"
 #include "../utils/parenthesizedexpressionsyntax.h"
-#include "../utils/expressionsyntax.h"
-
+#include "../errors/errorlist.h"
 /**
  * @file evaluator.h
  * @brief Contains the declaration of the Evaluator class.
@@ -24,22 +27,25 @@ public:
     /**
      * @brief Constructs an Evaluator object with the given root expression.
      * @param root The root expression to be evaluated.
+     * @param variables A pointer to the map of variables used in the expression.
      */
-    Evaluator(ExpressionSyntax *root);
+    Evaluator(ExpressionSyntax *root, map<string, void *> *variables, ErrorList *errors);
 
     /**
      * @brief Evaluates the root expression and returns the result.
      * @return The result of the evaluation.
      */
-    int evaluate();
+    void *evaluate();
 
 private:
     ExpressionSyntax *mRoot; // The root expression to be evaluated.
+    map<string, void *> *mVariables; // The map of variables used in the expression.
+    ErrorList *mErrors; // The list of errors that occurred during the evaluation.
 
     /**
      * @brief Recursively evaluates the given expression node.
      * @param node The expression node to be evaluated.
      * @return The result of the evaluation.
      */
-    int evaluateExpression(ExpressionSyntax *node);
+    void *evaluateExpression(ExpressionSyntax *node);
 };

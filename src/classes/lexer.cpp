@@ -1,8 +1,9 @@
 #include "../../headers/classes/lexer.h"
 
-Lexer::Lexer(string line)
+Lexer::Lexer(string line, map<string, void *> *variables)
     : mLine(line)
-    , position(0) {}
+    , position(0)
+    , mVariables(variables) {}
 
 SyntaxToken Lexer::lex() {
     if (position >= (int)mLine.length())
@@ -52,6 +53,8 @@ SyntaxToken Lexer::lex() {
 
         if (kind == TrueToken || kind == FalseToken)
             return SyntaxToken(kind, start, text, new int(kind == TrueToken));
+        else if (mVariables->find(text) != mVariables->end())
+            return SyntaxToken(IdentifierToken, start, text, mVariables->at(text));
         else
             return SyntaxToken(kind, start, text);
     }
@@ -79,6 +82,8 @@ SyntaxToken Lexer::lex() {
         nextPos();
         return SyntaxToken(EqualEqualToken, nextPos(), "==");
     }
+    else if (current() == '=')
+        return SyntaxToken(EqualToken, nextPos(), "=");
     else if (current() == '!' && lookAhead() == '=') {
         nextPos();
         return SyntaxToken(BangEqualToken, nextPos(), "!=");

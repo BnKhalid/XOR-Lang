@@ -10,6 +10,11 @@ enum class RuntimeErrorType {
     OVERFLOW,
 
     /**
+     * @brief Represents an undefined variable error.
+     */
+    UNDEFINED_VARIABLE,
+
+    /**
      * @brief Represents a division by zero error.
      */
     DIVISION_BY_ZERO,

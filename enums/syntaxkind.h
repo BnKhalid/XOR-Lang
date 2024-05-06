@@ -34,6 +34,10 @@ enum SyntaxKind {
      */
     CloseParenthesisToken,
 
+    /**
+     * @brief Represents an equal token.
+     */
+    EqualToken,
 
     /**
      * @brief Represents a plus token.

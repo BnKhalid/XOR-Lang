@@ -17,6 +17,9 @@ string RuntimeError::getMessage() {
         case RuntimeErrorType::DIVISION_BY_ZERO:
             message += "Division by zeron\n";
             break;
+        case RuntimeErrorType::UNDEFINED_VARIABLE:
+            message += "Undefined variable \"" + mText + "\"\n";
+            break;
     }
     return message;
 }

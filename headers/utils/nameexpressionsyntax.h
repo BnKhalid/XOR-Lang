@@ -23,6 +23,12 @@ public:
      * @param nameToken The token representing the name.
      */
     NameExpressionSyntax(SyntaxToken *nameToken);
+    /**
+     * Constructs a NameExpressionSyntax object with the given name token.
+     * @param nameToken The token representing the name.
+     * @param value The value of the name.
+     */
+    NameExpressionSyntax(SyntaxToken *nameToken, void *value);
 
     /**
      * Gets the kind of the syntax node.
@@ -42,9 +48,20 @@ public:
      */
     SyntaxToken *getIdentifierToken();
 
+    /**
+     * Gets the value of the number expression.
+     * @return The value.
+     */
+    void *getValue();
+
 private:
     /**
      * Represents a name token in the syntax tree.
      */
     SyntaxToken *mIdenrifierToken;
+
+    /**
+     * Represents the value of the name expression.
+     */
+    void *mValue;
 };

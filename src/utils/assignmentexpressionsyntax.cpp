@@ -1,6 +1,4 @@
-#include "assignmentexpressionsyntax.h"
-
-
+#include "../../headers/utils/assignmentexpressionsyntax.h"
 
 AssignmentExpressionSyntax::AssignmentExpressionSyntax(SyntaxToken *identifierToken, SyntaxToken *equalsToken, ExpressionSyntax *expression)
     : mIdentifierToken(identifierToken)

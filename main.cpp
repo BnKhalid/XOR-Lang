@@ -1,4 +1,4 @@
-#include <iostream>
+#include <bits/stdc++.h>
 #include "globalheaders.h"
 
 using namespace std;
@@ -7,6 +7,8 @@ int main() {
     string line;
     bool showTree = false;
     int lineNum = 1;
+
+    map<string, void *> variables;
 
     while (true) {
         cout << lineNum++ << "> ";
@@ -25,40 +27,18 @@ int main() {
             continue;
         }
 
-        Parser par(line);
+        Parser par(line, &variables);
         SyntaxTree *tree = par.parse();
+        ErrorList errors = tree->getErrors();
+        Evaluator eval(tree->getRoot(), &variables, &errors);
+        void *result = eval.evaluate();
 
         // if (showTree)
             Utilities::print(tree->getRoot(), "", true);
 
-        if (tree->getErrors().empty()) {
-            Evaluator eval(tree->getRoot());
-            cout << "The answer is: " << eval.evaluate() << '\n';
-        }
-        else {
-            auto errors = tree->getErrors();
-            for (int i = 0; i < errors.size(); i++) {
-                Error *err;
+        Utilities::printResult(result);
 
-                err = dynamic_cast<RuntimeError *>(errors[i]);
-                if (err) {
-                    cout << err->getMessage() << '\n';
-                    continue;
-                }
-
-                err = dynamic_cast<IlligalCharacterError *>(errors[i]);
-                if (err) {
-                    cout << err->getMessage() << '\n';
-                    continue;
-                }
-
-                err = dynamic_cast<SyntaxError *>(errors[i]);
-                if (err) {
-                    cout << err->getMessage() << '\n';
-                    continue;
-                }
-            }
-        }
+        // Utilities::printErrors(tree->getErrors());
     }
     return 0;
 }

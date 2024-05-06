@@ -1,11 +1,10 @@
 #pragma once
 
+#include <map>
 #include "../utils/syntaxtoken.h"
 #include "../utils/valueparser.h"
 #include "../utils/utilities.h"
 #include "../errors/errorlist.h"
-#include "../errors/runtimeerror.h"
-#include "../errors/illigalcharactererror.h"
 
 using namespace std;
 
@@ -28,8 +27,9 @@ public:
      * @brief Constructs a Lexer object with the given input string.
      *
      * @param line The input string to be tokenized.
+     * @param variables A pointer to the map of variables used in the input string.
      */
-    Lexer(string line);
+    Lexer(string line, map<string, void *> *variables);
 
     /**
      * @brief Retrieves the next token from the input string.
@@ -62,6 +62,11 @@ private:
      * @brief The errors generated during tokenization.
      */
     ErrorList mErrors;
+
+    /**
+     * @brief A pointer to the map of variables used in the input string.
+     */
+    map<string, void *> *mVariables;
 
     /**
      * @brief Retrieves the character at the specified offset from the current position in the input string.
