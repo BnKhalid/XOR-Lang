@@ -53,6 +53,29 @@ void *Evaluator::evaluateStatement(ExpressionSyntax *node) {
         return new int(1);
     }
 
+    WhileExpressionSyntax *whileExpressionSyntax = dynamic_cast<WhileExpressionSyntax *>(node);
+    if (whileExpressionSyntax) {
+        int *pCondition = static_cast<int *>(evaluateExpression(whileExpressionSyntax->getCondition()));
+        if (pCondition == nullptr)
+            return nullptr;
+
+        int condition = *pCondition;
+        while (condition) {
+            void *result = evaluateStatement(whileExpressionSyntax->getStatment());
+
+            if (result == nullptr)
+                return nullptr;
+
+            pCondition = static_cast<int *>(evaluateExpression(whileExpressionSyntax->getCondition()));
+            if (pCondition == nullptr)
+                return nullptr;
+
+            condition = *pCondition;
+        }
+
+        return new int(1);
+    }
+
     return evaluateExpression(node);
 }
 

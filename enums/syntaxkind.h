@@ -168,9 +168,14 @@ enum SyntaxKind {
     Statement,
 
     /**
-     * @brief Represents a for expression token.
+     * @brief Represents a loop expression token.
      */
-    ForExpression,
+    LoopExpression,
+
+    /**
+     * @brief Represents a while token.
+     */
+    WhileToken,
 
     /**
      * @brief Represents a for token.

@@ -74,8 +74,10 @@ string Utilities::parseSyntaxKind(SyntaxKind kind) {
             return "If Token";
         case ThenToken:
             return "Then Token";
-        case ForExpression:
-            return "For Expression";
+        case LoopExpression:
+            return "Loop Expression";
+        case WhileToken:
+            return "While Token";
         case ForToken:
             return "For Token";
         case DoToken:
@@ -97,6 +99,8 @@ SyntaxKind Utilities::getKind(string text) {
         return IfToken;
     else if (text == "then")
         return ThenToken;
+    else if (text == "while")
+        return WhileToken;
     else if (text == "for")
         return ForToken;
     else if (text == "do")

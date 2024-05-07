@@ -45,6 +45,15 @@ ExpressionSyntax *Parser::parseStatementExpression() {
         return new ForExpressionSyntax(forToken, identifierToken, colonToken, count, doToken, statment);
     }
 
+    if (current()->getKind() == WhileToken) {
+        SyntaxToken *whileToken = match(WhileToken);
+        ExpressionSyntax *condition = parseAssignmentExpression();
+        SyntaxToken *doToken = match(DoToken);
+        ExpressionSyntax *statment = parseStatementExpression();
+
+        return new WhileExpressionSyntax(whileToken, condition, doToken, statment);
+    }
+
     return parseAssignmentExpression();
 }
 

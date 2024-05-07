@@ -9,7 +9,7 @@ ForExpressionSyntax::ForExpressionSyntax(SyntaxToken *forToken, NameExpressionSy
     , mStatment(statment) {}
 
 SyntaxKind ForExpressionSyntax::getKind() {
-    return SyntaxKind::ForExpression;
+    return SyntaxKind::LoopExpression;
 }
 
 std::vector<SyntaxNode *> ForExpressionSyntax::getChildren() {

@@ -10,6 +10,7 @@
 #include "../utils/nameexpressionsyntax.h"
 #include "../utils/ifexpressionsyntax.h"
 #include "../utils/forexpressionsyntax.h"
+#include "../utils/whileexpressionsyntax.h"
 #include "../utils/syntaxtree.h"
 
 /**

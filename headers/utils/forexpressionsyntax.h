@@ -15,7 +15,7 @@
   *
   * This class represents a for expression in the syntax tree of a parsed input line.
   * It inherits from the ExpressionSyntax class and provides methods for getting the kind of the for expression,
-  * retrieving the children of the for expression, and getting the left expression, operator token, and right expression.
+  * getting the children of the for expression, and getting the for token, identifier, colon token, count, do token, and statment of the for expression.
   */
 class ForExpressionSyntax : public ExpressionSyntax {
 public:
