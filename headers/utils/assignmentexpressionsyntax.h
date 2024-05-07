@@ -1,6 +1,7 @@
 #pragma once
 
 #include "expressionsyntax.h"
+#include "nameexpressionsyntax.h"
 #include "syntaxtoken.h"
 
 /**
@@ -20,10 +21,11 @@ class AssignmentExpressionSyntax : public ExpressionSyntax {
 public:
     /**
      * Constructs a AssignmentExpressionSyntax object with the given assignment token and value.
-     * @param assignmentToken The token representing the assignment.
-     * @param value The value of the assignment.
+     * @param identifierToken The name token of the name expression.
+     * @param equalsToken The assignment token of the assignment expression.
+     * @param expression The expression of the assignment expression.
      */
-    AssignmentExpressionSyntax(SyntaxToken *identifierToken, SyntaxToken *equalsToken, ExpressionSyntax *expression);
+    AssignmentExpressionSyntax(NameExpressionSyntax *identifierToken, SyntaxToken *equalsToken, ExpressionSyntax *expression);
 
     /**
      * Gets the kind of the syntax node.
@@ -41,7 +43,7 @@ public:
      * Gets the name token of the name expression.
      * @return The name token.
      */
-    SyntaxToken *getIdentifierToken();
+    NameExpressionSyntax *getIdentifierToken();
 
     /**
      * Gets the assignment token of the assignment expression.
@@ -59,7 +61,7 @@ private:
     /**
      * Represents a assignment token in the syntax tree.
      */
-    SyntaxToken *mIdentifierToken;
+    NameExpressionSyntax *mIdentifierToken;
     SyntaxToken *mAssignToken;
     ExpressionSyntax *mExpression;
 };

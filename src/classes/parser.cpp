@@ -33,12 +33,24 @@ ExpressionSyntax *Parser::parseStatementExpression() {
 
         return new IfExpressionSyntax(ifToken, condition, thenToken, statment);
     }
+
+    if (current()->getKind() == ForToken) {
+        SyntaxToken *forToken = match(ForToken);
+        NameExpressionSyntax *identifierToken = new NameExpressionSyntax(match(IdentifierToken));
+        SyntaxToken *colonToken = match(ColonToken);
+        ExpressionSyntax *count = parseAssignmentExpression();
+        SyntaxToken *doToken = match(DoToken);
+        ExpressionSyntax *statment = parseStatementExpression();
+
+        return new ForExpressionSyntax(forToken, identifierToken, colonToken, count, doToken, statment);
+    }
+
     return parseAssignmentExpression();
 }
 
 ExpressionSyntax *Parser::parseAssignmentExpression() {
     if (peek(0)->getKind() == IdentifierToken && peek(1)->getKind() == EqualToken) {
-        SyntaxToken *identifierToken = match(IdentifierToken);
+        NameExpressionSyntax *identifierToken = new NameExpressionSyntax(match(IdentifierToken));
         SyntaxToken *operatorToken = match(EqualToken);
         ExpressionSyntax *right = parseAssignmentExpression();
 

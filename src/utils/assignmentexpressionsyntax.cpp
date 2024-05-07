@@ -1,6 +1,6 @@
 #include "../../headers/utils/assignmentexpressionsyntax.h"
 
-AssignmentExpressionSyntax::AssignmentExpressionSyntax(SyntaxToken *identifierToken, SyntaxToken *equalsToken, ExpressionSyntax *expression)
+AssignmentExpressionSyntax::AssignmentExpressionSyntax(NameExpressionSyntax *identifierToken, SyntaxToken *equalsToken, ExpressionSyntax *expression)
     : mIdentifierToken(identifierToken)
     , mAssignToken(equalsToken)
     , mExpression(expression) {}
@@ -19,7 +19,7 @@ vector<SyntaxNode *> AssignmentExpressionSyntax::getChildren() {
     return children;
 }
 
-SyntaxToken *AssignmentExpressionSyntax::getIdentifierToken() {
+NameExpressionSyntax *AssignmentExpressionSyntax::getIdentifierToken() {
     return mIdentifierToken;
 }
 

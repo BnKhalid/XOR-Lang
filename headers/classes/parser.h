@@ -9,6 +9,7 @@
 #include "../utils/assignmentexpressionsyntax.h"
 #include "../utils/nameexpressionsyntax.h"
 #include "../utils/ifexpressionsyntax.h"
+#include "../utils/forexpressionsyntax.h"
 #include "../utils/syntaxtree.h"
 
 /**

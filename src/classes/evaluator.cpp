@@ -25,6 +25,34 @@ void *Evaluator::evaluateStatement(ExpressionSyntax *node) {
         return nullptr;
     }
 
+    ForExpressionSyntax *forExpressionSyntax = dynamic_cast<ForExpressionSyntax *>(node);
+    if (forExpressionSyntax) {
+        int *pCount = static_cast<int *>(evaluateExpression(forExpressionSyntax->getCount()));
+        if (pCount == nullptr)
+            return nullptr;
+
+        int count = *pCount;
+        string name = forExpressionSyntax->getIdentifier()->getIdentifierToken()->getText();
+        bool exists = mVariables->find(name) != mVariables->end();
+
+        if (!exists)
+            (*mVariables)[name] = new int(0);
+        
+        while (*static_cast<int *>((*mVariables)[name]) < count) {
+            void *result = evaluateStatement(forExpressionSyntax->getStatment());
+
+            if (result == nullptr)
+                return nullptr;
+
+            (*static_cast<int *>((*mVariables)[name]))++;
+        }
+
+        if (!exists)
+            mVariables->erase(name);
+
+        return new int(1);
+    }
+
     return evaluateExpression(node);
 }
 
@@ -48,7 +76,7 @@ void *Evaluator::evaluateExpression(ExpressionSyntax *node) {
 
     AssignmentExpressionSyntax *assignmentExpression = dynamic_cast<AssignmentExpressionSyntax *>(node);
     if (assignmentExpression) {
-        string name = assignmentExpression->getIdentifierToken()->getText();
+        string name = assignmentExpression->getIdentifierToken()->getIdentifierToken()->getText();
         void *value = evaluateExpression(assignmentExpression->getExpression());
 
         if (value == nullptr)
@@ -72,7 +100,7 @@ void *Evaluator::evaluateExpression(ExpressionSyntax *node) {
         else if (unaryExpression->getOperator()->getKind() == BangToken)
             return new int(!operand);
 
-        throw runtime_error("Unexpected unary operator " + to_string(unaryExpression->getOperator()->getKind()));
+        return nullptr;
     }
 
     BinaryExpressionSyntax *binaryExpression = dynamic_cast<BinaryExpressionSyntax *>(node);
@@ -117,7 +145,7 @@ void *Evaluator::evaluateExpression(ExpressionSyntax *node) {
             case SmallerEqualToken:
                 return new int(left <= right);
             default:
-                throw runtime_error("Unexpected binary operator");
+                return nullptr;
         }
     }
 
@@ -125,5 +153,5 @@ void *Evaluator::evaluateExpression(ExpressionSyntax *node) {
     if (parenthesizedExpression)
         return evaluateExpression(parenthesizedExpression->getExpression());
 
-    throw runtime_error("Unexpected node");
+    return nullptr;
 }

@@ -161,15 +161,36 @@ enum SyntaxKind {
      */
     ParenthesizedExpression,
 
-    /**
-     * @brief Represents an if expression token.
-     */
-    IfExpression,
 
     /**
      * @brief Represents a statement token.
      */
     Statement,
+
+    /**
+     * @brief Represents a for expression token.
+     */
+    ForExpression,
+
+    /**
+     * @brief Represents a for token.
+     */
+    ForToken,
+
+    /**
+     * @brief Represents a do token.
+     */
+    DoToken,
+
+    /**
+     * @brief Represents a colon token.
+     */
+    ColonToken,
+
+    /**
+     * @brief Represents an if expression token.
+     */
+    IfExpression,
 
     /**
      * @brief Represents a if token.

@@ -70,6 +70,8 @@ SyntaxToken Lexer::lex() {
         return SyntaxToken(OpenParenthesisToken, nextPos(), "(");
     else if (current() == ')')
         return SyntaxToken(CloseParenthesisToken, nextPos(), ")");
+    else if (current() == ':')
+        return SyntaxToken(ColonToken, nextPos(), ":");
     else if (current() == '&' && lookAhead() == '&') {
         nextPos();
         return SyntaxToken(AmpersandAmpersandToken, nextPos(), "&&");

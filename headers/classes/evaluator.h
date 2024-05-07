@@ -10,6 +10,7 @@
 #include "../utils/binaryexpressionsyntax.h"
 #include "../utils/parenthesizedexpressionsyntax.h"
 #include "../utils/ifexpressionsyntax.h"
+#include "../utils/forexpressionsyntax.h"
 
 /**
  * @file evaluator.h

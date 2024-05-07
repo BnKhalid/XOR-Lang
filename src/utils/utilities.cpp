@@ -74,6 +74,15 @@ string Utilities::parseSyntaxKind(SyntaxKind kind) {
             return "If Token";
         case ThenToken:
             return "Then Token";
+        case ForExpression:
+            return "For Expression";
+        case ForToken:
+            return "For Token";
+        case DoToken:
+            return "Do Token";
+        case ColonToken:
+            return "Colon Token";
+
         default:
             return "Bad Token";
     }
@@ -88,6 +97,11 @@ SyntaxKind Utilities::getKind(string text) {
         return IfToken;
     else if (text == "then")
         return ThenToken;
+    else if (text == "for")
+        return ForToken;
+    else if (text == "do")
+        return DoToken;
+
     else
         return IdentifierToken;
 }
