@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "../errors/error.h"
-#include "../errors/illigalcharactererror.h"
+#include "../errors/illegalcharactererror.h"
 #include "../errors/runtimeerror.h"
 #include "../errors/syntaxerror.h"
 
