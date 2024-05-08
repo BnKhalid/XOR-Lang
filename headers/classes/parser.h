@@ -4,6 +4,7 @@
 #include "lexer.h"
 #include "../utils/stringexpressionsyntax.h"
 #include "../utils/literalexpressionsyntax.h"
+#include "../utils/listexpressionsyntax.h"
 #include "../utils/unaryexpressionsyntax.h"
 #include "../utils/binaryexpressionsyntax.h"
 #include "../utils/parenthesizedexpressionsyntax.h"
@@ -48,15 +49,27 @@ public:
     ExpressionSyntax *parseStatementExpression();
 
     /**
-     * @brief Parses an expression.
+     * @brief Parses an assignment expression.
      * @return A pointer to the parsed expression syntax node.
      */
     ExpressionSyntax *parseAssignmentExpression();
 
     /**
-     * @brief Parses a binary expression.
-     * @param precedence The precedence of the binary operator.
-     * @return A pointer to the parsed binary expression syntax node.
+     * @brief Parses a list expression.
+     * @return A pointer to the parsed list expression syntax node.
+     */
+    ExpressionSyntax *parseListExpression();
+
+    /**
+     * @brief Parses a list term expression.
+     * @return A pointer to the parsed list term expression syntax node.
+     */
+    ExpressionSyntax *parseListTermExpression();
+
+    /**
+     * @brief Parses a term expression.
+     * @param parentPrecedence The precedence of the parent expression.
+     * @return A pointer to the parsed term expression syntax node.
      */
     ExpressionSyntax *parseExpression(int parentPrecedence = 0);
 

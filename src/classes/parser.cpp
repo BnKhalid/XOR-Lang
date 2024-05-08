@@ -18,6 +18,9 @@ Parser::Parser(string line, map<string, Value> *variables) {
 }
 
 SyntaxTree *Parser::parse() {
+    if (!mErrors.empty())
+        return new SyntaxTree(mErrors, nullptr, SyntaxToken(EndOfLineToken, 0, ""));
+
     ExpressionSyntax *expression = parseStatementExpression();
     SyntaxToken endOfLineToken = *match(EndOfLineToken);
 
@@ -66,7 +69,48 @@ ExpressionSyntax *Parser::parseAssignmentExpression() {
         return new AssignmentExpressionSyntax(identifierToken, operatorToken, right);
     }
 
-    return parseExpression();
+    return parseListExpression();
+}
+
+ExpressionSyntax *Parser::parseListExpression() {
+    ExpressionSyntax *left = parseListTermExpression();
+
+    while (true) {
+        if (current()->getKind() != PlusToken)
+            break;
+
+        SyntaxToken *operatorToken = nextToken();
+
+        ExpressionSyntax *right = parseListTermExpression();
+
+        left = new BinaryExpressionSyntax(left, operatorToken, right);
+    }
+
+    return left;
+}
+
+ExpressionSyntax *Parser::parseListTermExpression() {
+    if (current()->getKind() != OpenSquareBracketToken)
+        return parseExpression();
+
+    SyntaxToken *openToken = match(OpenSquareBracketToken);
+    vector<ExpressionSyntax *> expressions;
+
+    ExpressionSyntax *expression = parseListExpression();
+
+    while (true) {
+        expressions.push_back(expression);
+
+        if (current()->getKind() == CloseSquareBracketToken
+            || match(CommaToken)->getKind() != CommaToken)
+            break;
+
+        expression = parseListExpression();
+    }
+
+    SyntaxToken *closeToken = match(CloseSquareBracketToken);
+
+    return new ListExpressionSyntax(openToken, expressions, closeToken);
 }
 
 ExpressionSyntax *Parser::parseExpression(int parentPrecedence) {
@@ -86,7 +130,7 @@ ExpressionSyntax *Parser::parseExpression(int parentPrecedence) {
     while (true) {
         int BinaryPrecedence = getBinaryOperatorPrecedence(current()->getKind());
 
-        if (BinaryPrecedence == 0 || BinaryPrecedence <= parentPrecedence)
+        if (BinaryPrecedence == 0 || BinaryPrecedence <= parentPrecedence || peek(1)->getKind() == OpenSquareBracketToken)
             break;
 
         SyntaxToken *operatorToken = nextToken();

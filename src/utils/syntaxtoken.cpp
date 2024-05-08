@@ -16,7 +16,7 @@ void SyntaxToken::print() {
     cout << "'" << mText << "' ";
     cout << "at " << mPosition << " ";
     // cout << "with kind " << parseSyntaxKind(mKind) << " ";
-    Utilities::printValue(mVal);
+    Utilities::tryGetVal(mVal);
     cout << '\n';
 }
 

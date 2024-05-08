@@ -39,10 +39,16 @@ public:
     static void print(SyntaxNode *node, string intend, bool isLast);
 
     /**
-     * @brief Prints the value of a given token.
-     * @param val The value to be printed.
+     * @brief Prints the value of a given value.
+     * @param value The value to be printed.
      */
-    static void printValue(Value al);
+    static void printVal(Value value);
+
+    /**
+     * @brief Prints the value of a given token.
+     * @param value The value to be printed.
+     */
+    static void tryGetVal(Value value);
 
     /**
      * @brief Prints the list of errors stored in the error list.

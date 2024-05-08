@@ -7,6 +7,7 @@
 #include "../utils/assignmentexpressionsyntax.h"
 #include "../utils/stringexpressionsyntax.h"
 #include "../utils/literalexpressionsyntax.h"
+#include "../utils/listexpressionsyntax.h"
 #include "../utils/unaryexpressionsyntax.h"
 #include "../utils/binaryexpressionsyntax.h"
 #include "../utils/parenthesizedexpressionsyntax.h"

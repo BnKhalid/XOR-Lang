@@ -16,6 +16,10 @@ string Utilities::parseSyntaxKind(SyntaxKind kind) {
             return "Open Parenthesis Token";
         case CloseParenthesisToken:
             return "Close Parenthesis Token";
+        case OpenSquareBracketToken:
+            return "Open Square Bracket Token";
+        case CloseSquareBracketToken:
+            return "Close Square Bracket Token";
 
         case EqualToken:
             return "Equal Token";
@@ -63,6 +67,8 @@ string Utilities::parseSyntaxKind(SyntaxKind kind) {
             return "Literal Expression";
         case StringExpression:
             return "String Expression";
+        case ListExpression:
+            return "List Expression";
         case UnaryExpression:
             return "Unary Expression";
         case BinaryExpression:
@@ -115,13 +121,14 @@ SyntaxKind Utilities::getKind(string text) {
 }
 
 void Utilities::print(SyntaxNode *node, string intend, bool isLast) {
+    if (node == nullptr) return;
     string mark = isLast ? "└── " : "├── ";
 
     cout << intend << mark << parseSyntaxKind(node->getKind()) << ' ';
 
     SyntaxToken *token = dynamic_cast<SyntaxToken *>(node);
     if (token)
-        printValue(token->getValue());
+        tryGetVal(token->getValue());
 
     cout << '\n';
 
@@ -133,21 +140,39 @@ void Utilities::print(SyntaxNode *node, string intend, bool isLast) {
         print(child, intend, child == children.back());
 }
 
-void Utilities::printValue(Value value) {
+void Utilities::printVal(Value value) {
     if (value.val == nullptr) return;
+
     switch (value.type) {
         case ValueType::Number:
-            cout << "Value: " << *static_cast<int *>(value.val);
+            cout << *static_cast<int *>(value.val);
             break;
         case ValueType::String:
-            cout << "Value: " << *static_cast<string *>(value.val);
+            cout << *static_cast<string *>(value.val);
             break;
         case ValueType::Boolean:
-            cout << "Value: " << ((*static_cast<bool *>(value.val)) ? "true" : "false");
+            cout << ((*static_cast<bool *>(value.val)) ? "true" : "false");
             break;
+        case ValueType::List: {
+            vector<Value> values = *static_cast<vector<Value> *>(value.val);
+            cout << "[ ";
+            for (size_t i = 0; i < values.size(); i++) {
+                printVal(values[i]);
+                if (i != values.size() - 1)
+                    cout << ", ";
+            }
+            cout << " ]";
+            break;
+        }
         default:
             break;
     }
+}
+
+void Utilities::tryGetVal(Value value) {
+    if (value.val == nullptr) return;
+    cout << "Value: ";
+    printVal(value);
 }
 
 void Utilities::printErrors(ErrorList errors) {
@@ -176,17 +201,7 @@ void Utilities::printErrors(ErrorList errors) {
 
 void Utilities::printResult(Value result) {
     if (result.val == nullptr) return;
-    switch (result.type) {
-        case ValueType::Number:
-            cout << "The answer is: " << *static_cast<int *>(result.val) << '\n';
-            break;
-        case ValueType::String:
-            cout << "The answer is: " << *static_cast<string *>(result.val) << '\n';
-            break;
-        case ValueType::Boolean:
-            cout << "The answer is: " << ((*static_cast<bool *>(result.val)) ? "true" : "false") << '\n';
-            break;
-        default:
-            break;
-    }
+    cout << "The answer is: ";
+    printVal(result);
+    cout << '\n';
 }

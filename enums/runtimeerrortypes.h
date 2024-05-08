@@ -22,5 +22,10 @@ enum class RuntimeErrorType {
     /**
      * @brief Represents an invalid operation error.
      */
-    INVALID_OPERATOR
+    INVALID_OPERATOR,
+
+    /**
+     * @brief Represents an invalid expression error.
+     */
+    INVALID_EXPRESSION,
 };

@@ -23,6 +23,9 @@ string RuntimeError::getMessage() {
         case RuntimeErrorType::INVALID_OPERATOR:
             message += "Invalid operator \"" + mText + "\"\n";
             break;
+        case RuntimeErrorType::INVALID_EXPRESSION:
+            message += "Invalid expression \"" + mText + "\"\n";
+            break;
     }
     return message;
 }

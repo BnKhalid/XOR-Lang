@@ -70,8 +70,14 @@ SyntaxToken Lexer::lex() {
         return SyntaxToken(OpenParenthesisToken, nextPos(), "(");
     else if (current() == ')')
         return SyntaxToken(CloseParenthesisToken, nextPos(), ")");
+    else if (current() == '[')
+        return SyntaxToken(OpenSquareBracketToken, nextPos(), "[");
+    else if (current() == ']')
+        return SyntaxToken(CloseSquareBracketToken, nextPos(), "]");
     else if (current() == ':')
         return SyntaxToken(ColonToken, nextPos(), ":");
+    else if (current() == ',')
+        return SyntaxToken(CommaToken, nextPos(), ",");
     else if (current() == '&' && lookAhead() == '&') {
         nextPos();
         return SyntaxToken(AmpersandAmpersandToken, nextPos(), "&&");
@@ -109,15 +115,14 @@ SyntaxToken Lexer::lex() {
         string text = "";
 
         while (position < (int)mLine.length() && current() != '\"') {
+            text += current();
+            nextPos();
+
             if (current() == '\0') {
                 mErrors.throwError(new IlligalCharacterError("\""));
                 return SyntaxToken(BadToken, start, text);
             }
-
-            text += current();
-            nextPos();
         }
-
         nextPos();
         return SyntaxToken(StringToken, start, text, Value(new string(text), ValueType::String));
     }

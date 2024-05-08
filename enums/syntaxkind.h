@@ -40,6 +40,16 @@ enum SyntaxKind {
     CloseParenthesisToken,
 
     /**
+     * @brief Represents an open square bracket token.
+     */
+    OpenSquareBracketToken,
+
+    /**
+     * @brief Represents a close square bracket token.
+     */
+    CloseSquareBracketToken,
+
+    /**
      * @brief Represents an equal token.
      */
     EqualToken,
@@ -109,6 +119,11 @@ enum SyntaxKind {
      */
     BangToken,
 
+    /**
+     * @brief Represents a comma token.
+     */
+    CommaToken,
+
 
     /**
      * @brief Represents a whitespace token.
@@ -170,6 +185,11 @@ enum SyntaxKind {
      * @brief Represents a parenthesized expression token.
      */
     ParenthesizedExpression,
+
+    /**
+     * @brief Represents a list expression token.
+     */
+    ListExpression,
 
     /**
      * @brief Represents a loop expression token.

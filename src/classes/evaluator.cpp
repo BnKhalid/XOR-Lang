@@ -19,7 +19,7 @@ Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
             return {};
 
         map<string, Value> variablesSnapshot = *mVariables;
-        
+
         bool condition = *pCondition;
         if (condition)
             return evaluateStatement(ifExpressionSyntax->getStatment());
@@ -117,6 +117,19 @@ Value Evaluator::evaluateExpression(ExpressionSyntax *node) {
         Value value = (*mVariables)[name];
 
         return value;
+    }
+
+    ListExpressionSyntax *listExpression = dynamic_cast<ListExpressionSyntax *>(node);
+    if (listExpression) {
+        vector<Value> values;
+        for (auto expression : listExpression->getListObjects()) {
+            Value value = evaluateExpression(expression);
+            if (value.val == nullptr)
+                return {};
+            values.push_back(value);
+        }
+
+        return Value(new vector<Value>(values), ValueType::List);
     }
 
     AssignmentExpressionSyntax *assignmentExpression = dynamic_cast<AssignmentExpressionSyntax *>(node);
@@ -225,7 +238,47 @@ Value Evaluator::evaluateExpression(ExpressionSyntax *node) {
             return {};
         }
 
-        return {};
+        else if (lValue.type == ValueType::Boolean && rValue.type == ValueType::Boolean) {
+            bool left = *static_cast<bool *>(lValue.val);
+            bool right = *static_cast<bool *>(rValue.val);
+
+            SyntaxToken *operatorToken = binaryExpression->getOperator();
+            switch (operatorToken->getKind()) {
+                case AmpersandAmpersandToken:
+                    return Value(new bool(left && right), ValueType::Boolean);
+                case PipePipeToken:
+                    return Value(new bool(left || right), ValueType::Boolean);
+                case EqualEqualToken:
+                    return Value(new bool(left == right), ValueType::Boolean);
+                case BangEqualToken:
+                    return Value(new bool(left != right), ValueType::Boolean);
+                default:
+                    mErrors->throwError(new RuntimeError(operatorToken->getText(), RuntimeErrorType::INVALID_OPERATOR));
+                    return {};
+            }
+
+            return {};
+        }
+
+        else if (lValue.type == ValueType::List && rValue.type == ValueType::List) {
+            vector<Value> left = *static_cast<vector<Value> *>(lValue.val);
+            vector<Value> right = *static_cast<vector<Value> *>(rValue.val);
+
+            SyntaxToken *operatorToken = binaryExpression->getOperator();
+            switch (operatorToken->getKind()) {
+                case PlusToken: {
+                    left.insert(left.end(), right.begin(), right.end());
+                    return Value(new vector<Value>(left), ValueType::List);
+                }
+                default:
+                    mErrors->throwError(new RuntimeError(operatorToken->getText(), RuntimeErrorType::INVALID_OPERATOR));
+                    return {};
+            }
+
+            return {};
+        }
+
+        mErrors->throwError(new RuntimeError("Binary", RuntimeErrorType::INVALID_EXPRESSION));
     }
 
     ParenthesizedExpressionSyntax *parenthesizedExpression = dynamic_cast<ParenthesizedExpressionSyntax *>(node);
@@ -235,4 +288,5 @@ Value Evaluator::evaluateExpression(ExpressionSyntax *node) {
     }
 
     return {};
+
 }
