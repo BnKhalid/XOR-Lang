@@ -3,14 +3,14 @@
 
 using namespace std;
 
-SyntaxToken::SyntaxToken(SyntaxKind kind, int position, string text, void *val)
+SyntaxToken::SyntaxToken(SyntaxKind kind, int position, string text, Value val)
     : mKind(kind)
     , mPosition(position)
     , mText(text)
     , mVal(val) {}
 
 SyntaxToken::SyntaxToken(SyntaxKind kind, int position, string text)
-    : SyntaxToken(kind, position, text, nullptr) {}
+    : SyntaxToken(kind, position, text, {}) {}
 
 void SyntaxToken::print() {
     cout << "'" << mText << "' ";
@@ -32,7 +32,7 @@ string SyntaxToken::getText() {
     return mText;
 }
 
-void *SyntaxToken::getValue() {
+Value SyntaxToken::getValue() {
     return mVal;
 }
 

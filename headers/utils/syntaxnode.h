@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "../../types/value.h"
 #include "../../enums/syntaxkind.h"
 
 using namespace std;

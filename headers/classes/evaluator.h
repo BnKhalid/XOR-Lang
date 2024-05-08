@@ -5,6 +5,7 @@
 #include "../utils/expressionsyntax.h"
 #include "../utils/nameexpressionsyntax.h"
 #include "../utils/assignmentexpressionsyntax.h"
+#include "../utils/stringexpressionsyntax.h"
 #include "../utils/literalexpressionsyntax.h"
 #include "../utils/unaryexpressionsyntax.h"
 #include "../utils/binaryexpressionsyntax.h"
@@ -32,24 +33,24 @@ public:
      * @param root The root expression to be evaluated.
      * @param variables A pointer to the map of variables used in the expression.
      */
-    Evaluator(ExpressionSyntax *root, map<string, void *> *variables, ErrorList *errors);
+    Evaluator(ExpressionSyntax *root, map<string, Value> *variables, ErrorList *errors);
 
     /**
      * @brief Evaluates the root expression and returns the result.
      * @return The result of the evaluation.
      */
-    void *evaluate();
+    Value evaluate();
 
     /**
      * @brief Evaluates the given statement node.
      * @param node The statement node to be evaluated.
      * @return The result of the evaluation.
      */
-    void *evaluateStatement(ExpressionSyntax *node);
+    Value evaluateStatement(ExpressionSyntax *node);
 
 private:
     ExpressionSyntax *mRoot; // The root expression to be evaluated.
-    map<string, void *> *mVariables; // The map of variables used in the expression.
+    map<string, Value> *mVariables; // The map of variables used in the expression.
     ErrorList *mErrors; // The list of errors that occurred during the evaluation.
 
     /**
@@ -57,5 +58,5 @@ private:
      * @param node The expression node to be evaluated.
      * @return The result of the evaluation.
      */
-    void *evaluateExpression(ExpressionSyntax *node);
+    Value evaluateExpression(ExpressionSyntax *node);
 };

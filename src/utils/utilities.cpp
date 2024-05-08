@@ -4,6 +4,8 @@ string Utilities::parseSyntaxKind(SyntaxKind kind) {
     switch (kind) {
         case NumberToken:
             return "Number Token";
+        case StringToken:
+            return "String Token";
         case TrueToken:
             return "True Token";
         case FalseToken:
@@ -59,6 +61,8 @@ string Utilities::parseSyntaxKind(SyntaxKind kind) {
             return "Name Expression";
         case LiteralExpression:
             return "Literal Expression";
+        case StringExpression:
+            return "String Expression";
         case UnaryExpression:
             return "Unary Expression";
         case BinaryExpression:
@@ -129,16 +133,21 @@ void Utilities::print(SyntaxNode *node, string intend, bool isLast) {
         print(child, intend, child == children.back());
 }
 
-void Utilities::printValue(void *val) {
-    if (val == nullptr) return;
-    else if (static_cast<int *>(val))
-        cout << "Value: " << *static_cast<int *>(val);
-    else if (static_cast<double *>(val))
-        cout << "Value: " << *static_cast<double *>(val);
-    else if (static_cast<char *>(val))
-        cout << "Value: " << *static_cast<char *>(val);
-    else if (static_cast<string *>(val))
-        cout << "Value: " << *static_cast<string *>(val);
+void Utilities::printValue(Value value) {
+    if (value.val == nullptr) return;
+    switch (value.type) {
+        case ValueType::Number:
+            cout << "Value: " << *static_cast<int *>(value.val);
+            break;
+        case ValueType::String:
+            cout << "Value: " << *static_cast<string *>(value.val);
+            break;
+        case ValueType::Boolean:
+            cout << "Value: " << *static_cast<bool *>(value.val);
+            break;
+        default:
+            break;
+    }
 }
 
 void Utilities::printErrors(ErrorList errors) {
@@ -165,10 +174,19 @@ void Utilities::printErrors(ErrorList errors) {
     }
 }
 
-void Utilities::printResult(void *result) {
-    if (result == nullptr) return;
-    else if (static_cast<int *>(result))
-        cout << "The answer is: " << *static_cast<int *>(result) << '\n';
-    else if (static_cast<string *>(result))
-        cout << "The answer is: " << *static_cast<string *>(result) << '\n';
+void Utilities::printResult(Value result) {
+    if (result.val == nullptr) return;
+    switch (result.type) {
+        case ValueType::Number:
+            cout << "The answer is: " << *static_cast<int *>(result.val) << '\n';
+            break;
+        case ValueType::String:
+            cout << "The answer is: " << *static_cast<string *>(result.val) << '\n';
+            break;
+        case ValueType::Boolean:
+            cout << "The answer is: " << *static_cast<bool *>(result.val) << '\n';
+            break;
+        default:
+            break;
+    }
 }

@@ -1,10 +1,10 @@
 #include "../../headers/utils/nameexpressionsyntax.h"
 
-NameExpressionSyntax::NameExpressionSyntax(SyntaxToken *nameToken, void *value) 
+NameExpressionSyntax::NameExpressionSyntax(SyntaxToken *nameToken, Value value)
     : mIdenrifierToken(nameToken)
     , mValue(value) {}
 
-NameExpressionSyntax::NameExpressionSyntax(SyntaxToken *nameToken) 
+NameExpressionSyntax::NameExpressionSyntax(SyntaxToken *nameToken)
     : NameExpressionSyntax(nameToken, nameToken->getValue()) {}
 
 SyntaxKind NameExpressionSyntax::getKind() {
@@ -19,7 +19,7 @@ SyntaxToken *NameExpressionSyntax::getIdentifierToken() {
     return mIdenrifierToken;
 }
 
-void *NameExpressionSyntax::getValue() {
+Value NameExpressionSyntax::getValue() {
     return mValue;
 }
 

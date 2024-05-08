@@ -28,7 +28,7 @@ public:
      * @param text The text of the syntax token.
      * @param val The value of the syntax token.
      */
-    SyntaxToken(SyntaxKind kind, int position, string text, void *val);
+    SyntaxToken(SyntaxKind kind, int position, string text, Value val);
 
     /**
      * Constructs a `SyntaxToken` object with the specified kind, position, and text.
@@ -70,7 +70,7 @@ public:
      *
      * @return The value of the syntax token.
      */
-    void *getValue();
+    Value getValue();
 
 private:
     /**
@@ -91,7 +91,7 @@ private:
     /**
      * The value of the syntax token.
      */
-    void *mVal;
+    Value mVal;
 
     /**
      * Returns a vector of SyntaxNode objects representing the children of this SyntaxToken.
@@ -100,4 +100,3 @@ private:
      */
     vector<SyntaxNode *> getChildren();
 };
-

@@ -8,7 +8,7 @@ int main() {
     bool showTree = false;
     int lineNum = 1;
 
-    map<string, void *> variables;
+    map<string, Value> variables;
 
     while (true) {
         cout << lineNum++ << "❯ ";
@@ -31,13 +31,13 @@ int main() {
         SyntaxTree *tree = par.parse();
         ErrorList errors = tree->getErrors();
         Evaluator eval(tree->getRoot(), &variables, &errors);
-        void *result = eval.evaluate();
+        Value result = eval.evaluate();
 
-        // if (showTree)
+        if (showTree) {
             Utilities::print(tree->getRoot(), "", true);
+        }
 
         Utilities::printResult(result);
-
         Utilities::printErrors(errors);
     }
     return 0;

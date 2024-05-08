@@ -42,7 +42,7 @@ public:
      * @brief Prints the value of a given token.
      * @param val The value to be printed.
      */
-    static void printValue(void *val);
+    static void printValue(Value al);
 
     /**
      * @brief Prints the list of errors stored in the error list.
@@ -53,5 +53,5 @@ public:
      * @brief Prints the result of the evaluation.
      * @param result The result to be printed.
      */
-    static void printResult(void *result);
+    static void printResult(Value result);
 };

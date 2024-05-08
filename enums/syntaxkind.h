@@ -10,6 +10,11 @@ enum SyntaxKind {
     NumberToken,
 
     /**
+     * @brief Represents a string token.
+     */
+    StringToken,
+
+    /**
      * @brief Represents a true keyword token.
      */
     TrueToken,
@@ -137,6 +142,11 @@ enum SyntaxKind {
     NameExpression,
 
     /**
+     * @brief Represents a string expression token.
+     */
+    StringExpression,
+
+    /**
      * @brief Represents an assignment expression token.
      */
     AssignmentExpression,
@@ -161,16 +171,21 @@ enum SyntaxKind {
      */
     ParenthesizedExpression,
 
+    /**
+     * @brief Represents a loop expression token.
+     */
+    LoopExpression,
+
+    /**
+     * @brief Represents an if expression token.
+     */
+    IfExpression,
+
 
     /**
      * @brief Represents a statement token.
      */
     Statement,
-
-    /**
-     * @brief Represents a loop expression token.
-     */
-    LoopExpression,
 
     /**
      * @brief Represents a while token.
@@ -191,11 +206,6 @@ enum SyntaxKind {
      * @brief Represents a colon token.
      */
     ColonToken,
-
-    /**
-     * @brief Represents an if expression token.
-     */
-    IfExpression,
 
     /**
      * @brief Represents a if token.

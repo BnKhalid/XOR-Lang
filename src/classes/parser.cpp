@@ -1,6 +1,6 @@
 #include "../../headers/classes/parser.h"
 
-Parser::Parser(string line, map<string, void *> *variables) {
+Parser::Parser(string line, map<string, Value> *variables) {
     mVariables = variables;
     Lexer lex(line, mVariables);
 
@@ -182,6 +182,10 @@ ExpressionSyntax *Parser::parsePrimaryExpression() {
         case IdentifierToken: {
             SyntaxToken *token = match(IdentifierToken);
             return new NameExpressionSyntax(token);
+        }
+        case StringToken: {
+            SyntaxToken *token = match(StringToken);
+            return new StringExpressionSyntax(token);
         }
         default: {
             mErrors.throwError(new SyntaxError(Expression, current()->getKind()));

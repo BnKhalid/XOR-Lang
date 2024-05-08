@@ -28,7 +28,7 @@ public:
      * @param line The input string to be tokenized.
      * @param variables A pointer to the map of variables used in the input string.
      */
-    Lexer(string line, map<string, void *> *variables);
+    Lexer(string line, map<string, Value> *variables);
 
     /**
      * @brief Retrieves the next token from the input string.
@@ -65,7 +65,7 @@ private:
     /**
      * @brief A pointer to the map of variables used in the input string.
      */
-    map<string, void *> *mVariables;
+    map<string, Value> *mVariables;
 
     /**
      * @brief Retrieves the character at the specified offset from the current position in the input string.

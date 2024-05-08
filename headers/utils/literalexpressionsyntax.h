@@ -29,7 +29,7 @@ public:
      * @param numberToken The token representing the number.
      * @param value The value of the number.
      */
-    LiteralExpressionSyntax(SyntaxToken *numberToken, void *value);
+    LiteralExpressionSyntax(SyntaxToken *numberToken, Value value);
 
     /**
      * Gets the kind of the syntax node.
@@ -53,7 +53,7 @@ public:
      * Gets the value of the number expression.
      * @return The value.
      */
-    void *getValue();
+    Value getValue();
 
 private:
     /**
@@ -61,5 +61,5 @@ private:
      */
     SyntaxToken *mNumberToken;
 
-    void *mValue;
+    Value mValue;
 };

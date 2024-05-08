@@ -20,6 +20,9 @@ string RuntimeError::getMessage() {
         case RuntimeErrorType::UNDEFINED_VARIABLE:
             message += "Undefined variable \"" + mText + "\"\n";
             break;
+        case RuntimeErrorType::INVALID_OPERATOR:
+            message += "Invalid operator \"" + mText + "\"\n";
+            break;
     }
     return message;
 }

@@ -1,89 +1,95 @@
 #include "../../headers/classes/evaluator.h"
 
-Evaluator::Evaluator(ExpressionSyntax *root, map<string, void *> *variables, ErrorList *errors)
+Evaluator::Evaluator(ExpressionSyntax *root, map<string, Value> *variables, ErrorList *errors)
     : mRoot(root)
     , mVariables(variables)
     , mErrors(errors) {}
 
-void *Evaluator::evaluate() {
+Value Evaluator::evaluate() {
     if (!mErrors->empty() || mRoot == nullptr)
-        return nullptr;
+        return {};
     return evaluateStatement(mRoot);
 }
 
-void *Evaluator::evaluateStatement(ExpressionSyntax *node) {
+Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
     IfExpressionSyntax *ifExpressionSyntax = dynamic_cast<IfExpressionSyntax *>(node);
     if (ifExpressionSyntax) {
-        int *pCondition = static_cast<int *>(evaluateExpression(ifExpressionSyntax->getCondition()));
+        int *pCondition = static_cast<int *>(evaluateExpression(ifExpressionSyntax->getCondition()).val);
         if (pCondition == nullptr)
-            return nullptr;
+            return {};
 
         int condition = *pCondition;
         if (condition)
             return evaluateStatement(ifExpressionSyntax->getStatment());
 
-        return nullptr;
+        return {};
     }
 
     ForExpressionSyntax *forExpressionSyntax = dynamic_cast<ForExpressionSyntax *>(node);
     if (forExpressionSyntax) {
-        int *pCount = static_cast<int *>(evaluateExpression(forExpressionSyntax->getCount()));
+        int *pCount = static_cast<int *>(evaluateExpression(forExpressionSyntax->getCount()).val);
         if (pCount == nullptr)
-            return nullptr;
+            return {};
 
         int count = *pCount;
         string name = forExpressionSyntax->getIdentifier()->getIdentifierToken()->getText();
         bool exists = mVariables->find(name) != mVariables->end();
 
         if (!exists)
-            (*mVariables)[name] = new int(0);
-        
-        while (*static_cast<int *>((*mVariables)[name]) < count) {
-            void *result = evaluateStatement(forExpressionSyntax->getStatment());
+            (*mVariables)[name] = Value(new int(0), ValueType::Number);
 
-            if (result == nullptr)
-                return nullptr;
+        while (*static_cast<int *>(((*mVariables)[name]).val) < count) {
+            Value result = evaluateStatement(forExpressionSyntax->getStatment());
 
-            (*static_cast<int *>((*mVariables)[name]))++;
+            if (result.val == nullptr)
+                return {};
+
+            (*static_cast<int *>(((*mVariables)[name]).val))++;
         }
 
         if (!exists)
             mVariables->erase(name);
 
-        return new int(1);
+        return Value(new int(1), ValueType::Number);
     }
 
     WhileExpressionSyntax *whileExpressionSyntax = dynamic_cast<WhileExpressionSyntax *>(node);
     if (whileExpressionSyntax) {
-        int *pCondition = static_cast<int *>(evaluateExpression(whileExpressionSyntax->getCondition()));
+        int *pCondition = static_cast<int *>(evaluateExpression(whileExpressionSyntax->getCondition()).val);
         if (pCondition == nullptr)
-            return nullptr;
+            return {};
 
         int condition = *pCondition;
         while (condition) {
-            void *result = evaluateStatement(whileExpressionSyntax->getStatment());
+            Value result = evaluateStatement(whileExpressionSyntax->getStatment());
 
-            if (result == nullptr)
-                return nullptr;
+            if (result.val == nullptr)
+                return {};
 
-            pCondition = static_cast<int *>(evaluateExpression(whileExpressionSyntax->getCondition()));
+            pCondition = static_cast<int *>(evaluateExpression(whileExpressionSyntax->getCondition()).val);
             if (pCondition == nullptr)
-                return nullptr;
+                return {};
 
             condition = *pCondition;
         }
 
-        return new int(1);
+        return Value(new int(1), ValueType::Number);
     }
 
     return evaluateExpression(node);
 }
 
-void *Evaluator::evaluateExpression(ExpressionSyntax *node) {
+Value Evaluator::evaluateExpression(ExpressionSyntax *node) {
     LiteralExpressionSyntax *literalExpression = dynamic_cast<LiteralExpressionSyntax *>(node);
     if (literalExpression) {
-        int val = *static_cast<int *>(literalExpression->getValue());
-        return new int(val);
+        Value val = literalExpression->getValue();
+        return val;
+    }
+
+    StringExpressionSyntax *stringExpression = dynamic_cast<StringExpressionSyntax *>(node);
+    if (stringExpression) {
+        Value val = stringExpression->getValue();
+        return val;
     }
 
     NameExpressionSyntax *nameExpression = dynamic_cast<NameExpressionSyntax *>(node);
@@ -91,19 +97,20 @@ void *Evaluator::evaluateExpression(ExpressionSyntax *node) {
         string name = nameExpression->getIdentifierToken()->getText();
         if (mVariables->find(name) == mVariables->end()) {
             mErrors->throwError(new RuntimeError(name, RuntimeErrorType::UNDEFINED_VARIABLE));
-            return nullptr;
+            return {};
         }
+        Value value = (*mVariables)[name];
 
-        return static_cast<int *>((*mVariables)[name]);
+        return value;
     }
 
     AssignmentExpressionSyntax *assignmentExpression = dynamic_cast<AssignmentExpressionSyntax *>(node);
     if (assignmentExpression) {
         string name = assignmentExpression->getIdentifierToken()->getIdentifierToken()->getText();
-        void *value = evaluateExpression(assignmentExpression->getExpression());
+        Value value = evaluateExpression(assignmentExpression->getExpression());
 
-        if (value == nullptr)
-            return nullptr;
+        if (value.val == nullptr)
+            return {};
 
         (*mVariables)[name] = value;
         return value;
@@ -111,70 +118,106 @@ void *Evaluator::evaluateExpression(ExpressionSyntax *node) {
 
     UnaryExpressionSyntax *unaryExpression = dynamic_cast<UnaryExpressionSyntax *>(node);
     if (unaryExpression) {
-        int *pOperand = static_cast<int *>(evaluateExpression(unaryExpression->getOperand()));
-        if (pOperand == nullptr)
-            return nullptr;
+        Value result = evaluateExpression(unaryExpression->getOperand());
+        if (result.val == nullptr || result.type != ValueType::Number)
+            return {};
 
-        int operand = *pOperand;
+        int operand = *static_cast<int *>(result.val);
         if (unaryExpression->getOperator()->getKind() == PlusToken)
-            return new int(operand);
+            return Value(new int(operand), ValueType::Number);
         else if (unaryExpression->getOperator()->getKind() == MinusToken)
-            return new int(-operand);
+            return Value(new int(-operand), ValueType::Number);
         else if (unaryExpression->getOperator()->getKind() == BangToken)
-            return new int(!operand);
+            return Value(new int(!operand), ValueType::Number);
 
-        return nullptr;
+        return {};
     }
 
     BinaryExpressionSyntax *binaryExpression = dynamic_cast<BinaryExpressionSyntax *>(node);
     if (binaryExpression) {
-        int *pLeft = static_cast<int *>(evaluateExpression(binaryExpression->getLeft()));
-        int *pRight = static_cast<int *>(evaluateExpression(binaryExpression->getRight()));
+        auto lValue = evaluateExpression(binaryExpression->getLeft());
+        auto rValue = evaluateExpression(binaryExpression->getRight());
 
-        if (pLeft == nullptr || pRight == nullptr)
-            return nullptr;
+        if (lValue.type == ValueType::String && rValue.type == ValueType::String) {
+            string left = *static_cast<string *>(lValue.val);
+            string right = *static_cast<string *>(rValue.val);
 
-        int left = *pLeft;
-        int right = *pRight;
+            SyntaxToken *operatorToken = binaryExpression->getOperator();
 
-        switch (binaryExpression->getOperator()->getKind()) {
-            case PlusToken:
-                return new int(left + right);
-            case MinusToken:
-                return new int(left - right);
-            case StarToken:
-                return new int(left * right);
-            case SlashToken: {
-                if (right == 0) {
-                    mErrors->throwError(new RuntimeError("", RuntimeErrorType::DIVISION_BY_ZERO));
-                    return nullptr;
-                }
-                return new int(left / right);
+            switch (operatorToken->getKind()) {
+                case PlusToken:
+                    return Value(new string(left + right), ValueType::String);
+                case EqualEqualToken:
+                    return Value(new int(left == right), ValueType::String);
+                case BangEqualToken:
+                    return Value(new int(left != right), ValueType::String);
+                case BiggerToken:
+                    return Value(new int(left > right), ValueType::String);
+                case SmallerToken:
+                    return Value(new int(left < right), ValueType::String);
+                case BiggerEqualToken:
+                    return Value(new int(left >= right), ValueType::String);
+                case SmallerEqualToken:
+                    return Value(new int(left <= right), ValueType::String);
+                default:
+                    mErrors->throwError(new RuntimeError(operatorToken->getText(), RuntimeErrorType::INVALID_OPERATOR));
+                    return {};
             }
-            case AmpersandAmpersandToken:
-                return new int(left && right);
-            case PipePipeToken:
-                return new int(left || right);
-            case EqualEqualToken:
-                return new int(left == right);
-            case BangEqualToken:
-                return new int(left != right);
-            case BiggerToken:
-                return new int(left > right);
-            case SmallerToken:
-                return new int(left < right);
-            case BiggerEqualToken:
-                return new int(left >= right);
-            case SmallerEqualToken:
-                return new int(left <= right);
-            default:
-                return nullptr;
+
+            return {};
         }
+
+        else if (lValue.type == ValueType::Number && rValue.type == ValueType::Number) {
+            int left = *static_cast<int *>(lValue.val);
+            int right = *static_cast<int *>(rValue.val);
+
+            SyntaxToken *operatorToken = binaryExpression->getOperator();
+            switch (operatorToken->getKind()) {
+                case PlusToken:
+                    return Value(new int(left + right), ValueType::Number);
+                case MinusToken:
+                    return Value(new int(left - right), ValueType::Number);
+                case StarToken:
+                    return Value(new int(left * right), ValueType::Number);
+                case SlashToken: {
+                    if (right == 0) {
+                        mErrors->throwError(new RuntimeError("", RuntimeErrorType::DIVISION_BY_ZERO));
+                        return {};
+                    }
+                    return Value(new int(left / right), ValueType::Number);
+                }
+                case AmpersandAmpersandToken:
+                    return Value(new int(left && right), ValueType::Number);
+                case PipePipeToken:
+                    return Value(new int(left || right), ValueType::Number);
+                case EqualEqualToken:
+                    return Value(new int(left == right), ValueType::Number);
+                case BangEqualToken:
+                    return Value(new int(left != right), ValueType::Number);
+                case BiggerToken:
+                    return Value(new int(left > right), ValueType::Number);
+                case SmallerToken:
+                    return Value(new int(left < right), ValueType::Number);
+                case BiggerEqualToken:
+                    return Value(new int(left >= right), ValueType::Number);
+                case SmallerEqualToken:
+                    return Value(new int(left <= right), ValueType::Number);
+                default:
+                    mErrors->throwError(new RuntimeError(operatorToken->getText(), RuntimeErrorType::INVALID_OPERATOR));
+                    return {};
+            }
+
+            return {};
+        }
+
+        return {};
     }
 
     ParenthesizedExpressionSyntax *parenthesizedExpression = dynamic_cast<ParenthesizedExpressionSyntax *>(node);
-    if (parenthesizedExpression)
-        return evaluateExpression(parenthesizedExpression->getExpression());
+    if (parenthesizedExpression) {
+        Value result = evaluateExpression(parenthesizedExpression->getExpression());
+        return result;
+    }
 
-    return nullptr;
+    return {};
 }

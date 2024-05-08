@@ -18,4 +18,9 @@ enum class RuntimeErrorType {
      * @brief Represents a division by zero error.
      */
     DIVISION_BY_ZERO,
+
+    /**
+     * @brief Represents an invalid operation error.
+     */
+    INVALID_OPERATOR
 };

@@ -1,6 +1,6 @@
 #include "../../headers/classes/lexer.h"
 
-Lexer::Lexer(string line, map<string, void *> *variables)
+Lexer::Lexer(string line, map<string, Value> *variables)
     : mLine(line)
     , position(0)
     , mVariables(variables) {}
@@ -25,7 +25,7 @@ SyntaxToken Lexer::lex() {
 
         void *val;
         if (ValueParser::tryParseInt(text, &val))
-            return SyntaxToken(NumberToken, start, text, val);
+            return SyntaxToken(NumberToken, start, text, Value(val, ValueType::Number));
         
         mErrors.throwError(new RuntimeError(text, RuntimeErrorType::OVERFLOW));
         return SyntaxToken(BadToken, start, text);
@@ -52,7 +52,7 @@ SyntaxToken Lexer::lex() {
         SyntaxKind kind = Utilities::getKind(text);
 
         if (kind == TrueToken || kind == FalseToken)
-            return SyntaxToken(kind, start, text, new int(kind == TrueToken));
+            return SyntaxToken(kind, start, text, Value(new int(kind == TrueToken), ValueType::Boolean));
         else if (kind == IdentifierToken && mVariables->find(text) != mVariables->end())
             return SyntaxToken(IdentifierToken, start, text, mVariables->at(text));
         else
@@ -104,6 +104,23 @@ SyntaxToken Lexer::lex() {
         return SyntaxToken(BiggerToken, nextPos(), ">");
     else if (current() == '<')
         return SyntaxToken(SmallerToken, nextPos(), "<");
+    else if (current() == '\"') {
+        int start = nextPos();
+        string text = "";
+
+        while (position < (int)mLine.length() && current() != '\"') {
+            if (current() == '\0') {
+                mErrors.throwError(new IlligalCharacterError("\""));
+                return SyntaxToken(BadToken, start, text);
+            }
+
+            text += current();
+            nextPos();
+        }
+
+        nextPos();
+        return SyntaxToken(StringToken, start, text, Value(new string(text), ValueType::String));
+    }
 
     string text = mLine.substr(position, 1);
     mErrors.throwError(new IlligalCharacterError(text));
