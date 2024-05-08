@@ -126,6 +126,11 @@ enum SyntaxKind {
 
 
     /**
+     * @brief Represents a comment token.
+     */
+    CommentToken,
+
+    /**
      * @brief Represents a whitespace token.
      */
     WhiteSpaceToken,
@@ -149,6 +154,11 @@ enum SyntaxKind {
      * @brief Represents an expression token.
      */
     Expression,
+
+    /**
+     * @brief Represents a comment expression token.
+     */
+    CommentExpression,
 
     /**
      * @brief Represents a name expression token.

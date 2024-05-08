@@ -95,6 +95,11 @@ Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
 }
 
 Value Evaluator::evaluateExpression(ExpressionSyntax *node) {
+    CommentExpressionSyntax *commentExpression = dynamic_cast<CommentExpressionSyntax *>(node);
+    if (commentExpression) {
+        return Value(new bool(1), ValueType::Boolean);
+    }
+
     LiteralExpressionSyntax *literalExpression = dynamic_cast<LiteralExpressionSyntax *>(node);
     if (literalExpression) {
         Value val = literalExpression->getValue();

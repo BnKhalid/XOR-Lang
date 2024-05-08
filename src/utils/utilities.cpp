@@ -49,6 +49,10 @@ string Utilities::parseSyntaxKind(SyntaxKind kind) {
             return "Smaller Equal Token";
         case BangToken:
             return "Bang Token";
+        case CommaToken:
+            return "Comma Token";
+        case CommentToken:
+            return "Comment Token";
 
         case WhiteSpaceToken:
             return "White Space Token";
@@ -59,6 +63,8 @@ string Utilities::parseSyntaxKind(SyntaxKind kind) {
 
         case Expression:
             return "Expression";
+        case CommentExpression:
+            return "Comment Expression";
         case AssignmentExpression:
             return "Assignment Expression";
         case NameExpression:

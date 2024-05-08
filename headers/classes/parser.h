@@ -2,6 +2,7 @@
 
 #include <map>
 #include "lexer.h"
+#include "../utils/commentexpressionsyntax.h"
 #include "../utils/stringexpressionsyntax.h"
 #include "../utils/literalexpressionsyntax.h"
 #include "../utils/listexpressionsyntax.h"

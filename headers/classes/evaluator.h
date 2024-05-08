@@ -2,6 +2,7 @@
 
 #include <stdexcept>
 #include <map>
+#include "../utils/commentexpressionsyntax.h"
 #include "../utils/expressionsyntax.h"
 #include "../utils/nameexpressionsyntax.h"
 #include "../utils/assignmentexpressionsyntax.h"

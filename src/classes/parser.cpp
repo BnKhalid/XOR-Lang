@@ -143,6 +143,42 @@ ExpressionSyntax *Parser::parseExpression(int parentPrecedence) {
     return left;
 }
 
+ExpressionSyntax *Parser::parsePrimaryExpression() {
+    switch (current()->getKind()) {
+        case OpenParenthesisToken: {
+            SyntaxToken *left = match(OpenParenthesisToken);
+            ExpressionSyntax *expression = parseExpression();
+            SyntaxToken *right = match(CloseParenthesisToken);
+            return new ParenthesizedExpressionSyntax(left, expression, right);
+        }
+        case TrueToken:
+        case FalseToken: {
+            SyntaxToken *token = nextToken();
+            return new LiteralExpressionSyntax(token);
+        }
+        case NumberToken: {
+            SyntaxToken *token = match(NumberToken);
+            return new LiteralExpressionSyntax(token);
+        }
+        case IdentifierToken: {
+            SyntaxToken *token = match(IdentifierToken);
+            return new NameExpressionSyntax(token);
+        }
+        case StringToken: {
+            SyntaxToken *token = match(StringToken);
+            return new StringExpressionSyntax(token);
+        }
+        case CommentToken: {
+            SyntaxToken *token = match(CommentToken);
+            return new CommentExpressionSyntax(token);
+        }
+        default: {
+            mErrors.throwError(new SyntaxError(Expression, current()->getKind()));
+            return new LiteralExpressionSyntax(new SyntaxToken(BadToken, mPosition, ""));
+        }
+    }
+}
+
 int Parser::getUnaryOperatorPrecedence(SyntaxKind kind) {
     switch (kind) {
         case PlusToken:
@@ -204,38 +240,6 @@ SyntaxToken *Parser::match(SyntaxKind kind) {
     mErrors.throwError(new SyntaxError(kind, current()->getKind()));
 
     return new SyntaxToken(BadToken, mPosition, "");
-}
-
-ExpressionSyntax *Parser::parsePrimaryExpression() {
-    switch (current()->getKind()) {
-        case OpenParenthesisToken: {
-            SyntaxToken *left = match(OpenParenthesisToken);
-            ExpressionSyntax *expression = parseExpression();
-            SyntaxToken *right = match(CloseParenthesisToken);
-            return new ParenthesizedExpressionSyntax(left, expression, right);
-        }
-        case TrueToken:
-        case FalseToken: {
-            SyntaxToken *token = nextToken();
-            return new LiteralExpressionSyntax(token);
-        }
-        case NumberToken: {
-            SyntaxToken *token = match(NumberToken);
-            return new LiteralExpressionSyntax(token);
-        }
-        case IdentifierToken: {
-            SyntaxToken *token = match(IdentifierToken);
-            return new NameExpressionSyntax(token);
-        }
-        case StringToken: {
-            SyntaxToken *token = match(StringToken);
-            return new StringExpressionSyntax(token);
-        }
-        default: {
-            mErrors.throwError(new SyntaxError(Expression, current()->getKind()));
-            return new LiteralExpressionSyntax(new SyntaxToken(BadToken, mPosition, ""));
-        }
-    }
 }
 
 ErrorList Parser::getErrors() {

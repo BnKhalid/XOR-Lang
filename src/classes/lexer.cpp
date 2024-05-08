@@ -58,6 +58,14 @@ SyntaxToken Lexer::lex() {
         else
             return SyntaxToken(kind, start, text);
     }
+    else if (current() == '/' && lookAhead() == '/') {
+        string text = mLine.substr(position);
+
+        while (current() != '\0')
+            nextPos();
+        
+        return SyntaxToken(CommentToken, nextPos(), text);
+    }
     else if (current() == '+')
         return SyntaxToken(PlusToken, nextPos(), "+");
     else if (current() == '-')
