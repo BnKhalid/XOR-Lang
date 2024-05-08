@@ -35,9 +35,9 @@ int main() {
 
         if (showTree) {
             Utilities::print(tree->getRoot(), "", true);
+            Utilities::printResult(result);
         }
 
-        Utilities::printResult(result);
         Utilities::printErrors(errors);
     }
     return 0;

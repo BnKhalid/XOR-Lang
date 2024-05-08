@@ -143,7 +143,7 @@ void Utilities::printValue(Value value) {
             cout << "Value: " << *static_cast<string *>(value.val);
             break;
         case ValueType::Boolean:
-            cout << "Value: " << *static_cast<bool *>(value.val);
+            cout << "Value: " << ((*static_cast<bool *>(value.val)) ? "true" : "false");
             break;
         default:
             break;
@@ -184,7 +184,7 @@ void Utilities::printResult(Value result) {
             cout << "The answer is: " << *static_cast<string *>(result.val) << '\n';
             break;
         case ValueType::Boolean:
-            cout << "The answer is: " << *static_cast<bool *>(result.val) << '\n';
+            cout << "The answer is: " << ((*static_cast<bool *>(result.val)) ? "true" : "false") << '\n';
             break;
         default:
             break;

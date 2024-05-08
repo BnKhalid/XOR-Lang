@@ -26,7 +26,7 @@ SyntaxToken Lexer::lex() {
         void *val;
         if (ValueParser::tryParseInt(text, &val))
             return SyntaxToken(NumberToken, start, text, Value(val, ValueType::Number));
-        
+
         mErrors.throwError(new RuntimeError(text, RuntimeErrorType::OVERFLOW));
         return SyntaxToken(BadToken, start, text);
     }

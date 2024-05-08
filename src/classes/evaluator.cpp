@@ -14,13 +14,20 @@ Value Evaluator::evaluate() {
 Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
     IfExpressionSyntax *ifExpressionSyntax = dynamic_cast<IfExpressionSyntax *>(node);
     if (ifExpressionSyntax) {
-        int *pCondition = static_cast<int *>(evaluateExpression(ifExpressionSyntax->getCondition()).val);
+        bool *pCondition = static_cast<bool *>(evaluateExpression(ifExpressionSyntax->getCondition()).val);
         if (pCondition == nullptr)
             return {};
 
-        int condition = *pCondition;
+        map<string, Value> variablesSnapshot = *mVariables;
+        
+        bool condition = *pCondition;
         if (condition)
             return evaluateStatement(ifExpressionSyntax->getStatment());
+
+        for (auto [key, val] : *mVariables) {
+            if (variablesSnapshot.find(key) == variablesSnapshot.end())
+                mVariables->erase(key);
+        }
 
         return {};
     }
@@ -33,11 +40,10 @@ Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
 
         int count = *pCount;
         string name = forExpressionSyntax->getIdentifier()->getIdentifierToken()->getText();
-        bool exists = mVariables->find(name) != mVariables->end();
 
-        if (!exists)
-            (*mVariables)[name] = Value(new int(0), ValueType::Number);
+        map<string, Value> variablesSnapshot = *mVariables;
 
+        (*mVariables)[name] = Value(new int(0), ValueType::Number);
         while (*static_cast<int *>(((*mVariables)[name]).val) < count) {
             Value result = evaluateStatement(forExpressionSyntax->getStatment());
 
@@ -47,33 +53,42 @@ Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
             (*static_cast<int *>(((*mVariables)[name]).val))++;
         }
 
-        if (!exists)
-            mVariables->erase(name);
+        for (auto [key, val] : *mVariables) {
+            if (variablesSnapshot.find(key) == variablesSnapshot.end())
+                mVariables->erase(key);
+        }
 
         return Value(new int(1), ValueType::Number);
     }
 
     WhileExpressionSyntax *whileExpressionSyntax = dynamic_cast<WhileExpressionSyntax *>(node);
     if (whileExpressionSyntax) {
-        int *pCondition = static_cast<int *>(evaluateExpression(whileExpressionSyntax->getCondition()).val);
+        bool *pCondition = static_cast<bool *>(evaluateExpression(whileExpressionSyntax->getCondition()).val);
         if (pCondition == nullptr)
             return {};
 
-        int condition = *pCondition;
+        map<string, Value> variablesSnapshot = *mVariables;
+
+        bool condition = *pCondition;
         while (condition) {
             Value result = evaluateStatement(whileExpressionSyntax->getStatment());
 
             if (result.val == nullptr)
                 return {};
 
-            pCondition = static_cast<int *>(evaluateExpression(whileExpressionSyntax->getCondition()).val);
+            pCondition = static_cast<bool *>(evaluateExpression(whileExpressionSyntax->getCondition()).val);
             if (pCondition == nullptr)
                 return {};
 
             condition = *pCondition;
         }
 
-        return Value(new int(1), ValueType::Number);
+        for (auto [key, val] : *mVariables) {
+            if (variablesSnapshot.find(key) == variablesSnapshot.end())
+                mVariables->erase(key);
+        }
+
+        return Value(new bool(1), ValueType::Boolean);
     }
 
     return evaluateExpression(node);
@@ -128,7 +143,7 @@ Value Evaluator::evaluateExpression(ExpressionSyntax *node) {
         else if (unaryExpression->getOperator()->getKind() == MinusToken)
             return Value(new int(-operand), ValueType::Number);
         else if (unaryExpression->getOperator()->getKind() == BangToken)
-            return Value(new int(!operand), ValueType::Number);
+            return Value(new bool(!operand), ValueType::Boolean);
 
         return {};
     }
@@ -148,17 +163,17 @@ Value Evaluator::evaluateExpression(ExpressionSyntax *node) {
                 case PlusToken:
                     return Value(new string(left + right), ValueType::String);
                 case EqualEqualToken:
-                    return Value(new int(left == right), ValueType::String);
+                    return Value(new bool(left == right), ValueType::Boolean);
                 case BangEqualToken:
-                    return Value(new int(left != right), ValueType::String);
+                    return Value(new bool(left != right), ValueType::Boolean);
                 case BiggerToken:
-                    return Value(new int(left > right), ValueType::String);
+                    return Value(new bool(left > right), ValueType::Boolean);
                 case SmallerToken:
-                    return Value(new int(left < right), ValueType::String);
+                    return Value(new bool(left < right), ValueType::Boolean);
                 case BiggerEqualToken:
-                    return Value(new int(left >= right), ValueType::String);
+                    return Value(new bool(left >= right), ValueType::Boolean);
                 case SmallerEqualToken:
-                    return Value(new int(left <= right), ValueType::String);
+                    return Value(new bool(left <= right), ValueType::Boolean);
                 default:
                     mErrors->throwError(new RuntimeError(operatorToken->getText(), RuntimeErrorType::INVALID_OPERATOR));
                     return {};
@@ -187,21 +202,21 @@ Value Evaluator::evaluateExpression(ExpressionSyntax *node) {
                     return Value(new int(left / right), ValueType::Number);
                 }
                 case AmpersandAmpersandToken:
-                    return Value(new int(left && right), ValueType::Number);
+                    return Value(new bool(left && right), ValueType::Boolean);
                 case PipePipeToken:
-                    return Value(new int(left || right), ValueType::Number);
+                    return Value(new bool(left || right), ValueType::Boolean);
                 case EqualEqualToken:
-                    return Value(new int(left == right), ValueType::Number);
+                    return Value(new bool(left == right), ValueType::Boolean);
                 case BangEqualToken:
-                    return Value(new int(left != right), ValueType::Number);
+                    return Value(new bool(left != right), ValueType::Boolean);
                 case BiggerToken:
-                    return Value(new int(left > right), ValueType::Number);
+                    return Value(new bool(left > right), ValueType::Boolean);
                 case SmallerToken:
-                    return Value(new int(left < right), ValueType::Number);
+                    return Value(new bool(left < right), ValueType::Boolean);
                 case BiggerEqualToken:
-                    return Value(new int(left >= right), ValueType::Number);
+                    return Value(new bool(left >= right), ValueType::Boolean);
                 case SmallerEqualToken:
-                    return Value(new int(left <= right), ValueType::Number);
+                    return Value(new bool(left <= right), ValueType::Boolean);
                 default:
                     mErrors->throwError(new RuntimeError(operatorToken->getText(), RuntimeErrorType::INVALID_OPERATOR));
                     return {};
