@@ -130,7 +130,6 @@ enum SyntaxKind {
      */
     BadToken,
 
-
     /**
      * @brief Represents an expression token.
      */

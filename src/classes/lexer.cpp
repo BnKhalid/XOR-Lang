@@ -19,7 +19,7 @@ SyntaxToken Lexer::lex() {
         string text = mLine.substr(start, length);
 
         if (ValueParser::isLetter(current())) {
-            mErrors.throwError(new IlligalCharacterError(string(1, current())));
+            mErrors.throwError(new IllegalCharacterError(string(1, current())));
             return SyntaxToken(BadToken, nextPos(), text);
         }
 
@@ -110,7 +110,7 @@ SyntaxToken Lexer::lex() {
 
         while (position < (int)mLine.length() && current() != '\"') {
             if (current() == '\0') {
-                mErrors.throwError(new IlligalCharacterError("\""));
+                mErrors.throwError(new IllegalCharacterError("\""));
                 return SyntaxToken(BadToken, start, text);
             }
 
@@ -123,7 +123,7 @@ SyntaxToken Lexer::lex() {
     }
 
     string text = mLine.substr(position, 1);
-    mErrors.throwError(new IlligalCharacterError(text));
+    mErrors.throwError(new IllegalCharacterError(text));
 
     return SyntaxToken(BadToken, nextPos(), text);
 }

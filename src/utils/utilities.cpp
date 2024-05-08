@@ -160,7 +160,7 @@ void Utilities::printErrors(ErrorList errors) {
             continue;
         }
 
-        err = dynamic_cast<IlligalCharacterError *>(errors[i]);
+        err = dynamic_cast<IllegalCharacterError *>(errors[i]);
         if (err) {
             cout << err->getMessage() << '\n';
             continue;
