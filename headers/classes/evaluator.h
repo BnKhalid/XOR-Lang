@@ -15,6 +15,7 @@
 #include "../utils/unaryexpressionsyntax.h"
 #include "../utils/binaryexpressionsyntax.h"
 #include "../utils/parenthesizedexpressionsyntax.h"
+#include "../utils/indexexpressionsyntax.h"
 #include "../utils/ifexpressionsyntax.h"
 #include "../utils/forexpressionsyntax.h"
 #include "../utils/whileexpressionsyntax.h"

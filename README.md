@@ -107,6 +107,15 @@ c = true
 d = [1, "Hello", true, [1, 2, 3]] // List of different types
 
 ```
+#### You can also use some arithemetic operations with Lists.
+    - Addition: `+` to concatenate two lists and strings.
+``` c++
+a = [1, 2, 3]
+b = ["a", "b", "c"]
+c = a + b // [ 1, 2, 3, a, b, c ]
+d = "Hello, " + "World!" // Hello, World!
+```
+
 #### You can also reassign a variable with a different type of value.
 ``` c++
 a = 10

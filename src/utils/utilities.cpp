@@ -89,6 +89,8 @@ string Utilities::parseSyntaxKind(SyntaxKind kind) {
             return "Binary Expression";
         case ParenthesizedExpression:
             return "Parenthesized Expression";
+        case IndexExpression:
+            return "Index Expression";
 
         case Statement:
             return "Statement";
@@ -148,6 +150,7 @@ SyntaxKind Utilities::getKind(string text) {
 
 void Utilities::print(SyntaxNode *node, string intend, bool isLast) {
     if (node == nullptr) return;
+    cout << "\x1B[32m";
     string mark = isLast ? "└── " : "├── ";
 
     cout << intend << mark << parseSyntaxKind(node->getKind()) << ' ';
@@ -164,6 +167,7 @@ void Utilities::print(SyntaxNode *node, string intend, bool isLast) {
 
     for (SyntaxNode *child : children)
         print(child, intend, child == children.back());
+    cout << "\x1B[0m";
 }
 
 void Utilities::printVal(Value value) {
@@ -205,23 +209,21 @@ void Utilities::printErrors(ErrorList errors) {
     for (int i = 0; i < errors.size(); i++) {
         Error *err;
 
+        cout << "\x1B[31m";
+        
         err = dynamic_cast<RuntimeError *>(errors[i]);
-        if (err) {
+        if (err)
             cout << err->getMessage() << '\n';
-            continue;
-        }
 
         err = dynamic_cast<IllegalCharacterError *>(errors[i]);
-        if (err) {
+        if (err)
             cout << err->getMessage() << '\n';
-            continue;
-        }
 
         err = dynamic_cast<SyntaxError *>(errors[i]);
-        if (err) {
+        if (err)
             cout << err->getMessage() << '\n';
-            continue;
-        }
+        
+        cout << "\x1B[0m";
     }
 }
 

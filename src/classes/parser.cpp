@@ -76,7 +76,7 @@ ExpressionSyntax *Parser::parseStatementExpression() {
 }
 
 ExpressionSyntax *Parser::parseAssignmentExpression() {
-    if (peek(0)->getKind() == IdentifierToken && peek(1)->getKind() == EqualToken) {
+    if (current()->getKind() == IdentifierToken && peek(1)->getKind() == EqualToken) {
         NameExpressionSyntax *identifierToken = new NameExpressionSyntax(match(IdentifierToken));
         SyntaxToken *operatorToken = match(EqualToken);
         ExpressionSyntax *right = parseAssignmentExpression();
@@ -125,7 +125,17 @@ ExpressionSyntax *Parser::parseListTermExpression() {
 
     SyntaxToken *closeToken = match(CloseSquareBracketToken);
 
-    return new ListExpressionSyntax(openToken, expressions, closeToken);
+    ExpressionSyntax *list = new ListExpressionSyntax(openToken, expressions, closeToken);
+
+    while (current()->getKind() == OpenSquareBracketToken) {
+        openToken = match(OpenSquareBracketToken);
+        ExpressionSyntax *index = parseExpression();
+        closeToken = match(CloseSquareBracketToken);
+
+        list = new IndexExpressionSyntax(list, openToken, index, closeToken);
+    }
+
+    return list;
 }
 
 ExpressionSyntax *Parser::parseExpression(int parentPrecedence) {
@@ -141,6 +151,14 @@ ExpressionSyntax *Parser::parseExpression(int parentPrecedence) {
     }
     else
         left = parsePrimaryExpression();
+
+    while (current()->getKind() == OpenSquareBracketToken) {
+        SyntaxToken *openToken = match(OpenSquareBracketToken);
+        ExpressionSyntax *index = parseExpression();
+        SyntaxToken *closeToken = match(CloseSquareBracketToken);
+
+        left = new IndexExpressionSyntax(left, openToken, index, closeToken);
+    }
 
     while (true) {
         int BinaryPrecedence = getBinaryOperatorPrecedence(current()->getKind());

@@ -323,6 +323,49 @@ Value Evaluator::evaluateExpression(ExpressionSyntax *node) {
         return result;
     }
 
+    IndexExpressionSyntax *indexExpression = dynamic_cast<IndexExpressionSyntax *>(node);
+    if (indexExpression) {
+        Value iteratable = evaluateExpression(indexExpression->getIteratable());
+        if (iteratable.val == nullptr)
+            return {};
+
+        if (iteratable.type == ValueType::String) {
+            string str = *static_cast<string *>(iteratable.val);
+            Value index = evaluateExpression(indexExpression->getIndex());
+            if (index.val == nullptr || index.type != ValueType::Number) {
+                mErrors->throwError(new RuntimeError("Index Expression", RuntimeErrorType::INVALID_EXPRESSION));
+                return {};
+            }
+
+            int i = *static_cast<int *>(index.val);
+            if (i < 0 || i >= (int)str.size()) {
+                mErrors->throwError(new RuntimeError(to_string(i), RuntimeErrorType::INDEX_OUT_OF_BOUNDS));
+                return {};
+            }
+
+            return Value(new string(1, str[i]), ValueType::String);
+        }
+
+        if (iteratable.type == ValueType::List) {
+            vector<Value> values = *static_cast<vector<Value> *>(iteratable.val);
+            Value index = evaluateExpression(indexExpression->getIndex());
+            if (index.val == nullptr || index.type != ValueType::Number)
+                return {};
+
+            int i = *static_cast<int *>(index.val);
+            if (i < 0 || i >= (int)values.size()) {
+                mErrors->throwError(new RuntimeError(to_string(i), RuntimeErrorType::INDEX_OUT_OF_BOUNDS));
+                return {};
+            }
+
+            return values[i];
+        }
+
+        mErrors->throwError(new RuntimeError("Index Expression", RuntimeErrorType::INVALID_EXPRESSION));
+
+        return {};
+    }
+
     InterruptExpressionSyntax *interruptExpression = dynamic_cast<InterruptExpressionSyntax *>(node);
     if (interruptExpression) {
         switch (interruptExpression->getInterruptToken()->getKind()) {

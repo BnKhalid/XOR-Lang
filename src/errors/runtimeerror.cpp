@@ -26,6 +26,12 @@ string RuntimeError::getMessage() {
         case RuntimeErrorType::INVALID_EXPRESSION:
             message += "Invalid expression \"" + mText + "\"\n";
             break;
+        case RuntimeErrorType::INDEX_OUT_OF_BOUNDS:
+            message += "\"" + mText + "\" Index out of bounds\n";
+            break;
+
+        default:
+            break;
     }
     return message;
 }

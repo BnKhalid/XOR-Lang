@@ -12,6 +12,7 @@
 #include "../utils/binaryexpressionsyntax.h"
 #include "../utils/parenthesizedexpressionsyntax.h"
 #include "../utils/assignmentexpressionsyntax.h"
+#include "../utils/indexexpressionsyntax.h"
 #include "../utils/nameexpressionsyntax.h"
 #include "../utils/ifexpressionsyntax.h"
 #include "../utils/forexpressionsyntax.h"
@@ -56,6 +57,12 @@ public:
      * @return A pointer to the parsed expression syntax node.
      */
     ExpressionSyntax *parseAssignmentExpression();
+
+    /**
+     * @brief Parses an index expression.
+     * @return A pointer to the parsed index expression syntax node.
+     */
+    ExpressionSyntax *parseIndexExpression();
 
     /**
      * @brief Parses a list expression.

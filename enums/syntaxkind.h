@@ -225,6 +225,11 @@ enum SyntaxKind {
     ListExpression,
 
     /**
+     * @brief Represents a index expression token.
+     */
+    IndexExpression,
+
+    /**
      * @brief Represents a loop expression token.
      */
     LoopExpression,
@@ -275,4 +280,3 @@ enum SyntaxKind {
      */
     ElseToken,
 };
-

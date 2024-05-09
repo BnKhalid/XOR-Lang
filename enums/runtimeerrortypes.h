@@ -28,4 +28,9 @@ enum class RuntimeErrorType {
      * @brief Represents an invalid expression error.
      */
     INVALID_EXPRESSION,
+
+    /**
+     * @brief Represents an out of bounds error.
+     */
+    INDEX_OUT_OF_BOUNDS,
 };
