@@ -1,12 +1,16 @@
 #include "../../headers/utils/ifexpressionsyntax.h"
 
-
-
 IfExpressionSyntax::IfExpressionSyntax(SyntaxToken *ifToken, ExpressionSyntax *condition, SyntaxToken *thenToken, ExpressionSyntax *statment)
+    : IfExpressionSyntax(ifToken, condition, thenToken, statment, nullptr, nullptr) {}
+
+IfExpressionSyntax::IfExpressionSyntax
+(SyntaxToken *ifToken, ExpressionSyntax *condition, SyntaxToken *thenToken, ExpressionSyntax *statment, SyntaxToken *elseToken, ExpressionSyntax *elseStatment)
     : mIfToken(ifToken)
     , mCondition(condition)
     , mThenToken(thenToken)
-    , mStatment(statment) {}
+    , mStatment(statment)
+    , mElseToken(elseToken)
+    , mElseStatment(elseStatment) {}
 
 SyntaxKind IfExpressionSyntax::getKind() {
     return IfExpression;
@@ -35,4 +39,12 @@ SyntaxToken *IfExpressionSyntax::getThenToken() {
 
 ExpressionSyntax *IfExpressionSyntax::getStatment() {
     return mStatment;
+}
+
+SyntaxToken *IfExpressionSyntax::getElseToken() {
+    return mElseToken;
+}
+
+ExpressionSyntax *IfExpressionSyntax::getElseStatment() {
+    return mElseStatment;
 }

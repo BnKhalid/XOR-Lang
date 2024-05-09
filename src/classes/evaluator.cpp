@@ -23,6 +23,8 @@ Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
         bool condition = *pCondition;
         if (condition)
             return evaluateStatement(ifExpressionSyntax->getStatment());
+        else if (ifExpressionSyntax->getElseStatment() != nullptr)
+            return evaluateStatement(ifExpressionSyntax->getElseStatment());
 
         vector<string> deletedVariables;
         for (auto [key, val] : *mVariables) {
@@ -58,7 +60,7 @@ Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
             if (result.type == ValueType::BreakType)
                 break;
 
-            cout << (*pValue)++;
+            (*pValue)++;
 
             if (result.type == ValueType::ContinueType)
                 continue;

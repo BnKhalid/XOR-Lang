@@ -269,5 +269,10 @@ enum SyntaxKind {
      * @brief Represents a then token.
      */
     ThenToken,
+
+    /**
+     * @brief Represents a else token.
+     */
+    ElseToken,
 };
 

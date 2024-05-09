@@ -34,6 +34,13 @@ ExpressionSyntax *Parser::parseStatementExpression() {
         SyntaxToken *thenToken = match(ThenToken);
         ExpressionSyntax *statment = parseStatementExpression();
 
+        if (current()->getKind() == ElseToken) {
+            SyntaxToken *elseToken = match(ElseToken);
+            ExpressionSyntax *elseStatment = parseStatementExpression();
+
+            return new IfExpressionSyntax(ifToken, condition, thenToken, statment, elseToken, elseStatment);
+        }
+
         return new IfExpressionSyntax(ifToken, condition, thenToken, statment);
     }
 
