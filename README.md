@@ -319,7 +319,7 @@ print : b // [ 1, Hello, true, [ 1, 2, 3 ] ]
 
 - ### Showing The AST
 
-#### You can show the abstract syntax tree (AST) of the source code by using the `-ShowTree` flag before starting interpreting the source code.
+#### You can show the abstract syntax tree (AST) of the source code by using the `-ShowAST` flag before starting interpreting the source code.
 ``` c++
 ./xor-lang -ShowTree
 ```

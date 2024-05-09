@@ -205,7 +205,7 @@ Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
             return {};
 
         Utilities::printVal(value);
-        cout << "\n\n";
+        cout << "\n";
         return value;
     }
 

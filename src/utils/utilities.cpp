@@ -229,7 +229,7 @@ void Utilities::printErrors(ErrorList errors) {
 
 void Utilities::printResult(Value result) {
     if (result.val == nullptr) return;
-    cout << "The answer is: ";
+    cout << "The result is: ";
     printVal(result);
     cout << '\n';
 }

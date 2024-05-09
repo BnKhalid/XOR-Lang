@@ -5,7 +5,7 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
     string line;
-    bool showTree = argc > 1 && string(argv[1]) == "-ShowTree";
+    bool showAST = argc > 1 && string(argv[1]) == "-ShowAST";
     int lineNum = 1;
     map<string, Value> variables;
 
@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
         Evaluator eval(tree->getRoot(), &variables, &errors);
         Value result = eval.evaluate();
 
-        if (showTree) {
+        if (showAST) {
             Utilities::print(tree->getRoot(), "", true);
             Utilities::printResult(result);
         }
