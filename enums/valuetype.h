@@ -25,6 +25,16 @@ enum class ValueType {
     List,
 
     /**
+     * @brief Represents a continue value.
+     */
+    ContinueType,
+
+    /**
+     * @brief Represents a break value.
+     */
+    BreakType,
+
+    /**
      * @brief Represents a null value.
      */
     Null,

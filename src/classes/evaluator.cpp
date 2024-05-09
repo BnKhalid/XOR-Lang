@@ -24,12 +24,16 @@ Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
         if (condition)
             return evaluateStatement(ifExpressionSyntax->getStatment());
 
+        vector<string> deletedVariables;
         for (auto [key, val] : *mVariables) {
             if (variablesSnapshot.find(key) == variablesSnapshot.end())
-                mVariables->erase(key);
+                deletedVariables.push_back(key);
         }
 
-        return {};
+        for (auto key : deletedVariables)
+            mVariables->erase(key);
+
+        return Value(new bool(1), ValueType::Boolean);
     }
 
     ForExpressionSyntax *forExpressionSyntax = dynamic_cast<ForExpressionSyntax *>(node);
@@ -43,22 +47,33 @@ Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
 
         map<string, Value> variablesSnapshot = *mVariables;
 
-        (*mVariables)[name] = Value(new int(0), ValueType::Number);
-        while (*static_cast<int *>(((*mVariables)[name]).val) < count) {
+        int *pValue = new int(0);
+        (*mVariables)[name] = Value(pValue, ValueType::Number);
+        while ((*pValue) < count) {
             Value result = evaluateStatement(forExpressionSyntax->getStatment());
 
             if (result.val == nullptr)
                 return {};
 
-            (*static_cast<int *>(((*mVariables)[name]).val))++;
+            if (result.type == ValueType::BreakType)
+                break;
+
+            cout << (*pValue)++;
+
+            if (result.type == ValueType::ContinueType)
+                continue;
         }
 
+        vector<string> deletedVariables;
         for (auto [key, val] : *mVariables) {
             if (variablesSnapshot.find(key) == variablesSnapshot.end())
-                mVariables->erase(key);
+                deletedVariables.push_back(key);
         }
 
-        return Value(new int(1), ValueType::Number);
+        for (auto key : deletedVariables)
+            mVariables->erase(key);
+
+        return Value(new bool(1), ValueType::Boolean);
     }
 
     WhileExpressionSyntax *whileExpressionSyntax = dynamic_cast<WhileExpressionSyntax *>(node);
@@ -73,20 +88,28 @@ Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
         while (condition) {
             Value result = evaluateStatement(whileExpressionSyntax->getStatment());
 
-            if (result.val == nullptr)
-                return {};
-
             pCondition = static_cast<bool *>(evaluateExpression(whileExpressionSyntax->getCondition()).val);
             if (pCondition == nullptr)
                 return {};
 
             condition = *pCondition;
+
+            if (result.val == nullptr)
+                return {};
+            if (result.type == ValueType::BreakType)
+                break;
+            if (result.type == ValueType::ContinueType)
+                continue;
         }
 
+        vector<string> deletedVariables;
         for (auto [key, val] : *mVariables) {
             if (variablesSnapshot.find(key) == variablesSnapshot.end())
-                mVariables->erase(key);
+                deletedVariables.push_back(key);
         }
+
+        for (auto key : deletedVariables)
+            mVariables->erase(key);
 
         return Value(new bool(1), ValueType::Boolean);
     }
@@ -95,11 +118,6 @@ Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
 }
 
 Value Evaluator::evaluateExpression(ExpressionSyntax *node) {
-    CommentExpressionSyntax *commentExpression = dynamic_cast<CommentExpressionSyntax *>(node);
-    if (commentExpression) {
-        return Value(new bool(1), ValueType::Boolean);
-    }
-
     LiteralExpressionSyntax *literalExpression = dynamic_cast<LiteralExpressionSyntax *>(node);
     if (literalExpression) {
         Value val = literalExpression->getValue();
@@ -292,6 +310,22 @@ Value Evaluator::evaluateExpression(ExpressionSyntax *node) {
         return result;
     }
 
-    return {};
+    InterruptExpressionSyntax *interruptExpression = dynamic_cast<InterruptExpressionSyntax *>(node);
+    if (interruptExpression) {
+        switch (interruptExpression->getInterruptToken()->getKind()) {
+            case ContinueToken:
+                return Value(new bool(1), ValueType::ContinueType);
+            case BreakToken:
+                return Value(new bool(1), ValueType::BreakType);
+            default:
+                return {};
+        }
+    }
 
+    CommentExpressionSyntax *commentExpression = dynamic_cast<CommentExpressionSyntax *>(node);
+    if (commentExpression) {
+        return Value(new bool(1), ValueType::Boolean);
+    }
+
+    return {};
 }

@@ -131,6 +131,16 @@ enum SyntaxKind {
     CommentToken,
 
     /**
+     * @brief Represents a continue token.
+     */
+    ContinueToken,
+
+    /**
+     * @brief Represents a break token.
+     */
+    BreakToken,
+
+    /**
      * @brief Represents a whitespace token.
      */
     WhiteSpaceToken,
@@ -159,6 +169,11 @@ enum SyntaxKind {
      * @brief Represents a comment expression token.
      */
     CommentExpression,
+
+    /**
+     * @brief Represents an interrupt expression token.
+     */
+    InterruptExpression,
 
     /**
      * @brief Represents a name expression token.

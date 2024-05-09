@@ -53,6 +53,10 @@ string Utilities::parseSyntaxKind(SyntaxKind kind) {
             return "Comma Token";
         case CommentToken:
             return "Comment Token";
+        case ContinueToken:
+            return "Continue Token";
+        case BreakToken:
+            return "Break Token";
 
         case WhiteSpaceToken:
             return "White Space Token";
@@ -65,6 +69,8 @@ string Utilities::parseSyntaxKind(SyntaxKind kind) {
             return "Expression";
         case CommentExpression:
             return "Comment Expression";
+        case InterruptExpression:
+            return "Interrupt Expression";
         case AssignmentExpression:
             return "Assignment Expression";
         case NameExpression:
@@ -121,6 +127,10 @@ SyntaxKind Utilities::getKind(string text) {
         return ForToken;
     else if (text == "do")
         return DoToken;
+    else if (text == "continue")
+        return ContinueToken;
+    else if (text == "break")
+        return BreakToken;
 
     else
         return IdentifierToken;

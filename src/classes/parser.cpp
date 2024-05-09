@@ -172,6 +172,11 @@ ExpressionSyntax *Parser::parsePrimaryExpression() {
             SyntaxToken *token = match(CommentToken);
             return new CommentExpressionSyntax(token);
         }
+        case ContinueToken:
+        case BreakToken: {
+            SyntaxToken *token = nextToken();
+            return new InterruptExpressionSyntax(token);
+        }
         default: {
             mErrors.throwError(new SyntaxError(Expression, current()->getKind()));
             return new LiteralExpressionSyntax(new SyntaxToken(BadToken, mPosition, ""));
