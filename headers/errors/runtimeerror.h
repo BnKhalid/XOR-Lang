@@ -29,8 +29,11 @@ public:
     string getMessage() override;
 
 private:
-    RuntimeError() = default;
+    string mText;               // The text span associated with the error.
+    RuntimeErrorType mType;     // The runtime error type.
 
-    string mText;
-    RuntimeErrorType mType;
+    /**
+     * @brief Default constructor.
+     */
+    RuntimeError() = default;
 };

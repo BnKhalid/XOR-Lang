@@ -11,10 +11,12 @@ SyntaxKind ListExpressionSyntax::getKind() {
 
 vector<SyntaxNode *> ListExpressionSyntax::getChildren() {
     vector<SyntaxNode *> childeren;
+
     childeren.push_back(mOpenSquareBrackets);
     for (auto &object : mListObjects)
         childeren.push_back(object);
     childeren.push_back(mCloseSquareBrackets);
+
     return childeren;
 }
 

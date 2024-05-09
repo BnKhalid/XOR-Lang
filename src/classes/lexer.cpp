@@ -63,7 +63,7 @@ SyntaxToken Lexer::lex() {
 
         while (current() != '\0')
             nextPos();
-        
+
         return SyntaxToken(CommentToken, nextPos(), text);
     }
     else if (current() == '+')

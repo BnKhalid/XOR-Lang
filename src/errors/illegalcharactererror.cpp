@@ -10,4 +10,3 @@ string IllegalCharacterError::getText() {
 string IllegalCharacterError::getMessage() {
     return "Illegal character error\nCharacter: " + mText + "\n";
 }
-

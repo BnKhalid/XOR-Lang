@@ -11,6 +11,7 @@ SyntaxKind PrintExpressionSyntax::getKind() {
 
 vector<SyntaxNode *> PrintExpressionSyntax::getChildren() {
     vector<SyntaxNode *> children;
+    
     children.push_back(mPrintToken);
     children.push_back(mColonToken);
     children.push_back(mExpression);

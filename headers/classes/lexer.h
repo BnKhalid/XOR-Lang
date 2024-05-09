@@ -47,25 +47,10 @@ public:
     ErrorList getErrors();
 
 private:
-    /**
-     * @brief The input string to be tokenized.
-     */
-    string mLine;
-
-    /**
-     * @brief The current position in the input string.
-     */
-    int position;
-
-    /**
-     * @brief The errors generated during tokenization.
-     */
-    ErrorList mErrors;
-
-    /**
-     * @brief A pointer to the map of variables used in the input string.
-     */
-    map<string, Value> *mVariables;
+    string mLine;                   // The input string to be tokenized.
+    int position;                   // The current position in the input string.
+    ErrorList mErrors;              // A list of errors generated during tokenization.
+    map<string, Value> *mVariables; // A pointer to the map of variables used in the input string.
 
     /**
      * @brief Retrieves the character at the specified offset from the current position in the input string.

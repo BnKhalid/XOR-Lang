@@ -17,4 +17,3 @@ bool ErrorList::empty() {
 Error *ErrorList::operator[](int index) {
     return mList[index];
 }
-

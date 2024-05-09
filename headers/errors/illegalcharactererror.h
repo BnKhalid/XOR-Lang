@@ -27,7 +27,10 @@ public:
     string getMessage() override;
 
 private:
-    IllegalCharacterError() = default;
+    string mText;   // The text span associated with the error.
 
-    string mText;
+    /**
+     * @brief Default constructor.
+     */
+    IllegalCharacterError() = default;
 };

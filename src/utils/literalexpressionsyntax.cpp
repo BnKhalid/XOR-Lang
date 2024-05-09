@@ -12,9 +12,7 @@ SyntaxKind LiteralExpressionSyntax::getKind() {
 }
 
 vector<SyntaxNode *> LiteralExpressionSyntax::getChildren() {
-    vector<SyntaxNode *> children;
-    children.push_back(mNumberToken);
-    return children;
+    return { mNumberToken };
 }
 
 SyntaxToken *LiteralExpressionSyntax::getNumberToken() {

@@ -12,7 +12,7 @@ SyntaxKind NameExpressionSyntax::getKind() {
 }
 
 vector<SyntaxNode *> NameExpressionSyntax::getChildren() {
-    return vector<SyntaxNode *>({ mIdenrifierToken });
+    return { mIdenrifierToken };
 }
 
 SyntaxToken *NameExpressionSyntax::getIdentifierToken() {
@@ -22,4 +22,3 @@ SyntaxToken *NameExpressionSyntax::getIdentifierToken() {
 Value NameExpressionSyntax::getValue() {
     return mValue;
 }
-

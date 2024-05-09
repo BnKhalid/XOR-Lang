@@ -29,8 +29,11 @@ public:
     string getMessage() override;
 
 private:
-    SyntaxError() = default;
+    SyntaxKind mExpected;   // The expected token.
+    SyntaxKind mFound;      // The found token.
 
-    SyntaxKind mExpected;
-    SyntaxKind mFound;
+    /**
+     * @brief Default constructor.
+     */
+    SyntaxError() = default;
 };

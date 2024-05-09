@@ -12,9 +12,7 @@ SyntaxKind StringExpressionSyntax::getKind() {
 }
 
 vector<SyntaxNode *> StringExpressionSyntax::getChildren() {
-    vector<SyntaxNode *> children;
-    children.push_back(mStringToken);
-    return children;
+    return { mStringToken };
 }
 
 SyntaxToken *StringExpressionSyntax::getStringToken() {

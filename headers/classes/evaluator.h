@@ -55,9 +55,9 @@ public:
     Value evaluateStatement(ExpressionSyntax *node);
 
 private:
-    ExpressionSyntax *mRoot; // The root expression to be evaluated.
+    ExpressionSyntax *mRoot;        // The root expression to be evaluated.
     map<string, Value> *mVariables; // The map of variables used in the expression.
-    ErrorList *mErrors; // The list of errors that occurred during the evaluation.
+    ErrorList *mErrors;             // The list of errors that occurred during the evaluation.
 
     /**
      * @brief Recursively evaluates the given expression node.

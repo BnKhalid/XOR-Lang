@@ -56,10 +56,6 @@ public:
     Value getValue();
 
 private:
-    /**
-     * Represents a number token in the syntax tree.
-     */
-    SyntaxToken *mNumberToken;
-
-    Value mValue;
+    SyntaxToken *mNumberToken;  // The token representing the number.
+    Value mValue;               // The value of the number.
 };

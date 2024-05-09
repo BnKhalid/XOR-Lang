@@ -44,7 +44,7 @@ public:
     SyntaxToken getEndOfFileToken();
 
 private:
-    ErrorList mErrors; // The list of errors associated with the syntax tree.
-    ExpressionSyntax *mRoot; // The root expression syntax node of the syntax tree.
-    SyntaxToken mEndOfFileToken; // The end of file token of the syntax tree.
+    ErrorList mErrors;              // The list of errors associated with the syntax tree.
+    ExpressionSyntax *mRoot;        // The root expression syntax node of the syntax tree.
+    SyntaxToken mEndOfFileToken;    // The end of file token of the syntax tree.
 };

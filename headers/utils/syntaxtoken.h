@@ -73,25 +73,10 @@ public:
     Value getValue();
 
 private:
-    /**
-     * The kind of the syntax token.
-     */
-    SyntaxKind mKind;
-
-    /**
-     * The position of the syntax token.
-     */
-    int mPosition;
-
-    /**
-     * The text of the syntax token.
-     */
-    string mText;
-
-    /**
-     * The value of the syntax token.
-     */
-    Value mVal;
+    SyntaxKind mKind;   // The kind of the syntax token.
+    int mPosition;      // The position of the syntax token.
+    string mText;       // The text of the syntax token.
+    Value mVal;         // The value of the syntax token.
 
     /**
      * Returns a vector of SyntaxNode objects representing the children of this SyntaxToken.

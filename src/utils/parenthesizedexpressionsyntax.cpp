@@ -13,9 +13,11 @@ SyntaxKind ParenthesizedExpressionSyntax::getKind() {
 
 vector<SyntaxNode *> ParenthesizedExpressionSyntax::getChildren() {
     vector<SyntaxNode *> children;
+
     children.push_back(mOpenParenthesisToken);
     children.push_back(mExpression);
     children.push_back(mCloseParenthesisToken);
+    
     return children;
 }
 

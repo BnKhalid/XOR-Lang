@@ -5,12 +5,12 @@
  * @brief Contains the declaration of the TextSpan struct.
  */
 
-/**
- * @brief Represents a span of text.
- *
- * The TextSpan struct is responsible for representing a span of text.
- * It provides methods for getting the starting position, length, and ending position of the text span.
- */
+ /**
+  * @brief Represents a span of text.
+  *
+  * The TextSpan struct is responsible for representing a span of text.
+  * It provides methods for getting the starting position, length, and ending position of the text span.
+  */
 struct TextSpan {
 public:
     /**
@@ -38,9 +38,12 @@ public:
      */
     int getEnd();
 
-    TextSpan() = default; /* Default constructor. */
+    /**
+     * @brief Default constructor for the TextSpan struct.
+     */
+    TextSpan() = default;
+
 private:
-    
-    int start; /* The starting position of the text span. */
-    int length; /* The length of the text span. */
+    int start;  // The starting position of the text span.
+    int length; // The length of the text span.
 };

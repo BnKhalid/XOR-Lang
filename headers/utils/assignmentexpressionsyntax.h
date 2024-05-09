@@ -58,10 +58,7 @@ public:
     ExpressionSyntax *getExpression();
 
 private:
-    /**
-     * Represents a assignment token in the syntax tree.
-     */
-    NameExpressionSyntax *mIdentifierToken;
-    SyntaxToken *mAssignToken;
-    ExpressionSyntax *mExpression;
+    NameExpressionSyntax *mIdentifierToken; // The name token of the name expression.
+    SyntaxToken *mAssignToken;              // The assignment token of the assignment expression.
+    ExpressionSyntax *mExpression;          // The expression of the assignment expression.
 };

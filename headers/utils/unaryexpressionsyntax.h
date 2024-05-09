@@ -51,5 +51,5 @@ public:
 
 private:
     SyntaxToken *mOperatorToken;    // The operator token of the unary expression.
-    ExpressionSyntax *mOperand;       // The operand expression of the unary expression.
+    ExpressionSyntax *mOperand;     // The operand expression of the unary expression.
 };

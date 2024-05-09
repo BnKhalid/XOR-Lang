@@ -30,4 +30,3 @@ SyntaxToken *AssignmentExpressionSyntax::getAssignToken() {
 ExpressionSyntax *AssignmentExpressionSyntax::getExpression() {
     return mExpression;
 }
-

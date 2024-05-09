@@ -65,8 +65,8 @@ public:
     ExpressionSyntax *getStatment();
 
 private:
-    SyntaxToken *mWhileToken;             // The while token of the while expression.
-    ExpressionSyntax *mCondition;          // The condition of the while expression.
-    SyntaxToken *mDoToken;                // The do token of the while expression.
-    ExpressionSyntax *mStatment;          // The statment of the while expression.
+    SyntaxToken *mWhileToken;       // The while token of the while expression.
+    ExpressionSyntax *mCondition;   // The condition of the while expression.
+    SyntaxToken *mDoToken;          // The do token of the while expression.
+    ExpressionSyntax *mStatment;    // The statment of the while expression.
 };

@@ -55,13 +55,6 @@ public:
     Value getValue();
 
 private:
-    /**
-     * Represents a name token in the syntax tree.
-     */
-    SyntaxToken *mIdenrifierToken;
-
-    /**
-     * Represents the value of the name expression.
-     */
-    Value mValue;
+    SyntaxToken *mIdenrifierToken;  // The token representing the name.
+    Value mValue;                   // The value of the name.
 };

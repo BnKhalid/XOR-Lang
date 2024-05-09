@@ -12,6 +12,7 @@ SyntaxKind IndexExpressionSyntax::getKind() {
 
 vector<SyntaxNode *> IndexExpressionSyntax::getChildren() {
     vector<SyntaxNode *> children;
+    
     children.push_back(mIteratable);
     children.push_back(mOpenSquareBrackets);
     children.push_back(mIndex);

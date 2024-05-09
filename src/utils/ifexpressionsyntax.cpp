@@ -18,10 +18,12 @@ SyntaxKind IfExpressionSyntax::getKind() {
 
 std::vector<SyntaxNode *> IfExpressionSyntax::getChildren() {
     vector<SyntaxNode *> children;
+
     children.push_back(mIfToken);
     children.push_back(mCondition);
     children.push_back(mThenToken);
     children.push_back(mStatment);
+    
     return children;
 }
 

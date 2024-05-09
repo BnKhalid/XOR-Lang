@@ -56,7 +56,7 @@ public:
     SyntaxToken *getCloseParenthesisToken();
 
 private:
-    SyntaxToken *mOpenParenthesisToken; // The open parenthesis token.
-    ExpressionSyntax *mExpression; // The expression inside the parentheses.
-    SyntaxToken *mCloseParenthesisToken; // The close parenthesis token.
+    SyntaxToken *mOpenParenthesisToken;     // The open parenthesis token.
+    ExpressionSyntax *mExpression;          // The expression inside the parentheses.
+    SyntaxToken *mCloseParenthesisToken;    // The close parenthesis token.
 };
