@@ -311,3 +311,32 @@ print : a // 10
 b = [1, "Hello", true, [1, 2, 3]]
 print : b // [ 1, Hello, true, [ 1, 2, 3 ] ]
 ```
+- ### Error Handling
+1. **Syntax Error**: If the source code contains a syntax error.
+2. **Runtime Error**: If the source code contains a runtime error.
+3. **Illegal Character Error**: If the source code contains an illegal character.
+4. **etc**.
+
+- ### Showing The AST
+
+#### You can show the abstract syntax tree (AST) of the source code by using the `-ShowTree` flag before starting interpreting the source code.
+``` c++
+./xor-lang -ShowTree
+```
+
+#### AST of the following source code: `for i : list do print : i`
+``` 
+└── Loop Expression 
+    ├── For Token 
+    ├── Name Expression 
+    │   └── Identifier Token 
+    ├── Colon Token 
+    ├── Name Expression 
+    │   └── Identifier Token Value: [ 1, 2, 3, 4 ]
+    ├── Do Token 
+    └── Print Expression 
+        ├── Print Token 
+        ├── Colon Token 
+        └── Name Expression 
+            └── Identifier Token 
+```

@@ -3,11 +3,10 @@
 
 using namespace std;
 
-int main() {
+int main(int argc, char *argv[]) {
     string line;
-    bool showTree = false;
+    bool showTree = argc > 1 && string(argv[1]) == "-ShowTree";
     int lineNum = 1;
-
     map<string, Value> variables;
 
     while (true) {
@@ -16,16 +15,6 @@ int main() {
 
         if (line.empty())
             break;
-
-        if (line == "cls") {
-            system("clear");
-            continue;
-        }
-        else if (line == "showTree") {
-            showTree = !showTree;
-            cout << (showTree ? "Showing" : "Hiding") << " syntax tree.\n";
-            continue;
-        }
 
         Parser par(line, &variables);
         SyntaxTree *tree = par.parse();

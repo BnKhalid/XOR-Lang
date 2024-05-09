@@ -17,7 +17,7 @@ ERRORS_OBJ=$(patsubst $(ERRORS_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(ERRORS))
 all: xor
 
 xor: $(UTILS_OBJ) $(CLASSES_OBJ) $(ERRORS_OBJ) main.o
-	g++ $(BUILD_OPTIONS) $(UTILS_OBJ) $(CLASSES_OBJ) $(ERRORS_OBJ) $(OBJ_DIR)/main.o -o $(BIN_DIR)/xor
+	g++ $(BUILD_OPTIONS) $(UTILS_OBJ) $(CLASSES_OBJ) $(ERRORS_OBJ) $(OBJ_DIR)/main.o -o $(BIN_DIR)/xor-lang
 
 main.o: main.cpp
 	g++ $(BUILD_OPTIONS) -c main.cpp -o $(OBJ_DIR)/main.o
