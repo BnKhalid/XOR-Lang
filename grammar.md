@@ -19,7 +19,7 @@ ListValue  → Value | Value, ListValue
 Print      → print : Expr
 If         → if Expr then Stmt | if Expr then Stmt else Stmt
 LoopStmt   → Stmt | continue | break
-LoopIf      → if LoopStmt then LoopStmt | if LoopStmt then LoopStmt else LoopStmt
+LoopIf     → if LoopStmt then LoopStmt | if LoopStmt then LoopStmt else LoopStmt
 For        → for Identifier : Int do LoopStmt | for identifier : Int do LoopIf
 While      → while Expr do LoopStmt | while Expr do LoopIf
 ```
