@@ -156,6 +156,7 @@ Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
             return Value(new bool(1), ValueType::Boolean);
         }
 
+        mErrors->throwError(new RuntimeError("For Expression", RuntimeErrorType::INVALID_EXPRESSION));
         return {};
     }
 
