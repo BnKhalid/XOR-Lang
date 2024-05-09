@@ -71,7 +71,7 @@ ExpressionSyntax *Parser::parseStatementExpression() {
 
         return new PrintExpressionSyntax(printToken, colonToken, expression);
     }
-    
+
     return parseAssignmentExpression();
 }
 

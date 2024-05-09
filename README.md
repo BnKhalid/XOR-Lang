@@ -25,6 +25,32 @@
 - **Parser**: The parser reads the tokens and converts them into an abstract syntax tree (AST).
 - **Evaluator**: The evaluator reads the AST and executes the code.
 
+## Grammar
+
+Here is the grammar that specify the syntax of the language:
+
+```
+Stmt       → Assign | Print | If | For | While | Expr
+Assign     → Identifier = Expr | Identifier = Assign
+Identifier → /[a-zA-Z_]+[0-9]*/
+Expr       → (Expr) | Operand | UOperator Operand | Operand Operator Operand | Expr Operator Operand | Expr Operator Expr
+UOperator  → + - !
+Operator   → + - * / && || == != > < >= <=
+Operand    → Identifier | Value
+Value      → Bool | Int | String | List
+Bool       → true | false
+Int        → /[0-9]+/
+String     → /\w*\s*/
+List       → [ListValue]
+ListValue  → Value | Value, ListValue
+Print      → print : Expr
+If         → if Expr then Stmt | if Expr then Stmt else Stmt
+LoopStmt   → Stmt | continue | break
+LoopIf      → if LoopStmt then LoopStmt | if LoopStmt then LoopStmt else LoopStmt
+For        → for Identifier : Int do LoopStmt | for identifier : Int do LoopIf
+While      → while Expr do LoopStmt | while Expr do LoopIf
+```
+
 ## Syntax
 
 - ### Arithmetic Operators:
@@ -146,9 +172,9 @@ the syntax is as follows:
 a = 10
 b = 20
 
-if a > b then 
+if a > b then
     a = a + b
-else 
+else
     a = a - b
 ```
 
@@ -218,7 +244,7 @@ a = 0
 for i : 10 do
     if i == 5 then
         break
-    else 
+    else
         a = a + i
 ```
 
@@ -228,7 +254,7 @@ a = 0
 for i : 10 do
     if i == 5 then
         continue
-    else 
+    else
         a = a + i
 ```
 
@@ -239,6 +265,6 @@ for i : 10 do
 a = 10
 print : a // 10
 
-b = [1, "Hello", true, [1, 2, 3]] 
+b = [1, "Hello", true, [1, 2, 3]]
 print : b // [ 1, Hello, true, [ 1, 2, 3 ] ]
 ```
