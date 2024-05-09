@@ -107,14 +107,6 @@ c = true
 d = [1, "Hello", true, [1, 2, 3]] // List of different types
 
 ```
-#### You can also use some arithemetic operations with Lists.
-    - Addition: `+` to concatenate two lists and strings.
-``` c++
-a = [1, 2, 3]
-b = ["a", "b", "c"]
-c = a + b // [ 1, 2, 3, a, b, c ]
-d = "Hello, " + "World!" // Hello, World!
-```
 
 #### You can also reassign a variable with a different type of value.
 ``` c++
@@ -127,6 +119,35 @@ a = "Hello, World!"
 a = 10
 b = 20
 c = a + b   // c = 30
+```
+- ### Multi Dimensional Data Types
+
+#### XOR-Lang supports multi-dimensional data types.
+``` c++
+a = [1, 2, 3, 4]
+b = [[1, 2], [3, 4], [5, 6]]
+```
+
+#### You can access the elements of a multi-dimensional data type using the following syntax:
+``` c++
+a = [1, 2, 3, 4]
+b = [[1, 2], [3, 4], [5, 6]]
+
+c = a[0]    // c = 1
+d = b[0][0] // d = 1
+
+e = [1, "Hello", true, [1, 2, 3]]
+f = e[1][0] // f = H
+```
+
+
+#### You can also use some arithemetic operations with Lists and strings.
+    - Addition: `+` to concatenate two lists and strings.
+``` c++
+a = [1, 2, 3]
+b = ["a", "b", "c"]
+c = a + b // [ 1, 2, 3, a, b, c ]
+d = "Hello, " + "World!" // Hello, World!
 ```
 
 - ### Logical Operators
@@ -237,6 +258,19 @@ while a < 10 do
 a = 0
 for i : 10 do
     a = a + i
+```
+
+#### You can also iterate over a ranges.
+``` c++
+a = "abcd"
+
+for i : a do
+    print : i
+
+b = [1, 2, 3, 4]
+
+for i : b do
+    print : i
 ```
 
 #### You can also use nested loops.

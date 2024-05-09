@@ -48,11 +48,11 @@ ExpressionSyntax *Parser::parseStatementExpression() {
         SyntaxToken *forToken = match(ForToken);
         NameExpressionSyntax *identifierToken = new NameExpressionSyntax(match(IdentifierToken));
         SyntaxToken *colonToken = match(ColonToken);
-        ExpressionSyntax *count = parseAssignmentExpression();
+        ExpressionSyntax *range = parseAssignmentExpression();
         SyntaxToken *doToken = match(DoToken);
         ExpressionSyntax *statment = parseStatementExpression();
 
-        return new ForExpressionSyntax(forToken, identifierToken, colonToken, count, doToken, statment);
+        return new ForExpressionSyntax(forToken, identifierToken, colonToken, range, doToken, statment);
     }
 
     if (current()->getKind() == WhileToken) {

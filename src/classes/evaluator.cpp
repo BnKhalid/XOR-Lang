@@ -40,42 +40,124 @@ Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
 
     ForExpressionSyntax *forExpressionSyntax = dynamic_cast<ForExpressionSyntax *>(node);
     if (forExpressionSyntax) {
-        int *pCount = static_cast<int *>(evaluateExpression(forExpressionSyntax->getCount()).val);
-        if (pCount == nullptr)
+        Value range = evaluateExpression(forExpressionSyntax->getCount());
+
+        if (range.val == nullptr) {
+            mErrors->throwError(new RuntimeError("Range Expression", RuntimeErrorType::INVALID_EXPRESSION));
             return {};
+        }
 
-        int count = *pCount;
-        string name = forExpressionSyntax->getIdentifier()->getIdentifierToken()->getText();
-
-        map<string, Value> variablesSnapshot = *mVariables;
-
-        int *pValue = new int(0);
-        (*mVariables)[name] = Value(pValue, ValueType::Number);
-        while ((*pValue) < count) {
-            Value result = evaluateStatement(forExpressionSyntax->getStatment());
-
-            if (result.val == nullptr)
+        if (range.type == ValueType::Number) {
+            int *pRange = static_cast<int *>(range.val);
+            if (pRange == nullptr)
                 return {};
 
-            if (result.type == ValueType::BreakType)
-                break;
+            int range = *pRange;
+            string name = forExpressionSyntax->getIdentifier()->getIdentifierToken()->getText();
 
-            (*pValue)++;
+            map<string, Value> variablesSnapshot = *mVariables;
 
-            if (result.type == ValueType::ContinueType)
-                continue;
+            int *pValue = new int(0);
+            (*mVariables)[name] = Value(pValue, ValueType::Number);
+            while ((*pValue) < range) {
+                Value result = evaluateStatement(forExpressionSyntax->getStatment());
+
+                if (result.val == nullptr)
+                    return {};
+
+                if (result.type == ValueType::BreakType)
+                    break;
+
+                (*pValue)++;
+
+                if (result.type == ValueType::ContinueType)
+                    continue;
+            }
+
+            vector<string> deletedVariables;
+            for (auto [key, val] : *mVariables) {
+                if (variablesSnapshot.find(key) == variablesSnapshot.end())
+                    deletedVariables.push_back(key);
+            }
+
+            for (auto key : deletedVariables)
+                mVariables->erase(key);
+
+            return Value(new bool(1), ValueType::Boolean);
         }
 
-        vector<string> deletedVariables;
-        for (auto [key, val] : *mVariables) {
-            if (variablesSnapshot.find(key) == variablesSnapshot.end())
-                deletedVariables.push_back(key);
+        if (range.type == ValueType::List) {
+            vector<Value> values = *static_cast<vector<Value> *>(range.val);
+            string name = forExpressionSyntax->getIdentifier()->getIdentifierToken()->getText();
+
+            map<string, Value> variablesSnapshot = *mVariables;
+
+            (*mVariables)[name] = values[0];
+            for (size_t i = 0; i < values.size(); i++) {
+                Value result = evaluateStatement(forExpressionSyntax->getStatment());
+
+                if (result.val == nullptr)
+                    return {};
+
+                if (result.type == ValueType::BreakType)
+                    break;
+
+                if (i + 1 < values.size())
+                    (*mVariables)[name] = values[i + 1];
+
+                if (result.type == ValueType::ContinueType)
+                    continue;
+            }
+
+            vector<string> deletedVariables;
+            for (auto [key, val] : *mVariables) {
+                if (variablesSnapshot.find(key) == variablesSnapshot.end())
+                    deletedVariables.push_back(key);
+            }
+
+            for (auto key : deletedVariables)
+                mVariables->erase(key);
+
+            return Value(new bool(1), ValueType::Boolean);
         }
 
-        for (auto key : deletedVariables)
-            mVariables->erase(key);
+        if (range.type == ValueType::String) {
+            string str = *static_cast<string *>(range.val);
+            string name = forExpressionSyntax->getIdentifier()->getIdentifierToken()->getText();
 
-        return Value(new bool(1), ValueType::Boolean);
+            map<string, Value> variablesSnapshot = *mVariables;
+
+            (*mVariables)[name] = Value(new string(1, str[0]), ValueType::String);
+            for (size_t i = 0; i < str.size(); i++) {
+                Value result = evaluateStatement(forExpressionSyntax->getStatment());
+
+                if (result.val == nullptr)
+                    return {};
+
+                if (result.type == ValueType::BreakType)
+                    break;
+
+                if (i + 1 < str.size())
+                    (*mVariables)[name] = Value(new string(1, str[i + 1]), ValueType::String);
+
+                if (result.type == ValueType::ContinueType)
+                    continue;
+            }
+
+            vector<string> deletedVariables;
+            for (auto [key, val] : *mVariables) {
+                if (variablesSnapshot.find(key) == variablesSnapshot.end())
+                    deletedVariables.push_back(key);
+            }
+
+            for (auto key : deletedVariables)
+                mVariables->erase(key);
+
+            return Value(new bool(1), ValueType::Boolean);
+        }
+
+        mErrors->throwError(new RuntimeError("For Expression", RuntimeErrorType::INVALID_EXPRESSION));
+        return {};
     }
 
     WhileExpressionSyntax *whileExpressionSyntax = dynamic_cast<WhileExpressionSyntax *>(node);

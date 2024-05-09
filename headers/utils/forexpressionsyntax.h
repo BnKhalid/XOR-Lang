@@ -15,7 +15,7 @@
   *
   * This class represents a for expression in the syntax tree of a parsed input line.
   * It inherits from the ExpressionSyntax class and provides methods for getting the kind of the for expression,
-  * getting the children of the for expression, and getting the for token, identifier, colon token, count, do token, and statment of the for expression.
+  * getting the children of the for expression, and getting the for token, identifier, colon token, range, do token, and statment of the for expression.
   */
 class ForExpressionSyntax : public ExpressionSyntax {
 public:
@@ -24,11 +24,11 @@ public:
      * @param forToken The for token of the for expression.
      * @param identifier The identifier of the for expression.
      * @param colonToken The colon token of the for expression.
-     * @param count The iterations count expression of the for expression.
+     * @param range The iterations range expression of the for expression.
      * @param doToken The do token of the for expression.
      * @param statment The statment of the for expression.
      */
-    ForExpressionSyntax(SyntaxToken *forToken, NameExpressionSyntax *identifier, SyntaxToken *colonToken, ExpressionSyntax *count, SyntaxToken *doToken, ExpressionSyntax *statment);
+    ForExpressionSyntax(SyntaxToken *forToken, NameExpressionSyntax *identifier, SyntaxToken *colonToken, ExpressionSyntax *range, SyntaxToken *doToken, ExpressionSyntax *statment);
 
     /**
      * Gets the kind of the syntax node.
@@ -61,8 +61,8 @@ public:
     SyntaxToken *getColonToken();
 
     /**
-     * Gets the iterations count expression of the for expression.
-     * @return The count.
+     * Gets the iterations range expression of the for expression.
+     * @return The range.
      */
     ExpressionSyntax *getCount();
 
@@ -82,7 +82,7 @@ private:
     SyntaxToken *mForToken;             // The for token of the for expression.
     NameExpressionSyntax *mIdentifier;  // The identifier of the for expression.
     SyntaxToken *mColonToken;           // The colon token of the for expression.
-    ExpressionSyntax *mCount;           // The iterations count expression of the for expression.
+    ExpressionSyntax *mRange;           // The iterations range expression of the for expression.
     SyntaxToken *mDoToken;              // The do token of the for expression.
     ExpressionSyntax *mStatment;        // The statment of the for expression.
 };
