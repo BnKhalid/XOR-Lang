@@ -124,6 +124,10 @@ enum SyntaxKind {
      */
     CommaToken,
 
+    /**
+     * @brief Represents a print token.
+     */
+    PrintToken,
 
     /**
      * @brief Represents a comment token.
@@ -174,6 +178,11 @@ enum SyntaxKind {
      * @brief Represents an interrupt expression token.
      */
     InterruptExpression,
+
+    /**
+     * @brief Represents a print expression token.
+     */
+    PrintExpression,
 
     /**
      * @brief Represents a name expression token.

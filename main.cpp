@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
     string line;
-    bool showTree = true;
+    bool showTree = false;
     int lineNum = 1;
 
     map<string, Value> variables;

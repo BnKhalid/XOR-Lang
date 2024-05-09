@@ -71,6 +71,8 @@ string Utilities::parseSyntaxKind(SyntaxKind kind) {
             return "Comment Expression";
         case InterruptExpression:
             return "Interrupt Expression";
+        case PrintExpression:
+            return "Print Expression";
         case AssignmentExpression:
             return "Assignment Expression";
         case NameExpression:
@@ -104,6 +106,8 @@ string Utilities::parseSyntaxKind(SyntaxKind kind) {
             return "For Token";
         case DoToken:
             return "Do Token";
+        case PrintToken:
+            return "Print Token";
         case ColonToken:
             return "Colon Token";
 
@@ -131,6 +135,8 @@ SyntaxKind Utilities::getKind(string text) {
         return ContinueToken;
     else if (text == "break")
         return BreakToken;
+    else if (text == "print")
+        return PrintToken;
 
     else
         return IdentifierToken;

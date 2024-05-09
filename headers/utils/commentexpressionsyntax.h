@@ -4,7 +4,7 @@
 #include "syntaxtoken.h"
 
 /**
- * @file commentlexpressionsyntax.h
+ * @file commentexpressionsyntax.h
  * @brief Contains the declaration of the CommentExpressionSyntax class.
  */
 

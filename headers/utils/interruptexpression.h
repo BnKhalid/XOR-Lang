@@ -4,7 +4,7 @@
 #include "syntaxtoken.h"
 
 /**
- * @file interruptlexpressionsyntax.h
+ * @file interruptexpressionsyntax.h
  * @brief Contains the declaration of the InterruptExpressionSyntax class.
  */
 

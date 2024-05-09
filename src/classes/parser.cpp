@@ -57,6 +57,14 @@ ExpressionSyntax *Parser::parseStatementExpression() {
         return new WhileExpressionSyntax(whileToken, condition, doToken, statment);
     }
 
+    if (current()->getKind() == PrintToken) {
+        SyntaxToken *printToken = match(PrintToken);
+        SyntaxToken *colonToken = match(ColonToken);
+        ExpressionSyntax *expression = parseAssignmentExpression();
+
+        return new PrintExpressionSyntax(printToken, colonToken, expression);
+    }
+    
     return parseAssignmentExpression();
 }
 

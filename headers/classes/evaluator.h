@@ -2,6 +2,8 @@
 
 #include <stdexcept>
 #include <map>
+#include "../utils/utilities.h"
+#include "../utils/printexpression.h"
 #include "../utils/interruptexpression.h"
 #include "../utils/commentexpressionsyntax.h"
 #include "../utils/expressionsyntax.h"

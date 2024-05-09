@@ -114,6 +114,17 @@ Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
         return Value(new bool(1), ValueType::Boolean);
     }
 
+    PrintExpressionSyntax *printExpressionSyntax = dynamic_cast<PrintExpressionSyntax *>(node);
+    if (printExpressionSyntax) {
+        Value value = evaluateExpression(printExpressionSyntax->getExpression());
+        if (value.val == nullptr)
+            return {};
+
+        Utilities::printVal(value);
+        cout << "\n\n";
+        return value;
+    }
+
     return evaluateExpression(node);
 }
 
