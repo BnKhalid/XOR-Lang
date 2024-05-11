@@ -58,7 +58,12 @@ Value Evaluator::evaluateStatement(ExpressionSyntax *node) {
             map<string, Value> variablesSnapshot = *mVariables;
 
             int *pValue = new int(0);
-            (*mVariables)[name] = Value(pValue, ValueType::Number);
+
+            if (mVariables->find(name) == mVariables->end())
+                (*mVariables)[name] = Value(pValue, ValueType::Number);
+            else
+                pValue = static_cast<int *>((*mVariables)[name].val);
+            
             while ((*pValue) < range) {
                 Value result = evaluateStatement(forExpressionSyntax->getStatment());
 

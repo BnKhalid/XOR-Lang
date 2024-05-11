@@ -210,7 +210,7 @@ void Utilities::printErrors(ErrorList errors) {
         Error *err;
 
         cout << "\x1B[31m";
-        
+
         err = dynamic_cast<RuntimeError *>(errors[i]);
         if (err)
             cout << err->getMessage() << '\n';
@@ -222,14 +222,15 @@ void Utilities::printErrors(ErrorList errors) {
         err = dynamic_cast<SyntaxError *>(errors[i]);
         if (err)
             cout << err->getMessage() << '\n';
-        
+
         cout << "\x1B[0m";
     }
 }
 
 void Utilities::printResult(Value result) {
     if (result.val == nullptr) return;
+    cout << "\x1B[32m";
     cout << "The result is: ";
     printVal(result);
-    cout << '\n';
+    cout << "\x1B[0m\n";
 }

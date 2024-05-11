@@ -22,6 +22,10 @@ SyntaxTree *Parser::parse() {
         return new SyntaxTree(mErrors, nullptr, SyntaxToken(EndOfLineToken, 0, ""));
 
     ExpressionSyntax *expression = parseStatementExpression();
+
+    if (current()->getKind() == CommentToken)
+        match(CommentToken);
+    
     SyntaxToken endOfLineToken = *match(EndOfLineToken);
 
     return new SyntaxTree(mErrors, expression, endOfLineToken);
